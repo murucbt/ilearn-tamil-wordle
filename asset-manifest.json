@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ilearn-tamil-wordle/static/css/main.8b31bd2c.css",
+    "main.js": "/ilearn-tamil-wordle/static/js/main.b847a6c8.js",
+    "static/js/787.b3f9d252.chunk.js": "/ilearn-tamil-wordle/static/js/787.b3f9d252.chunk.js",
+    "index.html": "/ilearn-tamil-wordle/index.html",
+    "main.8b31bd2c.css.map": "/ilearn-tamil-wordle/static/css/main.8b31bd2c.css.map",
+    "main.b847a6c8.js.map": "/ilearn-tamil-wordle/static/js/main.b847a6c8.js.map",
+    "787.b3f9d252.chunk.js.map": "/ilearn-tamil-wordle/static/js/787.b3f9d252.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8b31bd2c.css",
+    "static/js/main.b847a6c8.js"
+  ]
+}
