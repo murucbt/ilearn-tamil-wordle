@@ -1,6 +1,6 @@
 import { unicodeSplit } from './words'
 
-export type CharStatus = 'absent' | 'present' | 'correct'
+export type CharStatus = 'absent' | 'present' | 'correct' | 'changera'
 
 export const getStatuses = (
   solution: string,
@@ -14,6 +14,11 @@ export const getStatuses = (
       if (!splitSolution.includes(letter)) {
         // make status absent
         return (charObj[letter] = 'absent')
+      }
+
+      if (!splitSolution.includes(letter)) {
+        // make status absent
+        return (charObj[letter] = 'changera')
       }
 
       if (letter === splitSolution[i]) {

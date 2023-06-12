@@ -20,7 +20,8 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
       </p>
       <p>{FILL_WORDS}</p>
       <p>{COLOR_NOTES_LETTERS}</p>
-      <p>{COLOR_NOTES}</p>
+      <hr className="dark:text-gray-300"></hr>
+      <p className="font-bold">{COLOR_NOTES}</p>
 
       <div className="mb-1 mt-4 flex justify-center">
         <Cell
@@ -64,7 +65,7 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
 
       <div className="mb-1 mt-4 flex justify-center">
         <Cell value="பௌ" isCompleted={true} />
-        <Cell value="ர்" isRevealing={true} isCompleted={true} status="absent" />
+        <Cell value="ர்" isRevealing={true} isCompleted={true} status="changera" />
         <Cell value="ண" isCompleted={true} />
         <Cell value="மி" isCompleted={true} />
       </div>
@@ -101,17 +102,7 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
       <p className="text-sm dark:text-gray-300">
       உயிர்எழுத்து மற்றும் மெய்எழுத்து ஓசைகளை குறிக்கிறது, சுருக்கமாக எழுத்தின் ஓசை-முடிவு சரியானது என்க.
       </p>
-
-      <p className="mt-6 text-sm italic text-gray-500 dark:text-gray-300">
-        This is an open source version of the word guessing game we all know and
-        love -{' '}
-        <a
-          href="#"
-          className="font-bold underline"
-        >
-          check out the code here
-        </a>{' '}
-      </p>
+      
     </BaseModal>
   )
 }

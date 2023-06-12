@@ -1,3 +1,64 @@
 html.dark {
   background-color: rgb(15, 23, 42);
 }
+
+/* Popup Design */
+.cm-width-set {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.cm-width-set .mb-1 {
+  justify-content: flex-start;
+}
+
+.cm-width-set .text-4xl {
+  font-size: 25px;
+  width: 70px;
+}
+
+.cm-full-wdith{
+  max-width: 50% !important;
+  margin: 0 auto;
+
+}
+
+.mt-2 p {
+  margin-block-start: 1.5em;
+  margin-inline-end: 0px;
+  font-size: 17px;
+  margin-block-end: 1.5em;
+}
+
+.text-left h3 {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.text-left .mt-2 {
+  margin-top: 1.5rem !important;
+}
+
+.rachange-back {
+  background: linear-gradient(294deg, #3a6a36 50%, #63995e 50%);
+
+}
+
+.tamil-logo img{
+  max-width: 250px !important;
+}
+.navbar {
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+.title-pos{
+  position: relative;
+  left: -85px;
+  font-size: 26px;
+}
+.right-icons .cursor-pointer {
+  margin-right: 10px;
+}

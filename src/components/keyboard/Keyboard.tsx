@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { ENTER_TEXT } from '../../constants/language'
 import { getStatuses } from '../../lib/statuses'
-import { localeAwareUpperCase } from '../../lib/words'
 import { Key } from './Key'
 
 type Props = {
@@ -149,14 +148,6 @@ export const Keyboard = ({
     const listener = (e: KeyboardEvent) => {
       if (e.code === 'Enter') {
         onEnter()
-      } else if (e.code === 'Backspace') {
-        onDelete()
-      } else {
-        const key = localeAwareUpperCase(e.key)
-        // TODO: check this test if the range works with non-english letters
-        if (key.length === 1 && key >= 'A' && key <= 'Z') {
-          onChar(key)
-        }
       }
     }
     window.addEventListener('keyup', listener)
