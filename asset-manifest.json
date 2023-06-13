@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/ilearn-tamil-wordle/static/css/main.8b31bd2c.css",
-    "main.js": "/ilearn-tamil-wordle/static/js/main.b847a6c8.js",
+    "main.css": "/ilearn-tamil-wordle/static/css/main.b6429b23.css",
+    "main.js": "/ilearn-tamil-wordle/static/js/main.76fd6bdc.js",
     "static/js/787.b3f9d252.chunk.js": "/ilearn-tamil-wordle/static/js/787.b3f9d252.chunk.js",
+    "static/media/learn-tamil-logo.png": "/ilearn-tamil-wordle/static/media/learn-tamil-logo.e7866a92d3efe9949863.png",
     "index.html": "/ilearn-tamil-wordle/index.html",
-    "main.8b31bd2c.css.map": "/ilearn-tamil-wordle/static/css/main.8b31bd2c.css.map",
-    "main.b847a6c8.js.map": "/ilearn-tamil-wordle/static/js/main.b847a6c8.js.map",
+    "main.b6429b23.css.map": "/ilearn-tamil-wordle/static/css/main.b6429b23.css.map",
+    "main.76fd6bdc.js.map": "/ilearn-tamil-wordle/static/js/main.76fd6bdc.js.map",
     "787.b3f9d252.chunk.js.map": "/ilearn-tamil-wordle/static/js/787.b3f9d252.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8b31bd2c.css",
-    "static/js/main.b847a6c8.js"
+    "static/css/main.b6429b23.css",
+    "static/js/main.76fd6bdc.js"
   ]
 }
