@@ -30,10 +30,16 @@ export const Cell = ({
       'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-600':
         !status,
       'border-black dark:border-slate-100': value && !status,
-      'absent shadowed bg-slate-400 dark:bg-slate-700 text-white border-slate-400 dark:border-slate-700':
+      'absent text-white absentma-back':
         status === 'absent',
       'text-white rachange-back':
         status === 'changera',
+      'text-white kachange-back':
+        status === 'changeka',
+      'text-white RAchange-back':
+        status === 'changeRA',
+      'text-white kuchange-back':
+        status === 'changeku',
       'correct shadowed bg-orange-500 text-white border-orange-500':
         status === 'correct' && isHighContrast,
       'present shadowed bg-cyan-500 text-white border-cyan-500':

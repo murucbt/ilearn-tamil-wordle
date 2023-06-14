@@ -196,7 +196,7 @@ function App() {
     });
   };
   const onChar = (value: string) => {
-    if (unicodeLength(`${currentGuess}`) == unicodeLength(solution) && !uyiremeiEluthukalArray.includes(value) && !uyirEluthukalArray.includes(value)) {
+    if (unicodeLength(`${currentGuess}`) === unicodeLength(solution) && !uyiremeiEluthukalArray.includes(value) && !uyirEluthukalArray.includes(value)) {
       updateLastValue(value)
     }
     if (

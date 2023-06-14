@@ -16,6 +16,7 @@ html.dark {
 .cm-width-set .text-4xl {
   font-size: 25px;
   width: 70px;
+  min-width: 70px;
 }
 
 .cm-full-wdith{
@@ -43,22 +44,126 @@ html.dark {
 
 .rachange-back {
   background: linear-gradient(294deg, #3a6a36 50%, #63995e 50%);
-
 }
 
-.tamil-logo img{
+.kachange-back {
+  background: linear-gradient(294deg, #3a6a36 50%, #b59f3b 50%);
+}
+
+.RAchange-back {
+  background: linear-gradient(294deg, #3a6a36 50%, #63995e 50%);
+  /* background-image: url(/src/star.png); */
+}
+
+.absentma-back {
+  background-color: #939598;
+}
+
+.kuchange-back {
+  background-color: #86888a;
+}
+
+.tamil-logo img {
   max-width: 250px !important;
 }
+
 .navbar {
   border-bottom: 1px solid #cccccc;
   padding-bottom: 30px;
   margin-bottom: 30px;
 }
-.title-pos{
+
+.title-pos {
   position: relative;
   left: -85px;
   font-size: 26px;
 }
+
 .right-icons .cursor-pointer {
   margin-right: 10px;
+}
+
+.developer-mode {
+  text-align: center;
+  margin-top: 30px
+
+}
+
+.developer-mode span {
+  padding: 20px;
+  border: 2px solid;
+}
+
+.heart-icon {
+  width: 25px;
+}
+
+.heart-logo {
+  width: 25px;
+  color: rgb(247, 161, 244);
+  display:inline-block;
+  margin-right: 7px;
+}
+
+.cm-width-set .kuchange-back {
+  background: url(Hearticon.svg) #86888a; 
+  background-repeat: no-repeat;
+  background-position: 10% 10%;
+  background-size: 20px;
+}
+
+.cm-width-set .RAchange-back {
+  background: url(./star-icon.svg)  #3a6a36 50%; 
+  background-repeat: no-repeat;
+  background-position: 99% 10%;
+  background-size: 20px;
+}
+
+.cm-width-set .kuchange-back + p {
+  margin-top: 0;
+}
+
+span.s-box {
+  width: 30px;
+  height: 30px;
+  background-color: #538d4e;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+span.yellow-box {
+  width: 30px;
+  height: 30px;
+  background-color: #b59f3b;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+span.green-dark-box {
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(294deg, #3a6a36 50%, #63995e 50%);
+  display: inline-block;
+  margin-right: 20px;
+}
+
+span.yellow-green-box{
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(294deg, #3a6a36 50%, #b59f3b 50%);
+  display: inline-block;
+  margin-right: 20px;
+}
+
+span.grey-box {
+  width: 30px;
+  height: 30px;
+  background-color: #939598;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.single-row {
+  display: flex;
+  align-items: center;
 }
