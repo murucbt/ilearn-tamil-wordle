@@ -37,3 +37,14 @@ export const DATEPICKER_TITLE = 'Choose a past date'
 export const DATEPICKER_CHOOSE_TEXT = 'Choose'
 export const DATEPICKER_TODAY_TEXT = 'today'
 export const ARCHIVE_GAMEDATE_TEXT = 'Game date'
+
+export const TabsData = [
+  {id : '1',
+   tabTitle: "பொதுத்தமிழ்",
+   tabContent: 'பொது பயன்பாட்டில் உள்ள சொற்கள் மட்டும்'
+  },
+  {id : '2',
+   tabTitle: "இலக்கியத்தமிழ்",
+   tabContent: 'இலக்கிய நூல்களில் இடம்பெறும் சொற்கள்'
+  }
+]

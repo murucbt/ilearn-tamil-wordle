@@ -25,6 +25,11 @@ html.dark {
 
 }
 
+.letter-container {
+  font-size: 16px !important;
+  font-weight: 700;
+}
+
 .mt-2 p {
   margin-block-start: 1.5em;
   margin-inline-end: 0px;
@@ -166,4 +171,245 @@ span.grey-box {
 .single-row {
   display: flex;
   align-items: center;
+}
+
+.tabs-titles{
+  display: flex;
+  justify-content: center;
+  border: 1px solid var(--gray);
+  border-radius: 4px;
+}
+
+.tab-title{
+  background-color: #fff;
+  display: inline-block;
+  padding: 10px;
+  color: #c7c6c2;
+  cursor: pointer;
+  margin-left: 1px;
+}
+
+.tab-title--active {
+  background-color: #f5f5f5;
+  color: #00070a;
+}
+
+.tab-content{
+    display: flex;
+    justify-content: center;
+    -webkit-animation: SlideLeft .2s linear;
+    animation: SlideLeft .2s linear;
+    color: #86888a;
+    color: var(--gray);
+    padding: 15px;
+}
+
+/* Readmore ----------- */
+h2, .details{
+  display:inline;
+}
+
+.details {
+  position:relative;
+}
+.details .summary {
+  display:block;
+  cursor: pointer;
+  color: red;
+}
+.details .summary:focus {
+  outline:none;
+}
+.details[open] {
+  display:block;
+  padding-bottom:25px;
+  padding-top:10px;
+  animation: open .2s linear;
+}
+.details[open] .summary {
+  position:absolute;
+  bottom: 0;
+  left:0;
+}
+
+.details #open{padding-left:5px;text-align:middle;}
+.details #open:after{
+    display: inline-block;
+    position:relative;
+    top: -3px;
+    padding-left: 8px;
+    content: "\00bb";
+    transform: rotate(90deg);
+}
+.details[open] #open{display:none;}
+.details #close{display:none;}
+.details[open] #close{display:block;}
+
+::-webkit-details-marker {display: none;}
+
+
+@keyframes open {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+/* Media Queries */
+@media (max-width: 1536px) {
+  .tamil-logo img {
+    max-width: 250 !important;
+  }
+  .title-pos {
+    position: relative;
+    left: -75px;
+    font-size: 23px;
+  }
+  .letter-container {
+    font-size: 16px !important;
+    font-weight: 700;
+  }
+  .cm-full-wdith{
+    max-width: 50% !important;
+    margin: 0 auto;
+  }
+  .mt-2 p {
+    font-size: 16px;
+  }
+  
+}
+
+@media (max-width: 1280px) {
+  .tamil-logo img {
+    max-width: 230 !important;
+  }
+  .title-pos {
+    position: relative;
+    left: -75px;
+    font-size: 23px;
+  }
+  .letter-container {
+    font-size: 16px !important;
+    font-weight: 700;
+  }
+  .cm-full-wdith{
+    max-width: 50% !important;
+    margin: 0 auto;
+  }
+  .mt-2 p {
+    font-size: 16px;
+  }
+  
+}
+
+@media (max-width: 1024px) {
+  .tamil-logo img {
+    max-width: 210px !important;
+  }
+  .title-pos {
+    position: relative;
+    left: -40px;
+    font-size: 22px;
+  }
+  .letter-container {
+    font-size: 16px !important;
+    font-weight: 700;
+  }
+  .cm-full-wdith{
+    max-width: 75% !important;
+    margin: 0 auto;
+  }
+  .mt-2 p {
+    font-size: 16px;
+  }
+  
+}
+
+@media (max-width: 768px) {
+  .tamil-logo img {
+    max-width: 190px !important;
+  }
+  .title-pos {
+    position: relative;
+    left: -30px;
+    font-size: 20px;
+  }
+  .letter-container {
+    font-size: 16px !important;
+    font-weight: 700;
+  }
+  .cm-full-wdith{
+    max-width: 80% !important;
+    margin: 0 auto;
+  }
+  .mt-2 p {
+    font-size: 15px;
+  }
+  
+}
+
+@media (max-width: 640px) {
+  .tamil-logo img {
+    max-width: 150px !important;
+  }
+  .title-pos {
+    position: relative;
+    left: -15px;
+    font-size: 20px;
+  }
+  .letter-container {
+    font-size: 16px !important;
+    font-weight: 700;
+  }
+  .cm-full-wdith{
+    max-width: 100% !important;
+    margin: 0 auto;
+  }
+  .mt-2 p {
+    font-size: 14px;
+  }
+  
+}
+
+@media (max-width: 475px) {
+  .tamil-logo img {
+    max-width: 150px !important;
+  }
+  .title-pos {
+    position: relative;
+    left: -15px;
+    font-size: 18px;
+  }
+  .letter-container {
+    font-size: 16px !important;
+    font-weight: 700;
+  }
+  .cm-full-wdith{
+    max-width: 100% !important;
+    margin: 0 auto;
+  }
+  .text-left h3 {
+    font-size: 12px;
+  }
+  .mt-2 p {
+    font-size: 10px;
+  }
+  .cm-width-set .text-4xl {
+    font-size: 18px;
+    width: 70px;
+    min-width: 60px;
+  }
+  span.yellow-green-box {
+    width: 50px;
+  }
+  span.green-dark-box {
+    width: 38px;
+  }
 }

@@ -4,7 +4,8 @@ import {
 } from '../../constants/strings'
 import { BaseModal } from './BaseModal'
 import { SettingsToggle } from './SettingsToggle'
-
+import { TabModals } from '../modals/TabModals'
+import { TabsData } from '../../constants/strings'
 type Props = {
   isOpen: boolean
   handleClose: () => void
@@ -29,6 +30,11 @@ export const SettingsModal = ({
   return (
     <BaseModal title="Settings" isOpen={isOpen} handleClose={handleClose}>
       <div className="mt-2 flex flex-col divide-y">
+        <div className="">
+          < TabModals 
+          dataName = {TabsData}
+          />
+        </div>
         <SettingsToggle
           settingName="Hard Mode"
           flag={isHardMode}
