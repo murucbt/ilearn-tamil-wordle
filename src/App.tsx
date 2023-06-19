@@ -27,7 +27,6 @@ import {
   CORRECT_WORD_MESSAGE,
   DISCOURAGE_INAPP_BROWSER_TEXT,
   GAME_COPIED_MESSAGE,
-  HARD_MODE_ALERT_MESSAGE,
   NOT_ENOUGH_LETTERS_MESSAGE,
   SHARE_FAILURE_TEXT,
   WIN_MESSAGES,
@@ -103,7 +102,7 @@ function App() {
     return loaded.guesses
   })
   const [stats, setStats] = useState(() => loadStats())
-
+  const [isuyireMeiMode, setisuyireMeiMode] = useState(false)
   const [isHardMode, setIsHardMode] = useState(
     localStorage.getItem('gameMode')
       ? localStorage.getItem('gameMode') === 'hard'
@@ -149,12 +148,11 @@ function App() {
   }
 
   const handleHardMode = (isHard: boolean) => {
-    if (guesses.length === 0 || localStorage.getItem('gameMode') === 'hard') {
       setIsHardMode(isHard)
-      localStorage.setItem('gameMode', isHard ? 'hard' : 'normal')
-    } else {
-      showErrorAlert(HARD_MODE_ALERT_MESSAGE)
-    }
+  }
+
+  const handleuyireMeiMode = (isUyireMei: boolean) => {
+    setisuyireMeiMode(isUyireMei)
   }
 
   const handleHighContrastMode = (isHighContrast: boolean) => {
@@ -376,6 +374,8 @@ function App() {
             handleDarkMode={handleDarkMode}
             isHighContrastMode={isHighContrastMode}
             handleHighContrastMode={handleHighContrastMode}
+            isuyireMeiMode={isuyireMeiMode}
+            handleuyireMeiMode={handleuyireMeiMode}
           />
           <AlertContainer />
         </div>

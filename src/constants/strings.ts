@@ -1,9 +1,9 @@
 export const GAME_TITLE = process.env.REACT_APP_GAME_NAME!
 
-export const WIN_MESSAGES = ['Great Job!', 'Awesome', 'Well done!']
+export const WIN_MESSAGES = ['வாழ்த்துக்கள்!', 'அருமை', 'நன்றாக முடிந்தது!']
 export const GAME_COPIED_MESSAGE = 'Game copied to clipboard'
 export const NOT_ENOUGH_LETTERS_MESSAGE = 'Not enough letters'
-export const WORD_NOT_FOUND_MESSAGE = 'Word not found'
+export const WORD_NOT_FOUND_MESSAGE = 'சொல் அகராதியில் இல்லை'
 export const HARD_MODE_ALERT_MESSAGE =
   'Hard Mode can be enabled only at the start!'
 export const HARD_MODE_DESCRIPTION =

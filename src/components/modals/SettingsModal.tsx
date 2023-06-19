@@ -1,9 +1,17 @@
-import {
-  HARD_MODE_DESCRIPTION,
-  HIGH_CONTRAST_MODE_DESCRIPTION,
-} from '../../constants/strings'
 import { BaseModal } from './BaseModal'
 import { SettingsToggle } from './SettingsToggle'
+import { 
+  SETTINGS_NAME,
+  UYIRE_MEI_NOTES,
+  UYIRE_MEI_DESCRIPTION,
+  EASY_MODE,
+  EASY_MODE_DESCRIPTION,
+  EASY_MODE_DESCRIPTION_TWO,
+  DARK_MODE,
+  DARK_MODE_DESCRIPTION,
+  DICTIONARY,
+  DICTIONARY_DESCRIPTION
+ } from '../../constants/language'
 import { TabModals } from '../modals/TabModals'
 import { TabsData } from '../../constants/strings'
 type Props = {
@@ -15,6 +23,8 @@ type Props = {
   handleDarkMode: Function
   isHighContrastMode: boolean
   handleHighContrastMode: Function
+  handleuyireMeiMode: Function
+  isuyireMeiMode: boolean
 }
 
 export const SettingsModal = ({
@@ -26,9 +36,11 @@ export const SettingsModal = ({
   handleDarkMode,
   isHighContrastMode,
   handleHighContrastMode,
+  isuyireMeiMode,
+  handleuyireMeiMode
 }: Props) => {
   return (
-    <BaseModal title="Settings" isOpen={isOpen} handleClose={handleClose}>
+    <BaseModal title={SETTINGS_NAME} isOpen={isOpen} handleClose={handleClose}>
       <div className="mt-2 flex flex-col divide-y">
         <div className="">
           < TabModals 
@@ -36,21 +48,29 @@ export const SettingsModal = ({
           />
         </div>
         <SettingsToggle
-          settingName="Hard Mode"
+          settingName={UYIRE_MEI_NOTES}
+          flag={isuyireMeiMode}
+          handleFlag={handleuyireMeiMode}
+          description={UYIRE_MEI_DESCRIPTION}
+        />
+        <SettingsToggle
+          settingName={EASY_MODE}
           flag={isHardMode}
           handleFlag={handleHardMode}
-          description={HARD_MODE_DESCRIPTION}
+          description={EASY_MODE_DESCRIPTION}
+          descriptiontwo={EASY_MODE_DESCRIPTION_TWO}
         />
         <SettingsToggle
-          settingName="Dark Mode"
+          settingName={DARK_MODE}
           flag={isDarkMode}
           handleFlag={handleDarkMode}
+          description={DARK_MODE_DESCRIPTION}
         />
         <SettingsToggle
-          settingName="High Contrast Mode"
+          settingName={DICTIONARY}
           flag={isHighContrastMode}
           handleFlag={handleHighContrastMode}
-          description={HIGH_CONTRAST_MODE_DESCRIPTION}
+          description={DICTIONARY_DESCRIPTION}
         />
       </div>
     </BaseModal>
