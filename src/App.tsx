@@ -103,6 +103,7 @@ function App() {
   })
   const [stats, setStats] = useState(() => loadStats())
   const [isuyireMeiMode, setisuyireMeiMode] = useState(false)
+  const [isDictionaryMode, setisDictionaryMode] = useState(false)
   const [isHardMode, setIsHardMode] = useState(
     localStorage.getItem('gameMode')
       ? localStorage.getItem('gameMode') === 'hard'
@@ -155,6 +156,10 @@ function App() {
     setisuyireMeiMode(isUyireMei)
   }
 
+  const handleDictionaryMode = (isDictionaryMode: boolean) => {
+    setisDictionaryMode(isDictionaryMode)
+  }
+  
   const handleHighContrastMode = (isHighContrast: boolean) => {
     setIsHighContrastMode(isHighContrast)
     setStoredIsHighContrastMode(isHighContrast)
@@ -225,18 +230,19 @@ function App() {
       return
     }
 
-    if (!(unicodeLength(currentGuess) === unicodeLength(solution))) {
+    if ((unicodeLength(currentGuess) !== unicodeLength(solution))) {
       setCurrentRowClass('jiggle')
       return showErrorAlert(NOT_ENOUGH_LETTERS_MESSAGE, {
         onClose: clearCurrentRowClass,
       })
     }
-
-    if (!isWordInWordList(currentGuess)) {
-      setCurrentRowClass('jiggle')
-      return showErrorAlert(WORD_NOT_FOUND_MESSAGE, {
-        onClose: clearCurrentRowClass,
-      })
+    if (isDictionaryMode === false) { 
+        if (!isWordInWordList(currentGuess)) {
+          setCurrentRowClass('jiggle')
+          return showErrorAlert(WORD_NOT_FOUND_MESSAGE, {
+            onClose: clearCurrentRowClass,
+          })
+        }
     }
 
     // enforce hard mode - all guesses must contain all previously revealed letters
@@ -372,8 +378,8 @@ function App() {
             handleHardMode={handleHardMode}
             isDarkMode={isDarkMode}
             handleDarkMode={handleDarkMode}
-            isHighContrastMode={isHighContrastMode}
-            handleHighContrastMode={handleHighContrastMode}
+            isDictionaryMode={isDictionaryMode}
+            handleDictionaryMode={handleDictionaryMode}
             isuyireMeiMode={isuyireMeiMode}
             handleuyireMeiMode={handleuyireMeiMode}
           />

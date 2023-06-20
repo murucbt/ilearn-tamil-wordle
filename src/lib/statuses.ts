@@ -16,22 +16,6 @@ export const getStatuses = (
         return (charObj[letter] = 'absent')
       }
 
-      if (!splitSolution.includes(letter)) {
-        return (charObj[letter] = 'changera')
-      }
-
-      if (!splitSolution.includes(letter)) {
-        return (charObj[letter] = 'changeka')
-      }
-
-      if (!splitSolution.includes(letter)) {
-        return (charObj[letter] = 'changeRA')
-      }
-
-      if (!splitSolution.includes(letter)) {
-        return (charObj[letter] = 'changeku')
-      }
-
       if (letter === splitSolution[i]) {
         //make status correct
         return (charObj[letter] = 'correct')

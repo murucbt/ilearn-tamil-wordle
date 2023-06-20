@@ -21,8 +21,8 @@ type Props = {
   handleHardMode: Function
   isDarkMode: boolean
   handleDarkMode: Function
-  isHighContrastMode: boolean
-  handleHighContrastMode: Function
+  isDictionaryMode: boolean
+  handleDictionaryMode: Function
   handleuyireMeiMode: Function
   isuyireMeiMode: boolean
 }
@@ -34,8 +34,8 @@ export const SettingsModal = ({
   handleHardMode,
   isDarkMode,
   handleDarkMode,
-  isHighContrastMode,
-  handleHighContrastMode,
+  isDictionaryMode,
+  handleDictionaryMode,
   isuyireMeiMode,
   handleuyireMeiMode
 }: Props) => {
@@ -68,8 +68,8 @@ export const SettingsModal = ({
         />
         <SettingsToggle
           settingName={DICTIONARY}
-          flag={isHighContrastMode}
-          handleFlag={handleHighContrastMode}
+          flag={isDictionaryMode}
+          handleFlag={handleDictionaryMode}
           description={DICTIONARY_DESCRIPTION}
         />
       </div>
