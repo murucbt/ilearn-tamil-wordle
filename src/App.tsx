@@ -102,11 +102,26 @@ function App() {
     return loaded.guesses
   })
   const [stats, setStats] = useState(() => loadStats())
-  const [isuyireMeiMode, setisuyireMeiMode] = useState(false)
-  const [isDictionaryMode, setisDictionaryMode] = useState(false)
+  const [isuyireMeiMode, setisuyireMeiMode] = useState(
+    localStorage.getItem('uyiremeiMode')
+      ? localStorage.getItem('uyiremeiMode') === 'yes'
+      : false
+  )
+  const [isDictionaryMode, setisDictionaryMode] = useState(
+    localStorage.getItem('dictionaryMode')
+    ? localStorage.getItem('dictionaryMode') === 'yes'
+    : false
+  )
+
   const [isHardMode, setIsHardMode] = useState(
     localStorage.getItem('gameMode')
       ? localStorage.getItem('gameMode') === 'hard'
+      : false
+  )
+  
+  const [isEasyMode, setisEasyMode] = useState(
+    localStorage.getItem('easyMode')
+      ? localStorage.getItem('easyMode') === 'yes'
       : false
   )
 
@@ -152,12 +167,19 @@ function App() {
       setIsHardMode(isHard)
   }
 
+  const handleEasyMode = (isEasy: boolean) => {
+    setisEasyMode(isEasy)
+    localStorage.setItem('easyMode', isEasy ? 'yes' : 'no')
+  }
+
   const handleuyireMeiMode = (isUyireMei: boolean) => {
     setisuyireMeiMode(isUyireMei)
+    localStorage.setItem('uyiremeiMode', isUyireMei ? 'yes' : 'no')
   }
 
   const handleDictionaryMode = (isDictionaryMode: boolean) => {
     setisDictionaryMode(isDictionaryMode)
+    localStorage.setItem('dictionaryMode', isDictionaryMode ? 'yes' : 'no')
   }
   
   const handleHighContrastMode = (isHighContrast: boolean) => {
@@ -374,8 +396,8 @@ function App() {
           <SettingsModal
             isOpen={isSettingsModalOpen}
             handleClose={() => setIsSettingsModalOpen(false)}
-            isHardMode={isHardMode}
-            handleHardMode={handleHardMode}
+            isEasyMode={isEasyMode}
+            handleEasyMode={handleEasyMode}
             isDarkMode={isDarkMode}
             handleDarkMode={handleDarkMode}
             isDictionaryMode={isDictionaryMode}

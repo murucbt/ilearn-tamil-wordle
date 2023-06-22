@@ -17,8 +17,8 @@ import { TabsData } from '../../constants/strings'
 type Props = {
   isOpen: boolean
   handleClose: () => void
-  isHardMode: boolean
-  handleHardMode: Function
+  isEasyMode: boolean
+  handleEasyMode: Function
   isDarkMode: boolean
   handleDarkMode: Function
   isDictionaryMode: boolean
@@ -30,8 +30,8 @@ type Props = {
 export const SettingsModal = ({
   isOpen,
   handleClose,
-  isHardMode,
-  handleHardMode,
+  isEasyMode,
+  handleEasyMode,
   isDarkMode,
   handleDarkMode,
   isDictionaryMode,
@@ -55,8 +55,8 @@ export const SettingsModal = ({
         />
         <SettingsToggle
           settingName={EASY_MODE}
-          flag={isHardMode}
-          handleFlag={handleHardMode}
+          flag={isEasyMode}
+          handleFlag={handleEasyMode}
           description={EASY_MODE_DESCRIPTION}
           descriptiontwo={EASY_MODE_DESCRIPTION_TWO}
         />

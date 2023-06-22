@@ -1,4 +1,4 @@
-export const GAME_TITLE = process.env.REACT_APP_GAME_NAME!
+export const GAME_TITLE = '#வேடல்'
 
 export const WIN_MESSAGES = ['வாழ்த்துக்கள்!', 'அருமை', 'நன்றாக முடிந்தது!']
 export const GAME_COPIED_MESSAGE = 'விளையாட்டு கிளிப்போர்டு நகலெடுக்கப்பட்டது'
