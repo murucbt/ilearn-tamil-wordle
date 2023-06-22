@@ -1,7 +1,7 @@
 export const GAME_TITLE = process.env.REACT_APP_GAME_NAME!
 
 export const WIN_MESSAGES = ['வாழ்த்துக்கள்!', 'அருமை', 'நன்றாக முடிந்தது!']
-export const GAME_COPIED_MESSAGE = 'Game copied to clipboard'
+export const GAME_COPIED_MESSAGE = 'விளையாட்டு கிளிப்போர்டு நகலெடுக்கப்பட்டது'
 export const NOT_ENOUGH_LETTERS_MESSAGE = 'கட்டங்களை முழுமையாக நிரப்புக'
 export const WORD_NOT_FOUND_MESSAGE = 'சொல் அகராதியில் இல்லை'
 export const HARD_MODE_ALERT_MESSAGE =
@@ -10,7 +10,7 @@ export const HARD_MODE_DESCRIPTION =
   'Any revealed hints must be used in subsequent guesses'
 export const HIGH_CONTRAST_MODE_DESCRIPTION = 'For improved color vision'
 export const CORRECT_WORD_MESSAGE = (solution: string) =>
-  `The word was ${solution}`
+  `${solution}`
 export const WRONG_SPOT_MESSAGE = (guess: string, position: number) =>
   `Must use ${guess} in position ${position}`
 export const NOT_CONTAINED_MESSAGE = (letter: string) =>

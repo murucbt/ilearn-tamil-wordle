@@ -5,6 +5,7 @@ import {
   InformationCircleIcon,
 } from '@heroicons/react/outline'
 import IlearnTamilLogo from '../../learn-tamil-logo.png'
+import IlearnTamilLMobileogo from '../../learn-tamil-mobile.png'
 import { ENABLE_ARCHIVED_GAMES } from '../../constants/settings'
 import { GAME_TITLE } from '../../constants/language'
 
@@ -24,7 +25,8 @@ export const Navbar = ({
   return (
     <div className="navbar">
       <div className="navbar-content px-5 short:h-auto tamil-logo">
-        <img src={IlearnTamilLogo} className="App-logo" alt="logo" />
+        <img src={IlearnTamilLogo} className="App-logo desktop-logo" alt="logo" />
+        <img src={IlearnTamilLMobileogo} className="App-logo mobile-logo" alt="logo" />
         <p className="text-xl font-bold dark:text-white title-pos">{GAME_TITLE}</p>
         <div className="right-icons">
           <ChartBarIcon

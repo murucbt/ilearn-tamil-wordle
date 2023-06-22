@@ -324,7 +324,9 @@ h2, .details{
     border-radius: 10px;
     border: 3px solid #ffffff;
   }
-
+.mobile-logo{
+  display: none;
+}
 
 
 /* Media Queries */
@@ -543,12 +545,24 @@ h2, .details{
 }
 
 @media (max-width: 475px) {
+  .navbar-content{
+    padding-left: 0;
+    padding-right: 0;
+    justify-content: space-around;
+  }
+  .desktop-logo{
+    display: none !important;
+  }
+  .mobile-logo{
+    display: block !important;
+    width: 50px;
+  }
   .tamil-logo img {
     max-width: 150px !important;
   }
   .title-pos {
     position: relative;
-    left: -15px;
+    left: 7px;
     font-size: 18px;
   }
   .letter-container {
