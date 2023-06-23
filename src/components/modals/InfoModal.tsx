@@ -8,6 +8,7 @@ import {
   COLOR_NOTES
  } from '../../constants/language'
 import {ReactComponent as TestLogo} from '../../../src/Hearticon.svg'
+import Content from './ToggleModal'
 type Props = {
   isOpen: boolean
   handleClose: () => void
@@ -133,7 +134,7 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
       </p>
       <hr className="dark:text-gray-300"></hr>
       <p className="font-bold">நாள்தோறும் ஒரு புதிய சொல் இடம்பெறும்!</p>
-      
+      < Content />
     </BaseModal>
   )
 }

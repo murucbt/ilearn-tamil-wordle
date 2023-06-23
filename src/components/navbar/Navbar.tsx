@@ -24,7 +24,7 @@ export const Navbar = ({
 }: Props) => {
   return (
     <div className="navbar">
-      <div className="navbar-content px-5 short:h-auto tamil-logo">
+      <div className="navbar-content px-5 tamil-logo">
         <img src={IlearnTamilLogo} className="App-logo desktop-logo" alt="logo" />
         <img src={IlearnTamilLMobileogo} className="App-logo mobile-logo" alt="logo" />
         <p className="text-xl font-bold dark:text-white title-pos">{GAME_TITLE}</p>

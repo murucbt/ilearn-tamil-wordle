@@ -11,6 +11,7 @@ import {
   ARCHIVE_GAMEDATE_TEXT,
   GUESS_DISTRIBUTION_TEXT,
   NEW_WORD_TEXT,
+  OLD_WORD_TEXT,
   SHARE_TEXT,
   STATISTICS_TITLE,
 } from '../../constants/strings'
@@ -110,6 +111,14 @@ export const StatsModal = ({
                     locale: DATE_LOCALE,
                   })}
                 </div>
+              </div>
+            )}
+          </div>
+          <div className="inline-block w-full text-left">
+          {(!ENABLE_ARCHIVED_GAMES || isLatestGame) && (
+              <div className= "old-word">
+                <h5>{OLD_WORD_TEXT}</h5>
+                <p>{solution}</p>
               </div>
             )}
           </div>

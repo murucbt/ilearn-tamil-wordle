@@ -48,7 +48,7 @@ export const SettingsModal = ({
           />
         </div>
         <SettingsToggle
-          settingName={UYIRE_MEI_NOTES}
+          uyiremeisettingName={UYIRE_MEI_NOTES}
           flag={isuyireMeiMode}
           handleFlag={handleuyireMeiMode}
           description={UYIRE_MEI_DESCRIPTION}

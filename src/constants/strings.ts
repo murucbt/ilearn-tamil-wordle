@@ -20,6 +20,7 @@ export const DELETE_TEXT = 'Delete'
 export const STATISTICS_TITLE = 'புள்ளி விவரங்கள்'
 export const GUESS_DISTRIBUTION_TEXT = 'கணிப்பு பங்கீடு'
 export const NEW_WORD_TEXT = 'புதிய சொல்'
+export const OLD_WORD_TEXT = 'முந்தைய வேடல்'
 export const SHARE_TEXT = 'பகிர்'
 export const SHARE_FAILURE_TEXT =
   'Unable to share the results. This feature is available only in secure contexts (HTTPS), in some or all supporting browsers.'
