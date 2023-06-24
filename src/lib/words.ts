@@ -10,11 +10,10 @@ import queryString from 'query-string'
 
 import { ENABLE_ARCHIVED_GAMES } from '../constants/settings'
 import { NOT_CONTAINED_MESSAGE, WRONG_SPOT_MESSAGE } from '../constants/strings'
-import { VALID_GUESSES } from '../constants/validGuesses'
 import { WORDS } from '../constants/wordlist'
 import { getToday } from './dateutils'
 import { getGuessStatuses } from './statuses'
-
+import { dictionaryWords } from '../constants/dictionaryWords'
 // 1 June 2023 Game Epoch
 export const firstGameDate = new Date(2023, 5)
 export const periodInDays = 1
@@ -25,17 +24,17 @@ export const isWordInWordList = (word: string) => {
   if (solutionDay === 0 || solutionDay === 1 || solutionDay === 2) {
       return (
         WORDS.THREE_WORDS.includes(localeAwareLowerCase(word)) ||
-        VALID_GUESSES.includes(localeAwareLowerCase(word))
+        dictionaryWords.includes(localeAwareLowerCase(word))
       )
   } else if (solutionDay === 3 || solutionDay === 4) {
     return (
       WORDS.FOUR_WORDS.includes(localeAwareLowerCase(word)) ||
-      VALID_GUESSES.includes(localeAwareLowerCase(word))
+      dictionaryWords.includes(localeAwareLowerCase(word))
     )
   } else if (solutionDay === 5 || solutionDay === 6) {
     return (
       WORDS.FIVE_WORDS.includes(localeAwareLowerCase(word)) ||
-      VALID_GUESSES.includes(localeAwareLowerCase(word))
+      dictionaryWords.includes(localeAwareLowerCase(word))
     )
   }
   
