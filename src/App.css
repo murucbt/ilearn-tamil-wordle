@@ -271,22 +271,6 @@ h2, .details{
   padding-inline-start: 40px;
 }
 
-
-.details .summary:focus {
-  outline:none;
-}
-.details[open] {
-  display:block;
-  padding-bottom:25px;
-  padding-top:10px;
-  animation: open .2s linear;
-}
-.details[open] .summary {
-  position:absolute;
-  bottom: 0;
-  left:0;
-}
-
 ::-webkit-details-marker {display: none;}
 
 
@@ -368,6 +352,9 @@ h2, .details{
   display: none;
 }
 
+.inline-block p {
+  margin-bottom: 2px;
+}
 
 /* Media Queries */
 @media (max-width: 1536px) {
@@ -581,6 +568,9 @@ h2, .details{
   .migration-status {
     display: none;
   }
+  .inline-block p {
+    margin-bottom: 2px;
+  }
   
 }
 
@@ -625,10 +615,10 @@ h2, .details{
     min-width: 60px;
   }
   span.yellow-green-box {
-    width: 50px;
+    width: 35px;
   }
   span.green-dark-box {
-    width: 38px;
+    width: 30px;
   }
   .settings-description, .settings-description-two {
     font-size: 13px !important;
@@ -651,5 +641,40 @@ h2, .details{
   .migration-status {
     display: none;
   }
+  .details-list li {
+    font-size: 12px;
+  }
+  .details p {
+    font-size: 12px;
+  }
+  .old-word p {
+    font-size: 16px;
+  }
+  .inline-block p {
+    margin-bottom: 2px;
+  }
+}
 
+@media (max-width: 400px) {
+.grid-board {
+  margin: 0px auto;
+  padding-bottom: 100px;
+}
+.mobile-keyboard {
+  position: fixed;
+  bottom: 0;
+  width: 98%;
+}
+span.yellow-green-box {
+  width: 40px;
+}
+span.green-dark-box {
+  width: 30px;
+}
+.old-word p {
+  font-size: 16px;
+}
+.inline-block p {
+  margin-bottom: 2px;
+}
 }

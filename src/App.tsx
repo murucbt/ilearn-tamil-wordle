@@ -51,6 +51,7 @@ import {
   solution,
   solutionGameDate,
   unicodeLength,
+  previousdayWord,
 } from './lib/words'
 
 function App() {
@@ -360,6 +361,7 @@ function App() {
             isOpen={isStatsModalOpen}
             handleClose={() => setIsStatsModalOpen(false)}
             solution={solution}
+            previousdayWord={previousdayWord}
             guesses={guesses}
             gameStats={stats}
             isLatestGame={isLatestGame}

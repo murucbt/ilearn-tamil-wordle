@@ -151,9 +151,12 @@ export const getSolution = (gameDate: Date) => {
   const index = getIndex(gameDate)
   const getDay = gameDate.getDay()
   const wordOfTheDay = getWordOfDay(index, getDay)
-  
+  const daycalc = gameDate.getDay() - 1
+  const indexcalc = getIndex(gameDate) - 1
+  const yesterdayWord = getWordOfDay(indexcalc, daycalc)
   return {
     solution: String(wordOfTheDay),
+    previousdayWord: String(yesterdayWord),
     solutionGameDate: gameDate,
     solutionIndex: index,
     tomorrow: nextGameDate.valueOf(),
@@ -198,5 +201,5 @@ export const getIsLatestGame = () => {
   return parsed === null || !('d' in parsed)
 }
 
-export const { solution, solutionGameDate, solutionIndex, tomorrow } =
+export const { solution, solutionGameDate, solutionIndex, tomorrow, previousdayWord } =
   getSolution(getGameDate())

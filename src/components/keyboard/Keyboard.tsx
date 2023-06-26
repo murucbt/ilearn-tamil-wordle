@@ -157,7 +157,7 @@ export const Keyboard = ({
   }, [onEnter, onDelete, onChar])
 
   return (
-    <div>
+    <div className="mobile-keyboard">
       <div className="mb-1 flex justify-center">
         {tamilAlphabets.map((key) => (
           <Key

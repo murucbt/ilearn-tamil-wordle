@@ -27,6 +27,7 @@ type Props = {
   isOpen: boolean
   handleClose: () => void
   solution: string
+  previousdayWord: string
   guesses: string[]
   gameStats: GameStats
   isLatestGame: boolean
@@ -45,6 +46,7 @@ export const StatsModal = ({
   isOpen,
   handleClose,
   solution,
+  previousdayWord,
   guesses,
   gameStats,
   isLatestGame,
@@ -72,6 +74,28 @@ export const StatsModal = ({
       </BaseModal>
     )
   }
+
+  function getGameBoard() {
+    var shareBoardStatus = shareStatus(
+      solution,
+      guesses,
+      isGameLost,
+      isHardMode,
+      isDarkMode,
+      isHighContrastMode,
+      handleShareToClipboard,
+      handleShareFailure,
+      true,
+    );
+    return (
+      <div className="inline-block">
+        <p>{shareBoardStatus?.text}</p>
+        <pre>{shareBoardStatus?.grid}</pre>
+      </div>
+      
+    )
+  }
+
   return (
     <BaseModal
       title={STATISTICS_TITLE}
@@ -118,10 +142,11 @@ export const StatsModal = ({
           {(!ENABLE_ARCHIVED_GAMES || isLatestGame) && (
               <div className= "old-word">
                 <h5>{OLD_WORD_TEXT}</h5>
-                <p>{solution}</p>
+                <p>{previousdayWord}</p>
               </div>
             )}
           </div>
+            {getGameBoard()}
           <div>
             <button
               type="button"
@@ -135,7 +160,8 @@ export const StatsModal = ({
                   isDarkMode,
                   isHighContrastMode,
                   handleShareToClipboard,
-                  handleShareFailure
+                  handleShareFailure,
+                  false
                 )
               }}
             >
