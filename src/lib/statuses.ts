@@ -1,16 +1,23 @@
 import { unicodeSplit } from './words'
+import { uyireMeiCombo } from '../constants/tamilwords'
 
-export type CharStatus = 'absent' | 'present' | 'correct' | 'changera' | 'changeka' | 'changeRA' | 'changeku'
+export type CharStatus = 'absent' | 'present' | 'correct' | 'changera' | 'changeka' | 'changeRA' | 'changeku' | 'uyiremei'
 
 export const getStatuses = (
   solution: string,
-  guesses: string[]
+  guesses: string[],
+  isUyireMei?: boolean
 ): { [key: string]: CharStatus } => {
   const charObj: { [key: string]: CharStatus } = {}
   const splitSolution = unicodeSplit(solution)
 
   guesses.forEach((word) => {
     unicodeSplit(word).forEach((letter, i) => {
+      // if (letter !== splitSolution[i]) {
+      //   const finalUyireMeiWord = compareUyireMeiWord(letter, splitSolution[i])
+      //   return (charObj[finalUyireMeiWord] = 'uyiremei')
+      // }
+
       if (!splitSolution.includes(letter)) {
         // make status absent
         return (charObj[letter] = 'absent')
@@ -33,7 +40,8 @@ export const getStatuses = (
 
 export const getGuessStatuses = (
   solution: string,
-  guess: string
+  guess: string,
+  isUyireMei?: boolean
 ): CharStatus[] => {
   const splitSolution = unicodeSplit(solution)
   const splitGuess = unicodeSplit(guess)
@@ -50,6 +58,22 @@ export const getGuessStatuses = (
       return
     }
   })
+
+  // handle check uyire or mei words correct cases first
+  if (isUyireMei === true){
+
+  splitGuess.forEach((letter, i) => {
+    if (letter !== splitSolution[i]) {
+      const UyireMeiWord = compareUyireMeiWord(letter, splitSolution[i])
+      if (UyireMeiWord){
+        statuses[i] = 'uyiremei'
+      }
+      solutionCharsTaken[i] = true
+      return
+    }
+  })
+}
+
 
   splitGuess.forEach((letter, i) => {
     if (statuses[i]) return
@@ -76,4 +100,17 @@ export const getGuessStatuses = (
   })
 
   return statuses
+}
+
+const compareUyireMeiWord = (guess: any, solution: any) => {
+  const guessWord = uyireMeiCombo[guess]
+  const solutionWord = uyireMeiCombo[solution]
+  let finalGuess = ''
+  if (guessWord && solutionWord) {
+    if (guessWord[0]===solutionWord[0]) {
+      return finalGuess= guess
+    } else if(guessWord[1]===solutionWord[1]) {
+      return finalGuess= guess
+    }
+  }
 }

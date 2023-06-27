@@ -10,6 +10,7 @@ type Props = {
   solution: string
   guesses: string[]
   isRevealing?: boolean
+  isUyireMei?: boolean
 }
 
 export const Keyboard = ({
@@ -19,8 +20,9 @@ export const Keyboard = ({
   solution,
   guesses,
   isRevealing,
+  isUyireMei,
 }: Props) => {
-  const charStatuses = getStatuses(solution, guesses)
+  const charStatuses = getStatuses(solution, guesses, isUyireMei)
   const [tamilAlphabets, settamilAlphabets] = useState(['அ', 'ஆ', 'இ', 'ஈ']);
   const [tamilAlphabetsTwo, settamilAlphabetsTwo] = useState(['க', 'ச', 'ட', 'த', 'ப', 'ற']);
   const [tamilAlphabetsThree, settamilAlphabetsThree] = useState(['உ', 'ஊ', 'எ', 'ஏ']);

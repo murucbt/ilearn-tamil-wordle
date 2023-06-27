@@ -39,6 +39,8 @@ export const Key = ({
         status === 'present' && isHighContrast,
       'bg-green-500 hover:bg-green-600 active:bg-green-700 text-white':
         status === 'correct' && !isHighContrast,
+      // 'uyiremei-colorkeyboard':
+      //   status === 'uyiremei' && !isHighContrast,
       'bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700 text-white':
         status === 'present' && !isHighContrast,
     }

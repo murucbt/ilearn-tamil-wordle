@@ -6,10 +6,11 @@ type Props = {
   solution: string
   guess: string
   isRevealing?: boolean
+  isUyireMei?: boolean
 }
 
-export const CompletedRow = ({ solution, guess, isRevealing }: Props) => {
-  const statuses = getGuessStatuses(solution, guess)
+export const CompletedRow = ({ solution, guess, isRevealing, isUyireMei }: Props) => {
+  const statuses = getGuessStatuses(solution, guess, isUyireMei)
   const splitGuess = unicodeSplit(guess)
 
   return (

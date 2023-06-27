@@ -356,6 +356,29 @@ h2, .details{
   margin-bottom: 2px;
 }
 
+.uyiremei-back{
+  background: url(Hearticon.svg) #86888a; 
+  background-repeat: no-repeat;
+  background-position: 10% 10%;
+  background-size: 20px;
+}
+
+/* .uyiremei-colorkeyboard {
+  background-color: orange !important;
+} */
+
+.mobile-keyboard{
+  position: absolute;
+      width: 100%;
+      bottom: 0;
+      right: 0;
+      left: 0;
+  
+  }
+.grid-board {
+    margin: 0 auto;
+    padding-bottom: 150px;
+}
 /* Media Queries */
 @media (max-width: 1536px) {
   .tamil-logo img {
@@ -664,6 +687,8 @@ h2, .details{
   position: fixed;
   bottom: 0;
   width: 98%;
+  padding: 5px 0px;
+  background: white;
 }
 span.yellow-green-box {
   width: 40px;

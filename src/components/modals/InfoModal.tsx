@@ -52,7 +52,7 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
         <Cell value="ல்" isCompleted={true} />
       </div>
       <p className="text-sm dark:text-gray-300">
-      எழுத்து <b>ன்</b> சொல்லில் உள்ளது அனால் வேறு இடத்தில் உள்ளது.
+      எழுத்து <b>ன்</b> சொல்லில் உள்ளது ஆனால் வேறு இடத்தில் உள்ளது.
       </p>
 
       <div className="mb-1 mt-4 flex justify-center">

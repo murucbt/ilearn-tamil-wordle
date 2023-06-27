@@ -40,6 +40,8 @@ export const Cell = ({
         status === 'changeRA',
       'text-white kuchange-back':
         status === 'changeku',
+      'text-white uyiremei-back':
+        status === 'uyiremei',
       'correct shadowed bg-orange-500 text-white border-orange-500':
         status === 'correct' && isHighContrast,
       'present shadowed bg-cyan-500 text-white border-cyan-500':

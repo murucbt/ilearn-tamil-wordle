@@ -343,6 +343,7 @@ function App() {
               currentGuess={currentGuess}
               isRevealing={isRevealing}
               currentRowClassName={currentRowClass}
+              isUyireMei={isuyireMeiMode}
             />
           </div>
           <Keyboard
@@ -352,6 +353,7 @@ function App() {
             solution={solution}
             guesses={guesses}
             isRevealing={isRevealing}
+            isUyireMei={isuyireMeiMode}
           />
           <InfoModal
             isOpen={isInfoModalOpen}
