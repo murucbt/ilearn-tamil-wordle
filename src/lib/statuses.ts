@@ -1,5 +1,5 @@
 import { unicodeSplit } from './words'
-import { uyireMeiCombo } from '../constants/tamilwords'
+import { uyireMeiCombo, meiEluththukkal } from '../constants/tamilwords'
 
 export type CharStatus = 'absent' | 'present' | 'correct' | 'changera' | 'changeka' | 'changeRA' | 'changeku' | 'uyiremei'
 
@@ -113,4 +113,16 @@ const compareUyireMeiWord = (guess: any, solution: any) => {
       return finalGuess= guess
     }
   }
+}
+
+export const checkIfGivensLettersSoundsSame = (guessLetter: any, solutionLetter: any) => {
+  // check if both guessLetter & solutionLetter are mei eluththukkal
+  if (meiEluththukkal.includes(guessLetter) && meiEluththukkal.includes(solutionLetter)) {
+    return true;
+  }
+
+  const guessLetterCombo = uyireMeiCombo[guessLetter] || [guessLetter];
+  const solutionLetterCombo = uyireMeiCombo[solutionLetter] || [solutionLetter];
+  
+  return guessLetterCombo.some((letter: any) => solutionLetterCombo.includes(letter));
 }

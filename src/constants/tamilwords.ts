@@ -1,3 +1,7 @@
+export const meiEluththukkal = ['க்','ங்','ச்','ஞ்','ட்','ண்','த்','ந்','ப்','ம்','ய்','ர்','ல்','வ்','ழ்','ள்','ற்','ன்'];
+
+export const uyireEluththukkal = ['அ','ஆ','இ','ஈ','உ','ஊ','எ','ஏ','ஐ','ஒ','ஓ','ஔ'];
+
 export const uyireMeiCombo : { [key: string]: any } =  {
     'க'    : ['க்', 'அ'],
     'கா'   : ['க்', 'ஆ'],
@@ -232,4 +236,4 @@ export const uyireMeiCombo : { [key: string]: any } =  {
     'னொ'   : ['ன்', 'ஒ'],
     'னோ'   : ['ன்', 'ஓ'],
     'னௌ'  : ['ன்', 'ஔ'],
-}
+};

@@ -1,4 +1,4 @@
-import { getGuessStatuses } from './statuses'
+import { getGuessStatuses, checkIfGivensLettersSoundsSame } from './statuses'
 
 const mockSolutionGetter = jest.fn()
 
@@ -45,3 +45,13 @@ describe('getGuessStatuses', () => {
     ])
   })
 })
+
+describe('checkIfGivensLettersSoundsSame', () => {
+  test('check if givens letters sounds same', () => {
+    expect(checkIfGivensLettersSoundsSame('க', 'ச')).toBe(true);
+    expect(checkIfGivensLettersSoundsSame('ங்', 'க்')).toBe(true);
+    expect(checkIfGivensLettersSoundsSame('ஐ', 'கை')).toBe(true);
+    expect(checkIfGivensLettersSoundsSame('தை', 'கை')).toBe(true);
+    expect(checkIfGivensLettersSoundsSame('தீ', 'வே')).toBe(false);
+  })
+});
