@@ -97,7 +97,8 @@ export const getGuessStatuses = (
 
     // now we are left with "present"s
     const indexOfPresentChar = splitSolution.findIndex(
-      (x, index) => x === letter && !solutionCharsTaken[index]
+      // (x, index) => x === letter && !solutionCharsTaken[index]
+      (x, index) => x === letter
     )
 
     if (indexOfPresentChar > -1) {
