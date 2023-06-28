@@ -3,6 +3,7 @@ import classnames from 'classnames'
 import { REVEAL_TIME_MS } from '../../constants/settings'
 import { getStoredIsHighContrastMode } from '../../lib/localStorage'
 import { CharStatus } from '../../lib/statuses'
+import { useAlert } from '../../context/AlertContext'
 
 type Props = {
   value?: string
@@ -10,7 +11,6 @@ type Props = {
   isRevealing?: boolean
   isCompleted?: boolean
   position?: number
-  onClick?: Function
 }
 
 export const Cell = ({
@@ -19,12 +19,12 @@ export const Cell = ({
   isRevealing,
   isCompleted,
   position = 0,
-  onClick,
 }: Props) => {
   const isFilled = value && !isCompleted
   const shouldReveal = isRevealing && isCompleted
   const animationDelay = `${position * REVEAL_TIME_MS}ms`
   const isHighContrast = getStoredIsHighContrastMode()
+  const { showError: showErrorAlert, showSuccess: showSuccessAlert } = useAlert()
 
   const classes = classnames(
     'xxshort:w-11 xxshort:h-11 short:text-2xl short:w-12 short:h-12 w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-4xl font-bold rounded dark:text-white',
@@ -57,8 +57,18 @@ export const Cell = ({
     }
   )
 
+  type ClickHandler = (st: any) => (e: React.MouseEvent) => void;
+
+  const onClick: ClickHandler = (st) => (e) => {
+    e.preventDefault();
+    if (value) {
+      showSuccessAlert(st);
+    }
+ };
+
+
   return (
-    <div className={classes} style={{ animationDelay }}>
+    <div className={classes} style={{ animationDelay }} onClick={onClick(status)}>
       <div className="letter-container" style={{ animationDelay }}>
         {value}
       </div>

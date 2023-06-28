@@ -7,16 +7,12 @@ type Props = {
   guess: string
   isRevealing?: boolean
   isUyireMei?: boolean
-  onClick?: Function
 }
 
 export const CompletedRow = ({ solution, guess, isRevealing, isUyireMei }: Props) => {
   const statuses = getGuessStatuses(solution, guess, isUyireMei)
   const splitGuess = unicodeSplit(guess)
   const splitSolution = unicodeSplit(solution)
-  const onClick = () => {
-    return statuses
-  }
   // splitGuess.map((data, i) => {
     
   //   if (statuses[i]=='meiwordletters') {
@@ -34,7 +30,6 @@ export const CompletedRow = ({ solution, guess, isRevealing, isUyireMei }: Props
           position={i}
           isRevealing={isRevealing}
           isCompleted
-          onClick={onClick}
         />
       ))}
     </div>
