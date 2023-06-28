@@ -53,6 +53,8 @@ import {
   unicodeLength,
   previousdayWord,
 } from './lib/words'
+import { getMeiwordEasyStatus } from '../src/lib/statuses'
+import { unicodeSplit } from '../src/lib/words'
 
 function App() {
   const isLatestGame = getIsLatestGame()
@@ -247,6 +249,22 @@ function App() {
       new GraphemeSplitter().splitGraphemes(currentGuess).slice(0, -1).join('')
     )
   }
+  // const statuses = getMeiwordEasyStatus(solution, guesses)
+  // // const splitGuess = unicodeSplit(guesses)
+  // const splitSolution = unicodeSplit(solution)
+  // guesses.forEach((word) => {
+  //   unicodeSplit(word).forEach((letter, i) => {
+  //     letter = splitSolution[i]
+
+  //   })
+  // })
+  // // splitGuess.map((data, i) => {
+    
+  // //   if (statuses[i]=='meiwordletters') {
+  // //     splitGuess[i]=splitSolution[i]
+  // //   }
+  // //   return data = statuses[i]=='meiwordletters' ? splitSolution[i] : data
+  // // })
 
   const onEnter = () => {
     if (isGameWon || isGameLost) {
@@ -381,6 +399,7 @@ function App() {
             }}
             isHardMode={isHardMode}
             isDarkMode={isDarkMode}
+            isEasyMode={isEasyMode}
             isHighContrastMode={isHighContrastMode}
             numberOfGuessesMade={guesses.length}
           />

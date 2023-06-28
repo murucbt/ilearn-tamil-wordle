@@ -1,5 +1,5 @@
 export const GAME_TITLE = '#வேடல்'
-
+export const EASY_MODE_TITLE = '*எளிய முறையில்*'
 export const WIN_MESSAGES = ['வாழ்த்துக்கள்!', 'அருமை', 'நன்றாக முடிந்தது!']
 export const GAME_COPIED_MESSAGE = 'விளையாட்டு கிளிப்போர்டு நகலெடுக்கப்பட்டது'
 export const NOT_ENOUGH_LETTERS_MESSAGE = 'கட்டங்களை முழுமையாக நிரப்புக'

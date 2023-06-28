@@ -1,7 +1,7 @@
 import { unicodeSplit } from './words'
 import { uyireMeiCombo, meiEluththukkal } from '../constants/tamilwords'
 
-export type CharStatus = 'absent' | 'present' | 'correct' | 'changera' | 'changeka' | 'changeRA' | 'changeku' | 'uyiremei'
+export type CharStatus = 'absent' | 'present' | 'correct' | 'darklightGreen' | 'yellowGreen' | 'greenStar' | 'heart' | 'meiwordletters'
 
 export const getStatuses = (
   solution: string,
@@ -64,15 +64,26 @@ export const getGuessStatuses = (
 
   splitGuess.forEach((letter, i) => {
     if (letter !== splitSolution[i]) {
-      const UyireMeiWord = compareUyireMeiWord(letter, splitSolution[i])
+      const UyireMeiWord = checkIfGivensLettersSoundsSame(letter, splitSolution[i])
       if (UyireMeiWord){
-        statuses[i] = 'uyiremei'
+        statuses[i] = 'heart'
       }
       solutionCharsTaken[i] = true
       return
     }
   })
 }
+
+// splitGuess.forEach((letter, i) => {
+//   if (letter !== splitSolution[i]) {
+//     const checkMeiWord = checkMeiwordLetter(letter, splitSolution[i])
+//     if (checkMeiWord){
+//       statuses[i] = 'meiwordletters'
+//     }
+//     solutionCharsTaken[i] = true
+//     return
+//   }
+// })
 
 
   splitGuess.forEach((letter, i) => {
@@ -102,15 +113,38 @@ export const getGuessStatuses = (
   return statuses
 }
 
-const compareUyireMeiWord = (guess: any, solution: any) => {
+export const getMeiwordEasyStatus = (
+  solution: string,
+  guesses: string[],
+): { [key: string]: CharStatus } => {
+  const charObj: { [key: string]: CharStatus } = {}
+  const splitSolution = unicodeSplit(solution)
+  const statuses: CharStatus[] = Array.from(Array(guesses.length))
+
+  guesses.forEach((word) => {
+    unicodeSplit(word).forEach((letter, i) => {
+
+      if (letter !== splitSolution[i]) {
+        const checkMeiWord = checkMeiwordLetter(letter, splitSolution[i])
+        if (checkMeiWord){
+          statuses[i]= 'meiwordletters'
+          return (charObj[checkMeiWord] = 'meiwordletters')
+        }
+      }
+    })
+  })
+
+  return charObj
+}
+
+
+const checkMeiwordLetter = (guess: any, solution: any) => {
   const guessWord = uyireMeiCombo[guess]
   const solutionWord = uyireMeiCombo[solution]
-  let finalGuess = ''
+  let changeCorrectWord = ''
   if (guessWord && solutionWord) {
     if (guessWord[0]===solutionWord[0]) {
-      return finalGuess= guess
-    } else if(guessWord[1]===solutionWord[1]) {
-      return finalGuess= guess
+      return changeCorrectWord = solution
     }
   }
 }

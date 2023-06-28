@@ -367,18 +367,23 @@ h2, .details{
   background-color: orange !important;
 } */
 
-.mobile-keyboard{
+.mobile-keyboard {
   position: absolute;
       width: 100%;
       bottom: 0;
       right: 0;
       left: 0;
   
-  }
+}
 .grid-board {
     margin: 0 auto;
     padding-bottom: 150px;
 }
+
+.mobile-keyboard {
+  background: white;
+}
+
 /* Media Queries */
 @media (max-width: 1536px) {
   .tamil-logo img {

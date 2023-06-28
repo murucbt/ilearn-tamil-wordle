@@ -40,6 +40,7 @@ type Props = {
   isDarkMode: boolean
   isHighContrastMode: boolean
   numberOfGuessesMade: number
+  isEasyMode: boolean
 }
 
 export const StatsModal = ({
@@ -59,6 +60,7 @@ export const StatsModal = ({
   isDarkMode,
   isHighContrastMode,
   numberOfGuessesMade,
+  isEasyMode,
 }: Props) => {
   if (gameStats.totalGames <= 0) {
     return (
@@ -90,6 +92,7 @@ export const StatsModal = ({
     return (
       <div className="inline-block">
         <p>{shareBoardStatus?.text}</p>
+        {/* <p>{shareBoardStatus?.gamemode}</p> */}
         <pre>{shareBoardStatus?.grid}</pre>
       </div>
       

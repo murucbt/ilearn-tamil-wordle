@@ -10,6 +10,7 @@ type Props = {
   isRevealing?: boolean
   isCompleted?: boolean
   position?: number
+  onClick?: Function
 }
 
 export const Cell = ({
@@ -18,6 +19,7 @@ export const Cell = ({
   isRevealing,
   isCompleted,
   position = 0,
+  onClick,
 }: Props) => {
   const isFilled = value && !isCompleted
   const shouldReveal = isRevealing && isCompleted
@@ -33,15 +35,15 @@ export const Cell = ({
       'absent text-white absentma-back':
         status === 'absent',
       'text-white rachange-back':
-        status === 'changera',
+        status === 'darklightGreen',
       'text-white kachange-back':
-        status === 'changeka',
+        status === 'yellowGreen',
       'text-white RAchange-back':
-        status === 'changeRA',
+        status === 'greenStar',
       'text-white kuchange-back':
-        status === 'changeku',
+        status === 'heart',
       'text-white uyiremei-back':
-        status === 'uyiremei',
+        status === 'heart',
       'correct shadowed bg-orange-500 text-white border-orange-500':
         status === 'correct' && isHighContrast,
       'present shadowed bg-cyan-500 text-white border-cyan-500':

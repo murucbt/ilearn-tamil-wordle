@@ -67,7 +67,7 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
 
       <div className="mb-1 mt-4 flex justify-center">
         <Cell value="பௌ" isCompleted={true} />
-        <Cell value="ர்" isRevealing={true} isCompleted={true} status="changera" />
+        <Cell value="ர்" isRevealing={true} isCompleted={true} status="darklightGreen" />
         <Cell value="ண" isCompleted={true} />
         <Cell value="மி" isCompleted={true} />
       </div>
@@ -77,7 +77,7 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
 
       <div className="mb-1 mt-4 flex justify-center">
         <Cell value="அ" isCompleted={true} />
-        <Cell value="கி" isRevealing={true} isCompleted={true} status="changeka" />
+        <Cell value="கி" isRevealing={true} isCompleted={true} status="yellowGreen" />
         <Cell value="ல" isCompleted={true} />
         <Cell value="ம்" isCompleted={true} />
       </div>
@@ -88,7 +88,7 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
       <div className="mb-1 mt-4 flex justify-center">
         <Cell value="இ" isCompleted={true} />
         <Cell value="ய" isCompleted={true} />
-        <Cell value="ற்" isCompleted={true} isRevealing={true} status="changeRA"/>
+        <Cell value="ற்" isCompleted={true} isRevealing={true} status="greenStar"/>
         <Cell value="கை" isCompleted={true} />
       </div>
       <p className="text-sm dark:text-gray-300">
@@ -99,7 +99,7 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
         <Cell value="வ" isCompleted={true} />
         <Cell value="ட" isCompleted={true} />
         <Cell value="க்" isCompleted={true} />
-        <Cell value="கு" isCompleted={true} isRevealing={true} status="changeku" />
+        <Cell value="கு" isCompleted={true} isRevealing={true} status="heart" />
       </div>
       <p className="text-sm dark:text-gray-300">
         <TestLogo className="heart-logo"/>
@@ -108,17 +108,17 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
       <p>மூன்று வகைகளில் காணலாம்.</p>
       <p>1. உயிர்மெய் எழுத்து</p>
       <div className="mb-1 mt-4 flex justify-center">
-        <Cell value="கு" isCompleted={true} isRevealing={true} status="changeku" />
+        <Cell value="கு" isCompleted={true} isRevealing={true} status="heart" />
         <p>எனில் உ-கர ஓசையில் முடியும் வேறு உயிர்மெய் எழுத்தாக இருக்கலாம் (சு, ஞு, டு, ணு....) அல்லது  'உ' என்ற உயிர் எழுத்தாகவும் இருக்கலாம்.</p>
       </div>
       <p>2. மெய்எழுத்து</p>
       <div className="mb-1 mt-4 flex justify-center">
-        <Cell value="ன்" isCompleted={true} isRevealing={true} status="changeku" />
+        <Cell value="ன்" isCompleted={true} isRevealing={true} status="heart" />
         <p>இந்த இடத்தில் வேறு மெய்எழுத்து உள்ளது என்க. (க், ங், ச்,...)</p>
       </div>
       <p>3. உயிர் எழுத்து</p>
       <div className="mb-1 mt-4 flex justify-center">
-        <Cell value="ஐ" isCompleted={true} isRevealing={true} status="changeku" />
+        <Cell value="ஐ" isCompleted={true} isRevealing={true} status="heart" />
         <p>ஐ-கார ஓசையில் அமையும் உயிர்மெய் எழுத்து உள்ளது என்க. (கை, சை, ஞை,...)</p>
       </div>
       <hr className="dark:text-gray-300"></hr>

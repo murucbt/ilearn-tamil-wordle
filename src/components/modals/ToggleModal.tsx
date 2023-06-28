@@ -15,8 +15,8 @@ const ToggleModal = () => {
             <p className="font-bold">1. ஓர் எழுத்து வரிசைக்கு இரு வண்ணங்கள் ( மஞ்சள் மற்றும் அரை-பச்சை )</p>
             <p>மறைந்துள்ள சொல் <b>இன்பம்</b>எனில்,</p>
             <div className="mb-1 mt-4 flex justify-center">
-                <Cell value="ம" isCompleted={true} status="changeka" />
-                <Cell value="னி" isCompleted={true} status="changera" />
+                <Cell value="ம" isCompleted={true} status="yellowGreen" />
+                <Cell value="னி" isCompleted={true} status="darklightGreen" />
                 <Cell value="த" isCompleted={true} status="absent" />
                 <Cell value="ன்" isCompleted={true} isRevealing={true} status="present" />
             </div>

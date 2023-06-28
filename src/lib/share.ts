@@ -1,7 +1,7 @@
 import { UAParser } from 'ua-parser-js'
 
 import { MAX_CHALLENGES } from '../constants/settings'
-import { GAME_TITLE } from '../constants/strings'
+import { GAME_TITLE, EASY_MODE_TITLE } from '../constants/strings'
 import { getGuessStatuses } from './statuses'
 import { unicodeSplit } from './words'
 
@@ -21,6 +21,12 @@ export const shareStatus = (
   handleShareFailure: () => void,
   value: boolean
 ) => {
+//   console.log('isEasyMode...', isEasyMode)
+// let isEasyMode = true
+//   if (isEasyMode === true) {
+   
+//     return {gamemode: '*எளிய முறையில்*'}
+//   }
   if (value === true){
     return {
       text: `${GAME_TITLE} ${
