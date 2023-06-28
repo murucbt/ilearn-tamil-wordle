@@ -53,5 +53,7 @@ describe('checkIfGivensLettersSoundsSame', () => {
     expect(checkIfGivensLettersSoundsSame('ஐ', 'கை')).toBe(true);
     expect(checkIfGivensLettersSoundsSame('தை', 'கை')).toBe(true);
     expect(checkIfGivensLettersSoundsSame('தீ', 'வே')).toBe(false);
+    expect(checkIfGivensLettersSoundsSame('தீ', 'க்')).toBe(false);
+    expect(checkIfGivensLettersSoundsSame('ஆ', 'ஓ')).toBe(false);
   })
 });
