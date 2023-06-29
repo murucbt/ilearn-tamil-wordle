@@ -14,6 +14,7 @@ import {
   OLD_WORD_TEXT,
   SHARE_TEXT,
   STATISTICS_TITLE,
+  EASY_MODE_TITLE,
 } from '../../constants/strings'
 import { GameStats } from '../../lib/localStorage'
 import { shareStatus } from '../../lib/share'
@@ -92,7 +93,9 @@ export const StatsModal = ({
     return (
       <div className="inline-block">
         <p>{shareBoardStatus?.text}</p>
-        {/* <p>{shareBoardStatus?.gamemode}</p> */}
+        {isEasyMode === true && (
+          <p className="easymode-text">{EASY_MODE_TITLE}</p>
+        )}
         <pre>{shareBoardStatus?.grid}</pre>
       </div>
       

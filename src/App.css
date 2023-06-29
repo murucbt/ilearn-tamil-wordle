@@ -384,6 +384,16 @@ h2, .details{
   background: white;
 }
 
+.key-change {
+  border-radius: 4px;
+  width: 3.5rem !important;
+  height: 2.5rem !important;
+}
+p.easymode-text {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
 /* Media Queries */
 @media (max-width: 1536px) {
   .tamil-logo img {
