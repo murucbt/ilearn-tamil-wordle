@@ -55,9 +55,10 @@ html.dark {
   background: linear-gradient(294deg, #3a6a36 50%, #b59f3b 50%);
 }
 
-.RAchange-back {
-  background: linear-gradient(294deg, #3a6a36 50%, #63995e 50%);
-  /* background-image: url(/src/star.png); */
+.star-wrapper.star{
+  background-repeat: no-repeat; 
+  background-position: 99% 10%;
+  background-image: url(./star-icon.svg),linear-gradient(294deg, #3a6a36 50%, #63995e 50%);
 }
 
 .absentma-back {
@@ -69,7 +70,7 @@ html.dark {
 }
 
 .tamil-logo img {
-  max-width: 250px !important;
+  max-width: 200px !important;
 }
 
 .navbar {
@@ -117,12 +118,6 @@ html.dark {
   background-size: 20px;
 }
 
-.cm-width-set .RAchange-back {
-  background: url(./star-icon.svg)  #3a6a36 50%; 
-  background-repeat: no-repeat;
-  background-position: 99% 10%;
-  background-size: 20px;
-}
 
 .cm-width-set .kuchange-back + p {
   margin-top: 0;
@@ -397,7 +392,7 @@ p.easymode-text {
 /* Media Queries */
 @media (max-width: 1536px) {
   .tamil-logo img {
-    max-width: 250 !important;
+    max-width: 200 !important;
   }
   .title-pos {
     position: relative;
@@ -438,7 +433,7 @@ p.easymode-text {
 
 @media (max-width: 1280px) {
   .tamil-logo img {
-    max-width: 230 !important;
+    max-width: 200 !important;
   }
   .title-pos {
     position: relative;
@@ -479,7 +474,7 @@ p.easymode-text {
 
 @media (max-width: 1024px) {
   .tamil-logo img {
-    max-width: 210px !important;
+    max-width: 190px !important;
   }
   .title-pos {
     position: relative;
@@ -523,7 +518,7 @@ p.easymode-text {
 
 @media (max-width: 768px) {
   .tamil-logo img {
-    max-width: 190px !important;
+    max-width: 170px !important;
   }
   .title-pos {
     position: relative;

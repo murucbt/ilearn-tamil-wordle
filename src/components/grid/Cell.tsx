@@ -38,7 +38,7 @@ export const Cell = ({
         status === 'darklightGreen',
       'text-white kachange-back':
         status === 'yellowGreen',
-      'text-white RAchange-back':
+      'text-white star-wrapper star':
         status === 'greenStar',
       'text-white kuchange-back':
         status === 'heart',

@@ -38,6 +38,56 @@ export const getStatuses = (
   return charObj
 }
 
+const checkGuessLetterWithSolution = (guessLetterIndex: any, guessLetter: any, solutionLetter: any, solution: any) => {
+
+  const guessLetterCombo = uyireMeiCombo[guessLetter] || [guessLetter];
+  const solutionLetterCombo = uyireMeiCombo[solutionLetter] || [solutionLetter];
+  const splitSolution = unicodeSplit(solution)
+
+  let lightDartGreen = false
+  let greenStar = false    
+  let yellowGreen = false
+
+  if (guessLetterCombo.length === 1 && meiEluththukkal.includes(guessLetter)) {
+    lightDartGreen = solutionLetterCombo.includes(guessLetter)
+
+
+    if (splitSolution.includes(guessLetter)) {
+      const meiLetterFromSolutionLetterCombo = solutionLetterCombo.filter((individualLetter: any) => meiEluththukkal.includes(individualLetter));
+      if (meiLetterFromSolutionLetterCombo.includes(guessLetter)) {
+        greenStar = true
+      }
+    }
+
+  }
+
+  if (guessLetterCombo.length > 1) {
+    const meiLetterFromGuessLetterCombo = guessLetterCombo.filter((individualLetter: any) => meiEluththukkal.includes(individualLetter));
+
+    lightDartGreen = solutionLetterCombo.includes(meiLetterFromGuessLetterCombo[0])
+
+    if (!lightDartGreen) {
+      const splitSolutionCombo:any[] = []
+      splitSolution.forEach((letter, i) => {
+        const letterCombo = uyireMeiCombo[letter] || [letter];
+        if (i !== guessLetterIndex) {
+          splitSolutionCombo.push(letterCombo);
+        }
+      })
+  
+      let foundInSomeOtherPlace = false;
+      splitSolutionCombo.forEach((combo, i) => {
+        if (!foundInSomeOtherPlace && combo.includes(meiLetterFromGuessLetterCombo[0]) && splitSolution[i] !== guessLetter) {
+          yellowGreen = true
+          foundInSomeOtherPlace = true;
+        }
+      })
+    }
+  }
+
+  return [lightDartGreen, yellowGreen, greenStar]
+}
+
 export const getGuessStatuses = (
   solution: string,
   guess: string,
@@ -56,23 +106,33 @@ export const getGuessStatuses = (
       statuses[i] = 'correct'
       solutionCharsTaken[i] = true
       return
-    }
-  })
-
-  // handle check uyire or mei words correct cases first
-  if (isUyireMei === true){
-
-  splitGuess.forEach((letter, i) => {
-    if (letter !== splitSolution[i]) {
-      const UyireMeiWord = checkIfGivensLettersSoundsSame(letter, splitSolution[i])
-      if (UyireMeiWord){
-        statuses[i] = 'heart'
+    } else {
+      const validationResult = checkGuessLetterWithSolution(i, letter, splitSolution[i], solution)
+      validationResult.forEach((validationColorCodes, index) => {
+        if (index === 0) {
+          if (validationColorCodes === true) {
+            statuses[i] = 'darklightGreen'
+          }
+        } else if (index === 1) {
+          if (validationColorCodes === true) {
+            statuses[i] = 'yellowGreen'
+          }
+        } else if (index === 2) {
+          if (validationColorCodes === true) {
+            statuses[i] = 'greenStar'
+          }
+        }
+      })
+      if (isUyireMei === true) {
+        const uyireMeiWord = checkIfGivensLettersSoundsSame(letter, splitSolution[i])
+        if (uyireMeiWord) {
+          statuses[i] = 'heart'
+        }
+        return
       }
-      solutionCharsTaken[i] = true
-      return
     }
   })
-}
+
 
 // splitGuess.forEach((letter, i) => {
 //   if (letter !== splitSolution[i]) {
@@ -145,6 +205,8 @@ const checkMeiwordLetter = (guess: any, solution: any) => {
   let changeCorrectWord = ''
   if (guessWord && solutionWord) {
     if (guessWord[0]===solutionWord[0]) {
+      return changeCorrectWord = solution
+    } else if (meiEluththukkal.includes(guess) && meiEluththukkal.includes(solution)) {
       return changeCorrectWord = solution
     }
   }

@@ -1,3 +1,6 @@
+import  secureLocalStorage  from  "react-secure-storage";
+import CryptoJS from 'crypto-js';
+
 const gameStateKey = 'gameState'
 const archiveGameStateKey = 'archiveGameState'
 const highContrastKey = 'highContrast'

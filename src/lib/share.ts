@@ -14,24 +14,18 @@ export const shareStatus = (
   solution: string,
   guesses: string[],
   lost: boolean,
-  isHardMode: boolean,
+  isEasyMode: boolean,
   isDarkMode: boolean,
   isHighContrastMode: boolean,
   handleShareToClipboard: () => void,
   handleShareFailure: () => void,
   value: boolean
 ) => {
-//   console.log('isEasyMode...', isEasyMode)
-// let isEasyMode = true
-//   if (isEasyMode === true) {
-   
-//     return {gamemode: '*எளிய முறையில்*'}
-//   }
   if (value === true){
     return {
       text: `${GAME_TITLE} ${
         lost ? 'X' : guesses.length
-      }/${MAX_CHALLENGES}${isHardMode ? '*' : ''}`,
+      }/${MAX_CHALLENGES}`,
       grid: generateEmojiGrid(
         solution,
         guesses,
@@ -42,7 +36,7 @@ export const shareStatus = (
   const textToShare =
     `${GAME_TITLE} ${
       lost ? 'X' : guesses.length
-    }/${MAX_CHALLENGES}${isHardMode ? '*' : ''}\n\n` +
+    }/${MAX_CHALLENGES}${isEasyMode ? EASY_MODE_TITLE : ''}\n\n` +
     generateEmojiGrid(
       solution,
       guesses,
