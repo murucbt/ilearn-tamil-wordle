@@ -48,24 +48,25 @@ const checkGuessLetterWithSolution = (guessLetterIndex: any, guessLetter: any, s
   let greenStar = false    
   let yellowGreen = false
 
+  let meiLetterFromGuessLetter = '';
   if (guessLetterCombo.length === 1 && meiEluththukkal.includes(guessLetter)) {
-    lightDartGreen = solutionLetterCombo.includes(guessLetter)
+    meiLetterFromGuessLetter = guessLetter;
+  }
+  if (guessLetterCombo.length > 1) {
+    meiLetterFromGuessLetter = guessLetterCombo.filter((individualLetter: any) => meiEluththukkal.includes(individualLetter))[0];
+  }
 
 
-    if (splitSolution.includes(guessLetter)) {
+  if (meiLetterFromGuessLetter !== '') {
+    lightDartGreen = solutionLetterCombo.includes(meiLetterFromGuessLetter)
+
+    if (splitSolution.includes(meiLetterFromGuessLetter)) {
       const meiLetterFromSolutionLetterCombo = solutionLetterCombo.filter((individualLetter: any) => meiEluththukkal.includes(individualLetter));
-      if (meiLetterFromSolutionLetterCombo.includes(guessLetter)) {
+      if (meiLetterFromSolutionLetterCombo.includes(meiLetterFromGuessLetter)) {
         greenStar = true
       }
     }
-
-  }
-
-  if (guessLetterCombo.length > 1) {
-    const meiLetterFromGuessLetterCombo = guessLetterCombo.filter((individualLetter: any) => meiEluththukkal.includes(individualLetter));
-
-    lightDartGreen = solutionLetterCombo.includes(meiLetterFromGuessLetterCombo[0])
-
+    
     if (!lightDartGreen) {
       const splitSolutionCombo:any[] = []
       splitSolution.forEach((letter, i) => {
@@ -77,12 +78,13 @@ const checkGuessLetterWithSolution = (guessLetterIndex: any, guessLetter: any, s
   
       let foundInSomeOtherPlace = false;
       splitSolutionCombo.forEach((combo, i) => {
-        if (!foundInSomeOtherPlace && combo.includes(meiLetterFromGuessLetterCombo[0]) && splitSolution[i] !== guessLetter) {
+        if (!foundInSomeOtherPlace && combo.includes(meiLetterFromGuessLetter) && splitSolution[i] !== guessLetter) {
           yellowGreen = true
           foundInSomeOtherPlace = true;
         }
       })
-    }
+    }    
+
   }
 
   return [lightDartGreen, yellowGreen, greenStar]
@@ -107,23 +109,19 @@ export const getGuessStatuses = (
       solutionCharsTaken[i] = true
       return
     } else {
-      const validationResult = checkGuessLetterWithSolution(i, letter, splitSolution[i], solution)
-      validationResult.forEach((validationColorCodes, index) => {
-        if (index === 0) {
-          if (validationColorCodes === true) {
+      const validationResults = checkGuessLetterWithSolution(i, letter, splitSolution[i], solution)
+      validationResults.forEach((result, index) => {
+        if (result === true) {
+          if (index === 0) {
             statuses[i] = 'darklightGreen'
-          }
-        } else if (index === 1) {
-          if (validationColorCodes === true) {
+          } else if (index === 1) {
             statuses[i] = 'yellowGreen'
-          }
-        } else if (index === 2) {
-          if (validationColorCodes === true) {
+          } else if (index === 2) {
             statuses[i] = 'greenStar'
           }
         }
       })
-      if (isUyireMei === true) {
+      if (isUyireMei === true && !statuses[i]) {
         const uyireMeiWord = checkIfGivensLettersSoundsSame(letter, splitSolution[i])
         if (uyireMeiWord) {
           statuses[i] = 'heart'
@@ -132,19 +130,6 @@ export const getGuessStatuses = (
       }
     }
   })
-
-
-// splitGuess.forEach((letter, i) => {
-//   if (letter !== splitSolution[i]) {
-//     const checkMeiWord = checkMeiwordLetter(letter, splitSolution[i])
-//     if (checkMeiWord){
-//       statuses[i] = 'meiwordletters'
-//     }
-//     solutionCharsTaken[i] = true
-//     return
-//   }
-// })
-
 
   splitGuess.forEach((letter, i) => {
     if (statuses[i]) return
@@ -157,7 +142,6 @@ export const getGuessStatuses = (
 
     // now we are left with "present"s
     const indexOfPresentChar = splitSolution.findIndex(
-      // (x, index) => x === letter && !solutionCharsTaken[index]
       (x, index) => x === letter
     )
 
