@@ -55,6 +55,7 @@ import {
 } from './lib/words'
 import { getMeiwordEasyStatus } from '../src/lib/statuses'
 import { unicodeSplit } from '../src/lib/words'
+import { uyireMeiCombo, meiEluththukkal } from './constants/tamilwords'
 
 function App() {
   const isLatestGame = getIsLatestGame()
@@ -249,24 +250,22 @@ function App() {
       new GraphemeSplitter().splitGraphemes(currentGuess).slice(0, -1).join('')
     )
   }
-  // const statuses = getMeiwordEasyStatus(solution, guesses)
-  // // const splitGuess = unicodeSplit(guesses)
-  // const splitSolution = unicodeSplit(solution)
-  // guesses.forEach((word) => {
-  //   unicodeSplit(word).forEach((letter, i) => {
-  //     letter = splitSolution[i]
 
-  //   })
-  // })
-  // // splitGuess.map((data, i) => {
-    
-  // //   if (statuses[i]=='meiwordletters') {
-  // //     splitGuess[i]=splitSolution[i]
-  // //   }
-  // //   return data = statuses[i]=='meiwordletters' ? splitSolution[i] : data
-  // // })
+  const getMeiLetterFromGivenLetter = (letter:any) => {
+    let meiLetterFromGivenLetter = '';
+    const letterCombo = uyireMeiCombo[letter] || [letter];
+    if (letterCombo.length === 1 && meiEluththukkal.includes(letter)) {
+      meiLetterFromGivenLetter = letter;
+    }
+    if (letterCombo.length > 1) {
+      meiLetterFromGivenLetter = letterCombo.filter((individualLetter: any) => meiEluththukkal.includes(individualLetter))[0];
+    }
+
+    return meiLetterFromGivenLetter
+  }  
 
   const onEnter = () => {
+    let finalCurrentGuess = currentGuess
     if (isGameWon || isGameLost) {
       return
     }
@@ -285,6 +284,29 @@ function App() {
           })
         }
     }
+
+    if (isEasyMode) {
+      const splitSolution = unicodeSplit(solution)
+      const splitGuess = unicodeSplit(currentGuess)
+
+      let newGuessWordInEasyMode = splitGuess;
+
+      splitGuess.forEach((letter, i) => {
+        if (
+          letter !== splitSolution[i] &&
+          getMeiLetterFromGivenLetter(letter) === getMeiLetterFromGivenLetter(splitSolution[i]) &&
+          getMeiLetterFromGivenLetter(letter) !== '' &&
+          getMeiLetterFromGivenLetter(splitSolution[i]) !== ''
+        ) {
+          newGuessWordInEasyMode[i] = splitSolution[i];
+        }
+      })     
+
+      if (currentGuess !== newGuessWordInEasyMode.join('')) {
+        finalCurrentGuess = newGuessWordInEasyMode.join('')
+        setCurrentGuess(finalCurrentGuess)
+      }
+    }    
 
     // enforce hard mode - all guesses must contain all previously revealed letters
     if (isHardMode) {
@@ -311,7 +333,11 @@ function App() {
       guesses.length < MAX_CHALLENGES &&
       !isGameWon
     ) {
-      setGuesses([...guesses, currentGuess])
+      if (currentGuess !== finalCurrentGuess) {
+        setGuesses([...guesses, finalCurrentGuess])
+      } else {
+        setGuesses([...guesses, currentGuess])
+      }
       setCurrentGuess('')
 
       if (winningWord) {
