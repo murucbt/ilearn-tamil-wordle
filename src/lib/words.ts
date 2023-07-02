@@ -141,7 +141,7 @@ export const getWordOfDay = (index: number, getDay: number) => {
     return localeAwareUpperCase(WORDS.THREE_WORDS[index % WORDS.THREE_WORDS.length])
   } else if (getDay === 3 || getDay === 4) {
     return localeAwareUpperCase(WORDS.FOUR_WORDS[index % WORDS.FOUR_WORDS.length])
-  } else if (getDay === 5 || getDay === 6) {
+  } else if (getDay === 5 || getDay === 6 || getDay === -1) {
     return localeAwareUpperCase(WORDS.FIVE_WORDS[index % WORDS.FIVE_WORDS.length])
   }
 }

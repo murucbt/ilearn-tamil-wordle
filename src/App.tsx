@@ -304,7 +304,7 @@ function App() {
 
       if (currentGuess !== newGuessWordInEasyMode.join('')) {
         finalCurrentGuess = newGuessWordInEasyMode.join('')
-        setCurrentGuess(finalCurrentGuess)
+        // setCurrentGuess(finalCurrentGuess)
       }
     }    
 
