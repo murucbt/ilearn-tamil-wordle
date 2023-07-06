@@ -160,7 +160,7 @@ export const Keyboard = ({
 
   return (
     <div className="mobile-keyboard">
-      <div className="mb-1 flex justify-center">
+      <div className="dark:text-gray-300 mb-1 flex justify-center">
         {tamilAlphabets.map((key) => (
           <Key
             value={key}
@@ -180,7 +180,7 @@ export const Keyboard = ({
           />
         ))}
       </div>
-      <div className="mb-1 flex justify-center">
+      <div className="dark:text-gray-300 mb-1 flex justify-center">
         {tamilAlphabetsThree.map((key) => (
           <Key
             value={key}
@@ -200,7 +200,7 @@ export const Keyboard = ({
           />
         ))}
       </div>
-      <div className="mb-1 flex justify-center">
+      <div className="dark:text-gray-300 mb-1 flex justify-center">
         {tamilAlphabetsFive.map((key) => (
           <Key
             value={key}

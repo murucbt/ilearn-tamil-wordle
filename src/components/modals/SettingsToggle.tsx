@@ -34,9 +34,9 @@ export const SettingsToggle = ({
     <>
       <div className="flex justify-between gap-4 py-3">
         <div className="mt-1 text-left">
-          <p className="leading-none">{settingName}</p>
+          <p className="dark:text-gray-300 leading-none">{settingName}</p>
           {uyiremeisettingName && (
-            <p className="leading-none">
+            <p className="dark:text-gray-300 leading-none">
               {uyiremeisettingName} <HeartLogo className="heart-logo"/>
             </p>
           )}

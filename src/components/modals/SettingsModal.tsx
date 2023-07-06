@@ -10,8 +10,11 @@ import {
   DARK_MODE,
   DARK_MODE_DESCRIPTION,
   DICTIONARY,
-  DICTIONARY_DESCRIPTION
+  DICTIONARY_DESCRIPTION,
+  FEEDBACK,
+  FEEDBACK_DESCRIPTION
  } from '../../constants/language'
+ import { FeedbackModal } from '../modals/FeedbackModal'
 import { TabModals } from '../modals/TabModals'
 import { TabsData } from '../../constants/strings'
 type Props = {
@@ -71,6 +74,10 @@ export const SettingsModal = ({
           flag={isDictionaryMode}
           handleFlag={handleDictionaryMode}
           description={DICTIONARY_DESCRIPTION}
+        />
+        <FeedbackModal
+          feedbackDescription={FEEDBACK}
+          feedbackDescriptiontwo={FEEDBACK_DESCRIPTION}
         />
       </div>
     </BaseModal>

@@ -20,10 +20,10 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
       <p className="dark:text-gray-300">
       {FIND_WORDS}
       </p>
-      <p>{FILL_WORDS}</p>
-      <p>{COLOR_NOTES_LETTERS}</p>
+      <p className="dark:text-gray-300">{FILL_WORDS}</p>
+      <p className="dark:text-gray-300">{COLOR_NOTES_LETTERS}</p>
       <hr className="dark:text-gray-300"></hr>
-      <p className="font-bold">{COLOR_NOTES}</p>
+      <p className="dark:text-gray-300 font-bold">{COLOR_NOTES}</p>
 
       <div className="mb-1 mt-4 flex justify-center">
         <Cell
@@ -105,35 +105,35 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
         <TestLogo className="heart-logo"/>
       உயிர்எழுத்து மற்றும் மெய்எழுத்து ஓசைகளை குறிக்கிறது, சுருக்கமாக எழுத்தின் ஓசை-முடிவு சரியானது என்க.
       </p>
-      <p>மூன்று வகைகளில் காணலாம்.</p>
-      <p>1. உயிர்மெய் எழுத்து</p>
+      <p className="dark:text-gray-300">மூன்று வகைகளில் காணலாம்.</p>
+      <p className="dark:text-gray-300">1. உயிர்மெய் எழுத்து</p>
       <div className="mb-1 mt-4 flex justify-center">
         <Cell value="கு" isCompleted={true} isRevealing={true} status="heart" />
-        <p>எனில் உ-கர ஓசையில் முடியும் வேறு உயிர்மெய் எழுத்தாக இருக்கலாம் (சு, ஞு, டு, ணு....) அல்லது  'உ' என்ற உயிர் எழுத்தாகவும் இருக்கலாம்.</p>
+        <p className="dark:text-gray-300">எனில் உ-கர ஓசையில் முடியும் வேறு உயிர்மெய் எழுத்தாக இருக்கலாம் (சு, ஞு, டு, ணு....) அல்லது  'உ' என்ற உயிர் எழுத்தாகவும் இருக்கலாம்.</p>
       </div>
-      <p>2. மெய்எழுத்து</p>
+      <p className="dark:text-gray-300">2. மெய்எழுத்து</p>
       <div className="mb-1 mt-4 flex justify-center">
         <Cell value="ன்" isCompleted={true} isRevealing={true} status="heart" />
-        <p>இந்த இடத்தில் வேறு மெய்எழுத்து உள்ளது என்க. (க், ங், ச்,...)</p>
+        <p className="dark:text-gray-300">இந்த இடத்தில் வேறு மெய்எழுத்து உள்ளது என்க. (க், ங், ச்,...)</p>
       </div>
-      <p>3. உயிர் எழுத்து</p>
+      <p className="dark:text-gray-300">3. உயிர் எழுத்து</p>
       <div className="mb-1 mt-4 flex justify-center">
         <Cell value="ஐ" isCompleted={true} isRevealing={true} status="heart" />
-        <p>ஐ-கார ஓசையில் அமையும் உயிர்மெய் எழுத்து உள்ளது என்க. (கை, சை, ஞை,...)</p>
+        <p className="dark:text-gray-300">ஐ-கார ஓசையில் அமையும் உயிர்மெய் எழுத்து உள்ளது என்க. (கை, சை, ஞை,...)</p>
       </div>
       <hr className="dark:text-gray-300"></hr>
-      <p className="font-bold">நினைவில் கொள்க</p>
-      <p className='single-row'><span className="s-box"></span> - சரியானது</p>
-      <p className='single-row'><span className="yellow-box"></span> - சரியானது ஆனால் வேறு இடம்</p>
-      <p className='single-row'><span className="green-dark-box"></span> - பாதி சரியானது (மெய் எழுத்து சரியான இடத்தில் உள்ளது)</p>
-      <p className='single-row'><span className="yellow-green-box"></span> - பாதி சரியானது ஆனால் வேறு இடம் (மெய் எழுத்து வேறு இடத்தில் உள்ளது)</p>
-      <p className='single-row'><span className="grey-box"></span> - தவறானது</p>
+      <p className="dark:text-gray-300 font-bold">நினைவில் கொள்க</p>
+      <p className='dark:text-gray-300 single-row'><span className="s-box"></span> - சரியானது</p>
+      <p className='dark:text-gray-300 single-row'><span className="yellow-box"></span> - சரியானது ஆனால் வேறு இடம்</p>
+      <p className='dark:text-gray-300 single-row'><span className="green-dark-box"></span> - பாதி சரியானது (மெய் எழுத்து சரியான இடத்தில் உள்ளது)</p>
+      <p className='dark:text-gray-300 single-row'><span className="yellow-green-box"></span> - பாதி சரியானது ஆனால் வேறு இடம் (மெய் எழுத்து வேறு இடத்தில் உள்ளது)</p>
+      <p className='dark:text-gray-300 single-row'><span className="grey-box"></span> - தவறானது</p>
       <p className="text-sm dark:text-gray-300">
         <TestLogo className="heart-logo"/>
         - உயிர்எழுத்து மற்றும் மெய்எழுத்து ஓசைகளை குறிக்கிறது
       </p>
       <hr className="dark:text-gray-300"></hr>
-      <p className="font-bold">நாள்தோறும் ஒரு புதிய சொல் இடம்பெறும்!</p>
+      <p className="font-bold dark:text-gray-300">நாள்தோறும் ஒரு புதிய சொல் இடம்பெறும்!</p>
       < Content />
     </BaseModal>
   )

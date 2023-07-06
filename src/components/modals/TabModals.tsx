@@ -20,10 +20,10 @@ import { useState } from 'react'
   
     return(
         <div className="tabs">
-          <div className="tabs-titles">
+          <div className="dark:text-gray-300 tabs-titles">
             {listTitles}
           </div>
-          <div className="tab-content">
+          <div className="dark:text-gray-300 tab-content">
              {listContent}
           </div>
         </div>
