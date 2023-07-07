@@ -34,6 +34,9 @@ export const Keyboard = ({
   const onClick = (value: string) => {
     if (value === 'ENTER') {
       onEnter()
+      settamilAlphabets(['அ', 'ஆ', 'இ', 'ஈ'])
+      settamilAlphabetsThree(['உ', 'ஊ', 'எ', 'ஏ'])
+      settamilAlphabetsFive(['ஐ', 'ஒ', 'ஓ', 'ஔ'])
     } else if (value === 'DELETE') {
       onDelete()
       settamilAlphabets(['அ', 'ஆ', 'இ', 'ஈ'])

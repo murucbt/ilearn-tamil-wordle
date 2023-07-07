@@ -392,6 +392,10 @@ p.easymode-text {
   display: inline;
   margin: 5px;
 }
+
+.alert-close-btn {
+  position: relative;
+}
 /* Media Queries */
 @media (max-width: 1536px) {
   .tamil-logo img {
