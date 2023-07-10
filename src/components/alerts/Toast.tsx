@@ -1,6 +1,8 @@
 import { Transition } from '@headlessui/react'
 import classNames from 'classnames'
 import { Fragment } from 'react'
+import { XCircleIcon } from '@heroicons/react/outline'
+import { useToast } from '../../context/ToastContext'
 type Props = {
   isOpen: boolean
   message: string
@@ -9,12 +11,13 @@ type Props = {
   handleClose?:  () => void
 }
 
-export const Alert = ({
+export const Toast = ({
   isOpen,
   message,
   variant = 'error',
   topMost = false,
 }: Props) => {
+  const { setIsVisible } = useToast()
   const classes = classNames(
     'fixed z-20 top-14 left-1/2 transform -translate-x-1/2 max-w-sm shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden',
     {
@@ -35,8 +38,16 @@ export const Alert = ({
       leaveTo="opacity-0"
     >
       <div className={classes}>
-        <div className="p-2">
+        <div className="p-2 alert-close-btn">
           <p className="text-center text-sm font-medium">{message}</p>
+          <button
+                onClick={() => setIsVisible(false)}
+                tabIndex={0}
+                aria-pressed="false"
+                className="absolute right-0 top-0"
+              >
+                <XCircleIcon className="h-6 w-6 cursor-pointer dark:stroke-white" />
+              </button>
         </div>
       </div>
     </Transition>

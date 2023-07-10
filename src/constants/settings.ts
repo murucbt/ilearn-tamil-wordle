@@ -2,6 +2,7 @@ import { enUS } from 'date-fns/locale'
 
 export const MAX_CHALLENGES = 8
 export const ALERT_TIME_MS = 3000
+export const TOAST_TIME_MS = 50000
 export const LONG_ALERT_TIME_MS = 10000
 export const REVEAL_TIME_MS = 350
 export const WELCOME_INFO_MODAL_MS = 350

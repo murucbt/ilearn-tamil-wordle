@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import { REVEAL_TIME_MS } from '../../constants/settings'
 import { getStoredIsHighContrastMode } from '../../lib/localStorage'
 import { CharStatus } from '../../lib/statuses'
-import { useAlert } from '../../context/AlertContext'
+import { useToast } from '../../context/ToastContext'
 
 type Props = {
   value?: string
@@ -24,7 +24,7 @@ export const Cell = ({
   const shouldReveal = isRevealing && isCompleted
   const animationDelay = `${position * REVEAL_TIME_MS}ms`
   const isHighContrast = getStoredIsHighContrastMode()
-  const { showError: showErrorAlert, showSuccess: showSuccessAlert } = useAlert()
+  const { showSuccessToast: showSuccessToast } = useToast()
 
   const classes = classnames(
     'xxshort:w-11 xxshort:h-11 short:text-2xl short:w-12 short:h-12 w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-4xl font-bold rounded dark:text-white',
@@ -78,7 +78,7 @@ export const Cell = ({
       } else if (status === 'greenStar') {
         statusText = 'எழுத்து சொல்லில் வேறு இடத்தில் உள்ளது, அதோடு எழுத்து உள்ள இதே இடத்தில், இதே எழுத்தின் வேறு எழுத்து வரிசையும் இடம்பெற்றுள்ளது.'
       }
-      showSuccessAlert(statusText);
+      showSuccessToast(statusText);
     }
  };
 

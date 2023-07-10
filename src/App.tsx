@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import Div100vh from 'react-div-100vh'
 
 import { AlertContainer } from './components/alerts/AlertContainer'
+import { ToastContainer } from './components/alerts/ToastContainer'
 import { Grid } from './components/grid/Grid'
 import { Keyboard } from './components/keyboard/Keyboard'
 import { DatePickerModal } from './components/modals/DatePickerModal'
@@ -455,6 +456,7 @@ function App() {
             handleuyireMeiMode={handleuyireMeiMode}
           />
           <AlertContainer />
+          <ToastContainer />
 
         </div>
       </div>
