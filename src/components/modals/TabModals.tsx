@@ -14,7 +14,7 @@ import { useState } from 'react'
     )       
                                      
     const listContent = dataName.map((item: any) => 
-        <p key = {item.id }style={visibleTab === item.id ? {} : {display: 'none'}}>{item.tabContent}</p>
+        <p key = {item.id }style={visibleTab === item.id ? {} : {display: 'none'}} className="text-gray-500 dark:text-gray-300">{item.tabContent}</p>
     )
 
   

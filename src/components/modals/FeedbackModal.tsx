@@ -23,9 +23,8 @@ export const FeedbackModal = ({
           
         </div>
         <div className= 'feedback-links'>
-        <a href="mailto:wordletamil@gmail.com?subject=Feedback" rel="noreferrer">Email</a> <span className="dark:text-gray-300 pipe">|</span>
-        <a href="https://twitter.com/intent/tweet?screen_name=tamil_wordle" target="_blank" rel="noreferrer">Twitter</a>
-          <div className= ''/>
+        <a href="mailto:support@ilearntamil.com" rel="noreferrer">Email</a> <span className="dark:text-gray-300 pipe">|</span>
+        <a href="/#" target="_blank" rel="noreferrer">Twitter</a>
         </div>
       </div>
     </>
