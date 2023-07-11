@@ -24,7 +24,7 @@ export const FeedbackModal = ({
         </div>
         <div className= 'feedback-links'>
         <a href="mailto:support@ilearntamil.com" rel="noreferrer">Email</a> <span className="dark:text-gray-300 pipe">|</span>
-        <a href="/#" target="_blank" rel="noreferrer">Twitter</a>
+        <a href="https://twitter.com/ilearntamil" target="_blank" rel="noreferrer">Twitter</a>
         </div>
       </div>
     </>
