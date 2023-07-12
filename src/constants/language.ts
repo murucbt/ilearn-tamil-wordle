@@ -1,4 +1,4 @@
-export const GAME_TITLE = 'வேடல்'
+export const GAME_TITLE = 'நவில்'
 export const ENTER_TEXT = 'சரிபார்'
 export const HOW_TO_PLAY = 'எப்படி விளையாடுவது'
 export const FIND_WORDS  = 'மறைந்துள்ள சொல்லை 8 முயற்சிகளில் கண்டுபிடிக்க.'

@@ -1,4 +1,4 @@
-export const GAME_TITLE = '#வேடல்'
+export const GAME_TITLE = '#நவில்'
 export const EASY_MODE_TITLE = '*எளிய முறையில்*'
 export const WIN_MESSAGES = ['வாழ்த்துக்கள்!', 'அருமை', 'நன்றாக முடிந்தது!']
 export const GAME_COPIED_MESSAGE = 'விளையாட்டு கிளிப்போர்டு நகலெடுக்கப்பட்டது'
@@ -19,8 +19,8 @@ export const ENTER_TEXT = 'Enter'
 export const DELETE_TEXT = 'Delete'
 export const STATISTICS_TITLE = 'புள்ளி விவரங்கள்'
 export const GUESS_DISTRIBUTION_TEXT = 'கணிப்பு பங்கீடு'
-export const NEW_WORD_TEXT = 'புதிய சொல்'
-export const OLD_WORD_TEXT = 'முந்தைய வேடல்'
+export const NEW_WORD_TEXT = 'புதிய நவில்'
+export const OLD_WORD_TEXT = 'முந்தைய நவில்'
 export const SHARE_TEXT = 'பகிர்'
 export const SHARE_FAILURE_TEXT =
   'Unable to share the results. This feature is available only in secure contexts (HTTPS), in some or all supporting browsers.'
