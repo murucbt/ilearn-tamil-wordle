@@ -9,6 +9,7 @@ import {
  } from '../../constants/language'
 import {ReactComponent as TestLogo} from '../../../src/Hearticon.svg'
 import Content from './ToggleModal'
+import { FooterModal } from './FooterModal'
 type Props = {
   isOpen: boolean
   handleClose: () => void
@@ -29,19 +30,19 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
         <Cell
           isRevealing={true}
           isCompleted={true}
-          value="தெ"
+          value="ப"
           status="correct"
         />
-        <Cell value="ன்" isCompleted={true} />
-        <Cell value="ற" isCompleted={true} />
-        <Cell value="ல்" isCompleted={true} />
+        <Cell value="ட்" isCompleted={true} />
+        <Cell value="ட" isCompleted={true} />
+        <Cell value="ம்" isCompleted={true} />
       </div>
       <p className="text-sm dark:text-gray-300">
-      எழுத்து <b>தெ</b> சொல்லின் சரியான இடத்தில் உள்ளது.
+      <b>ப</b> சரியான இடத்தில் உள்ளது.
       </p>
 
       <div className="mb-1 mt-4 flex justify-center">
-        <Cell value="மி" isCompleted={true} />
+        <Cell value="க" isCompleted={true} />
         <Cell
           isRevealing={true}
           isCompleted={true}
@@ -49,30 +50,30 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
           status="present"
         />
         <Cell value="ன" isCompleted={true} />
-        <Cell value="ல்" isCompleted={true} />
+        <Cell value="ம்" isCompleted={true} />
       </div>
       <p className="text-sm dark:text-gray-300">
-      எழுத்து <b>ன்</b> சொல்லில் உள்ளது ஆனால் வேறு இடத்தில் உள்ளது.
+      <b>ன்</b> சொல்லில் உள்ளது ஆனால் வேறு இடத்தில் உள்ளது.
       </p>
 
       <div className="mb-1 mt-4 flex justify-center">
-        <Cell value="அ" isCompleted={true} />
-        <Cell value="ச்" isCompleted={true} />
-        <Cell value="ச" isCompleted={true} />
-        <Cell isRevealing={true} isCompleted={true} value="ம்" status="absent" />
+        <Cell value="த" isCompleted={true} />
+        <Cell value="க" isCompleted={true} />
+        <Cell value="வ" isCompleted={true} />
+        <Cell isRevealing={true} isCompleted={true} value="ல்" status="absent" />
       </div>
       <p className="text-sm dark:text-gray-300">
-      எழுத்து <b>ம்</b> சொல்லில் எங்கும் இடம்பெறவில்லை.
+      <b>ல்</b> சொல்லில் இல்லை
       </p>
 
       <div className="mb-1 mt-4 flex justify-center">
-        <Cell value="பௌ" isCompleted={true} />
+        <Cell value="க" isCompleted={true} />
         <Cell value="ர்" isRevealing={true} isCompleted={true} status="darklightGreen" />
-        <Cell value="ண" isCompleted={true} />
-        <Cell value="மி" isCompleted={true} />
+        <Cell value="வ" isCompleted={true} />
+        <Cell value="ம்" isCompleted={true} />
       </div>
       <p className="text-sm dark:text-gray-300">
-      எழுத்து <b>ர்</b> சொல்லில் இடம்பெறவில்லை தவிர <b>ரகர</b> வரிசையில் வேறு ஏதோ எழுத்து <b>(ரா, ரி , ரீ, ரு, ...) இதே இடத்தில்</b> இடம்பெற்றுள்ளது.
+      எழுத்து <b>ர்</b> சொல்லில் இல்லை. <b>ர</b>கர வரிசையில் வேறு எழுத்து <b>(ரா, ரி , ரீ, ரு, ...) இதே இடத்தில்</b> இருக்கிறது.
       </p>
 
       <div className="mb-1 mt-4 flex justify-center">
@@ -82,39 +83,39 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
         <Cell value="ம்" isCompleted={true} />
       </div>
       <p className="text-sm dark:text-gray-300">
-      எழுத்து <b>கி</b> சொல்லில் இடம்பெறவில்லை தவிர <b>க</b>கர வரிசையில் வேறு ஏதோ எழுத்து <b>(க், க, கா, கு, ...) வேறு இடத்தில்</b> இடம்பெற்றுள்ளது.
+      எழுத்து <b>கி</b> சொல்லில் இல்லை தவிர <b>க</b>கர வரிசையில் வேறு எழுத்து <b>(க், க, கா, கு, ...) வேறு இடத்தில்</b> உள்ளது.
       </p>
 
       <div className="mb-1 mt-4 flex justify-center">
-        <Cell value="இ" isCompleted={true} />
+        <Cell value="செ" isCompleted={true} />
         <Cell value="ய" isCompleted={true} />
         <Cell value="ற்" isCompleted={true} isRevealing={true} status="greenStar"/>
         <Cell value="கை" isCompleted={true} />
       </div>
       <p className="text-sm dark:text-gray-300">
-      எழுத்து <b>ற்</b> சொல்லில் வேறு இடத்தில் உள்ளது, அதோடு <b>ற்</b> உள்ள இடத்தில் வேறு <b>ற</b>கர வரிசையும் இடம்பெற்றுள்ளது.
+      <b>ற்</b> சொல்லில் வேறு இடத்தில் உள்ளது, அதோடு <b>ற்</b> உள்ள இடத்தில் வேறு <b>ற</b>கர வரிசையும் உள்ளது.
       </p>
 
       <div className="mb-1 mt-4 flex justify-center">
-        <Cell value="வ" isCompleted={true} />
-        <Cell value="ட" isCompleted={true} />
+        <Cell value="கி" isCompleted={true} />
+        <Cell value="ழ" isCompleted={true} />
         <Cell value="க்" isCompleted={true} />
         <Cell value="கு" isCompleted={true} isRevealing={true} status="heart" />
       </div>
       <p className="text-sm dark:text-gray-300">
         <TestLogo className="heart-logo"/>
-      உயிர்எழுத்து மற்றும் மெய்எழுத்து ஓசைகளை குறிக்கிறது, சுருக்கமாக எழுத்தின் ஓசை-முடிவு சரியானது என்க.
+        உயிர் மற்றும் மெய்எழுத்து ஓசைகளை குறிக்கிறது, சுருக்கமாக எழுத்தின் ஓசை-முடிவு சரியானது.
       </p>
       <p className="dark:text-gray-300">மூன்று வகைகளில் காணலாம்.</p>
       <p className="dark:text-gray-300">1. உயிர்மெய் எழுத்து</p>
       <div className="mb-1 mt-4 flex justify-center">
         <Cell value="கு" isCompleted={true} isRevealing={true} status="heart" />
-        <p className="dark:text-gray-300">எனில் உ-கர ஓசையில் முடியும் வேறு உயிர்மெய் எழுத்தாக இருக்கலாம் (சு, ஞு, டு, ணு....) அல்லது  'உ' என்ற உயிர் எழுத்தாகவும் இருக்கலாம்.</p>
+        <p className="dark:text-gray-300">உ-கர ஓசையில் முடியும் வேறு உயிர்மெய் எழுத்தாக இருக்கலாம் (சு, ஞு, டு, ணு....) அல்லது 'உ' என்ற உயிர் எழுத்தாகவும் இருக்கலாம்.</p>
       </div>
       <p className="dark:text-gray-300">2. மெய்எழுத்து</p>
       <div className="mb-1 mt-4 flex justify-center">
         <Cell value="ன்" isCompleted={true} isRevealing={true} status="heart" />
-        <p className="dark:text-gray-300">இந்த இடத்தில் வேறு மெய்எழுத்து உள்ளது என்க. (க், ங், ச்,...)</p>
+        <p className="dark:text-gray-300">இந்த இடத்தில் வேறு மெய்எழுத்து உள்ளது  (க், ங், ச்,...)</p>
       </div>
       <p className="dark:text-gray-300">3. உயிர் எழுத்து</p>
       <div className="mb-1 mt-4 flex justify-center">
@@ -135,6 +136,7 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
       <hr className="dark:text-gray-300"></hr>
       <p className="font-bold dark:text-gray-300">நாள்தோறும் ஒரு புதிய சொல் இடம்பெறும்!</p>
       < Content />
+      <FooterModal />
     </BaseModal>
   )
 }

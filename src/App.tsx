@@ -107,11 +107,7 @@ function App() {
     return loaded.guesses
   })
   const [stats, setStats] = useState(() => loadStats())
-  const [isuyireMeiMode, setisuyireMeiMode] = useState(
-    localStorage.getItem('uyiremeiMode')
-      ? localStorage.getItem('uyiremeiMode') === 'yes'
-      : false
-  )
+  const [isuyireMeiMode, setisuyireMeiMode] = useState(true)
   const [isDictionaryMode, setisDictionaryMode] = useState(
     localStorage.getItem('dictionaryMode')
     ? localStorage.getItem('dictionaryMode') === 'yes'
@@ -179,7 +175,7 @@ function App() {
 
   const handleuyireMeiMode = (isUyireMei: boolean) => {
     setisuyireMeiMode(isUyireMei)
-    localStorage.setItem('uyiremeiMode', isUyireMei ? 'yes' : 'no')
+    localStorage.setItem('uyiremeiMode', isUyireMei ? 'yes' : 'yes')
   }
 
   const handleDictionaryMode = (isDictionaryMode: boolean) => {

@@ -13,6 +13,7 @@ type Props = {
   status?: CharStatus
   onClick: (value: string) => void
   isRevealing?: boolean
+  className?: string
 }
 
 export const Key = ({
@@ -22,6 +23,7 @@ export const Key = ({
   value,
   onClick,
   isRevealing,
+  className
 }: Props) => {
   const keyDelayMs = REVEAL_TIME_MS * unicodeLength(solution)
   const isHighContrast = getStoredIsHighContrastMode()
@@ -29,6 +31,7 @@ export const Key = ({
   const classes = classnames(
     'xxshort:h-8 xxshort:w-8 xxshort:text-xxs xshort:w-10 xshort:h-10 flex short:h-12 h-14 items-center justify-center rounded mx-0.5 text-xs font-bold cursor-pointer select-none dark:text-white key-change',
     {
+      'new-enterbutton':className,
       'transition ease-in-out': isRevealing,
       'bg-slate-200 dark:bg-slate-600 hover:bg-slate-300 active:bg-slate-400':
         !status,
@@ -39,8 +42,10 @@ export const Key = ({
         status === 'present' && isHighContrast,
       'bg-green-500 hover:bg-green-600 active:bg-green-700 text-white':
         status === 'correct' && !isHighContrast,
-      // 'uyiremei-colorkeyboard':
-      //   status === 'uyiremei' && !isHighContrast,
+      'text-white kachange-back':
+        status === 'yellowGreen' && !isHighContrast,
+      'text-white rachange-back':
+        status === 'darklightGreen' && !isHighContrast,
       'bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700 text-white':
         status === 'present' && !isHighContrast,
     }
@@ -48,7 +53,7 @@ export const Key = ({
 
   const styles = {
     transitionDelay: isRevealing ? `${keyDelayMs}ms` : 'unset',
-    width: `${width}px`,
+    width: `${width}px !important`,
   }
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {

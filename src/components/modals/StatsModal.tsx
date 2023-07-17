@@ -23,6 +23,7 @@ import { Histogram } from '../stats/Histogram'
 import { MigrationIntro } from '../stats/MigrationIntro'
 import { StatBar } from '../stats/StatBar'
 import { BaseModal } from './BaseModal'
+import { FooterModal } from './FooterModal'
 
 type Props = {
   isOpen: boolean
@@ -71,6 +72,10 @@ export const StatsModal = ({
         handleClose={handleClose}
       >
         <StatBar gameStats={gameStats} />
+        <FooterModal />
+        {!ENABLE_MIGRATE_STATS && (
+          <FooterModal />
+        )}
         {ENABLE_MIGRATE_STATS && (
           <MigrationIntro handleMigrateStatsButton={handleMigrateStatsButton} />
         )}
@@ -177,6 +182,7 @@ export const StatsModal = ({
           </div>
         </div>
       )}
+      <FooterModal />
       {ENABLE_MIGRATE_STATS && (
         <div>
           <hr className="mt-4 -mb-4 border-gray-500" />

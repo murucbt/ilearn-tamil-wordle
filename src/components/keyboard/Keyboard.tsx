@@ -233,7 +233,7 @@ export const Keyboard = ({
               isRevealing={isRevealing}
             />
           ))}
-          <Key width={65.4} value="ENTER" onClick={onClick}>
+          <Key width={65.4} value="ENTER" onClick={onClick} className='enter-button'>
             {ENTER_TEXT}
           </Key>
           

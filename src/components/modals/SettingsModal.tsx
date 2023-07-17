@@ -16,6 +16,7 @@ import {
  } from '../../constants/language'
  import { FeedbackModal } from '../modals/FeedbackModal'
 import { TabModals } from '../modals/TabModals'
+import { FooterModal } from '../modals/FooterModal'
 import { TabsData } from '../../constants/strings'
 type Props = {
   isOpen: boolean
@@ -45,17 +46,20 @@ export const SettingsModal = ({
   return (
     <BaseModal title={SETTINGS_NAME} isOpen={isOpen} handleClose={handleClose}>
       <div className="mt-2 flex flex-col divide-y">
-        <div className="">
+        <div className="tabmodal-status">
           < TabModals 
           dataName = {TabsData}
           />
         </div>
-        <SettingsToggle
-          uyiremeisettingName={UYIRE_MEI_NOTES}
-          flag={isuyireMeiMode}
-          handleFlag={handleuyireMeiMode}
-          description={UYIRE_MEI_DESCRIPTION}
-        />
+        <div className="uyiremei-status">
+          <SettingsToggle
+            uyiremeisettingName={UYIRE_MEI_NOTES}
+            flag={isuyireMeiMode}
+            handleFlag={handleuyireMeiMode}
+            description={UYIRE_MEI_DESCRIPTION}
+          />
+        </div>
+
         <SettingsToggle
           settingName={EASY_MODE}
           flag={isEasyMode}
@@ -79,6 +83,7 @@ export const SettingsModal = ({
           feedbackDescription={FEEDBACK}
           feedbackDescriptiontwo={FEEDBACK_DESCRIPTION}
         />
+        <FooterModal />
       </div>
     </BaseModal>
   )
