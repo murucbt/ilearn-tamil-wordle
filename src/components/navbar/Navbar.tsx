@@ -24,50 +24,53 @@ export const Navbar = ({
   setIsSettingsModalOpen,
 }: Props) => {
   return (
-    <div className="navbar">
-      <div className="container-fluid w-90">
-        <header>
-      <div className="navbar-content px-5 tamil-logo">
-        <div className='logos-assemble'>
-          <a href='/#'>
-          <img src={IlearnTamilLogo} className="App-logo desktop-logo" alt="logo" />
-          </a>
-          <a href='/#'><img src={IlearnTamilLMobileogo} className="App-logo mobile-logo" alt="logo" />
-          </a>
+    <div className="">
+      <div className="navbar">
+        <div className="container-fluid w-90">
+          <header>
+        <div className="navbar-content px-5 tamil-logo">
+          <div className='logos-assemble'>
+            <a href='/#'>
+            <img src={IlearnTamilLogo} className="App-logo desktop-logo" alt="logo" />
+            </a>
+            <a href='/#'><img src={IlearnTamilLMobileogo} className="App-logo mobile-logo" alt="logo" />
+            </a>
+          </div>
+        <div className='tester'>
+          <p className="text-xl font-bold dark:text-white title-pos">{GAME_TITLE}</p>
+          
         </div>
-      <div className='tester'>
-        <p className="text-xl font-bold dark:text-white title-pos">{GAME_TITLE}</p>
-        <p>(சொல்லாட்டம் - தினம் ஒரு சொல்)</p>
-      </div>
-        
-        <div className="right-icons">
-          <a href="https://ilearntamil.com/" target="_blank" rel="noreferrer"><HomeIcon 
-          className="mr-3 h-6 w-6 cursor-pointer dark:stroke-white"
-          /></a>
-          <ChartBarIcon
+          
+          <div className="right-icons">
+            <a href="https://ilearntamil.com/" target="_blank" rel="noreferrer"><HomeIcon 
             className="mr-3 h-6 w-6 cursor-pointer dark:stroke-white"
-            onClick={() => setIsStatsModalOpen(true)}
-          />
-          <CogIcon
-            className="h-6 w-6 cursor-pointer dark:stroke-white"
-            onClick={() => setIsSettingsModalOpen(true)}
-          />
-          <div className="flex">
-          <InformationCircleIcon
-            className="h-6 w-6 cursor-pointer dark:stroke-white"
-            onClick={() => setIsInfoModalOpen(true)}
-          />
-          {ENABLE_ARCHIVED_GAMES && (
-            <CalendarIcon
-              className="ml-3 h-6 w-6 cursor-pointer dark:stroke-white"
-              onClick={() => setIsDatePickerModalOpen(true)}
+            /></a>
+            <ChartBarIcon
+              className="mr-3 h-6 w-6 cursor-pointer dark:stroke-white"
+              onClick={() => setIsStatsModalOpen(true)}
             />
-          )}
+            <CogIcon
+              className="h-6 w-6 cursor-pointer dark:stroke-white"
+              onClick={() => setIsSettingsModalOpen(true)}
+            />
+            <div className="flex">
+            <InformationCircleIcon
+              className="h-6 w-6 cursor-pointer dark:stroke-white"
+              onClick={() => setIsInfoModalOpen(true)}
+            />
+            {ENABLE_ARCHIVED_GAMES && (
+              <CalendarIcon
+                className="ml-3 h-6 w-6 cursor-pointer dark:stroke-white"
+                onClick={() => setIsDatePickerModalOpen(true)}
+              />
+            )}
+          </div>
+          </div>
         </div>
+        </header>
         </div>
       </div>
-      </header>
-      </div>
+      <p className="daily-word-txt">(சொல்லாட்டம் - தினம் ஒரு சொல்)</p>
     </div>
   )
 }

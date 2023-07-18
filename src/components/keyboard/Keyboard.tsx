@@ -223,7 +223,7 @@ export const Keyboard = ({
           />
         ))}
       </div>
-      <div className="flex justify-center">
+      <div className="dark:text-gray-300 flex justify-center aayutha-key">
         {['ஃ'].map((key) => (
             <Key
               value={key}
@@ -239,7 +239,7 @@ export const Keyboard = ({
           
           <Key width={65.4} value="DELETE" onClick={onClick}>
           
-          <i className="fa-solid fa-delete-left font-bold">⌫</i>
+          <i className="fa-solid fa-delete-left font-bold delete-mark">⌫</i>
           </Key>
           
       </div>

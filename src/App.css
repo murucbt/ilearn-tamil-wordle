@@ -76,7 +76,7 @@ html.dark {
 .navbar {
   border-bottom: 1px solid #cccccc;
   padding-bottom: 30px;
-  margin-bottom: 15px;
+  margin-bottom: 0px;
 }
 
 .title-pos {
@@ -373,6 +373,16 @@ h2, .details{
   height: 2.5rem !important;
   font-size: 14px;
   border-color: #d3d6da;
+  font-weight: 700 !important;
+  border-width: 1px;
+}
+.key-change:active {
+  --tw-bg-opacity: 1;
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity));
+  border-style: inset;
+}
+.key-change:hover {--tw-bg-opacity: 1;
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity));
 }
 p.easymode-text {
   margin-top: 5px;
@@ -398,8 +408,19 @@ p.easymode-text {
   padding: 18px;
 }
 
-.footer-links span {
-  padding: 4px 2px 3px 136px;
+.daily-word-txt {
+  text-align: center;
+  font-size: 10px;
+  margin-top: 0px;
+}
+
+.delete-mark {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.aayutha-key {
+  font-size: 16px;
 }
 
 .footer-links {
@@ -412,6 +433,7 @@ p.easymode-text {
 
 .new-enterbutton {
   width: 125px !important;
+  font-size: 16px;
 }
 
 .container-fluid {
@@ -438,7 +460,7 @@ p.easymode-text {
   }
   .title-pos {
     position: relative;
-    left: -75px;
+    left: 0px;
     font-size: 23px;
   }
   .letter-container {
@@ -479,7 +501,7 @@ p.easymode-text {
   }
   .title-pos {
     position: relative;
-    left: -100px;
+    left: 0px;
     font-size: 23px;
   }
   .letter-container {
@@ -511,6 +533,11 @@ p.easymode-text {
   .migration-status {
     display: none;
   }
+  .single-row span {
+    width: 30px !important;
+    padding-right: 20px;
+    margin-right: 15px;
+  }
   
 }
 
@@ -520,7 +547,7 @@ p.easymode-text {
   }
   .title-pos {
     position: relative;
-    left: -85px;
+    left: 0px;
     font-size: 22px;
   }
   .letter-container {
@@ -564,7 +591,7 @@ p.easymode-text {
   }
   .title-pos {
     position: relative;
-    left: -65px;
+    left: 0px;
     font-size: 20px;
   }
   .letter-container {
@@ -667,7 +694,7 @@ p.easymode-text {
   }
   .title-pos {
     position: relative;
-    left: 7px;
+    left: 10px;
     font-size: 18px;
   }
   .letter-container {
@@ -682,7 +709,7 @@ p.easymode-text {
     font-size: 12px;
   }
   .mt-2 p {
-    font-size: 10px;
+    font-size: 13px;
   }
   .cm-width-set .text-4xl {
     font-size: 18px;
@@ -732,6 +759,9 @@ p.easymode-text {
     font-size: 14px;
     padding: 2px;
   }
+  .footer-links {
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 400px) {
@@ -755,11 +785,19 @@ span.green-dark-box {
 .old-word p {
   font-size: 16px;
 }
+.single-row span {
+  width: 25px !important;
+  padding-right: 20px;
+  margin-right: 15px;
+}
 .inline-block p {
   margin-bottom: 2px;
 }
 .feedback-links {
-  font-size: 14px;
+  font-size: 10px;
   padding: 2px;
+}
+.footer-links {
+  font-size: 13px;
 }
 }
