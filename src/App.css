@@ -366,12 +366,12 @@ h2, .details{
 } */
 
 .mobile-keyboard {
-  /* position: absolute;
+  position: absolute;
       width: 100%;
       bottom: 0;
       right: 0;
-      left: 0; */
-  margin-top: 10px;
+      left: 0;
+  /* margin-top: 10px; */
 }
 .grid-board {
     margin: 0 auto;
@@ -800,12 +800,12 @@ p.easymode-text {
   padding-bottom: 100px;
 }
 .mobile-keyboard {
-  /* position: fixed;
+  position: fixed;
   bottom: 0;
   width: 98%;
   padding: 5px 0px;
-  background: white; */
-  margin-top: 10px;
+  background: white;
+  /* margin-top: 10px; */
 }
 span.yellow-green-box {
   width: 40px;
