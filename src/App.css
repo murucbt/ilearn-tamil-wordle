@@ -110,6 +110,18 @@ html.dark {
   margin-right: 7px;
 }
 
+.link-logo {
+  width: 30px;
+  margin-right: 7px;
+}
+
+.link-text {
+  margin-bottom: 20px;
+  position: absolute;
+  right: 750px;
+  top: 450px;
+}
+
 .cm-width-set .kuchange-back {
   background: url(Hearticon.svg) #86888a; 
   background-repeat: no-repeat;
@@ -354,12 +366,12 @@ h2, .details{
 } */
 
 .mobile-keyboard {
-  position: absolute;
+  /* position: absolute;
       width: 100%;
       bottom: 0;
       right: 0;
-      left: 0;
-  
+      left: 0; */
+  margin-top: 10px;
 }
 .grid-board {
     margin: 0 auto;
@@ -492,6 +504,9 @@ p.easymode-text {
   .migration-status {
     display: none;
   }
+  .link-text {
+    right: 485px;
+  }
   
 }
 
@@ -538,6 +553,9 @@ p.easymode-text {
     padding-right: 20px;
     margin-right: 15px;
   }
+  .link-text {
+    right: 445px;
+  }
   
 }
 
@@ -582,6 +600,9 @@ p.easymode-text {
   .migration-status {
     display: none;
   }
+  .link-text {
+    right: 340px;
+  }
   
 }
 
@@ -625,6 +646,9 @@ p.easymode-text {
   }
   .migration-status {
     display: none;
+  }
+  .link-text {
+    right: 220px;
   }
   
 }
@@ -672,6 +696,9 @@ p.easymode-text {
   }
   .inline-block p {
     margin-bottom: 2px;
+  }
+  .link-text {
+    right: 140px;
   }
   
 }
@@ -762,6 +789,9 @@ p.easymode-text {
   .footer-links {
     font-size: 13px;
   }
+  .link-text {
+    right: 30px;
+  }
 }
 
 @media (max-width: 400px) {
@@ -770,11 +800,12 @@ p.easymode-text {
   padding-bottom: 100px;
 }
 .mobile-keyboard {
-  position: fixed;
+  /* position: fixed;
   bottom: 0;
   width: 98%;
   padding: 5px 0px;
-  background: white;
+  background: white; */
+  margin-top: 10px;
 }
 span.yellow-green-box {
   width: 40px;
@@ -799,5 +830,8 @@ span.green-dark-box {
 }
 .footer-links {
   font-size: 13px;
+}
+.link-text {
+  right: 30px;
 }
 }
