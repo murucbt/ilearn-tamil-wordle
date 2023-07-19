@@ -30,21 +30,22 @@ export const Navbar = ({
           <header>
         <div className="navbar-content px-5 tamil-logo">
           <div className='logos-assemble'>
-            <a href='/#'>
-            <img src={IlearnTamilLogo} className="App-logo desktop-logo" alt="logo" />
-            </a>
-            <a href='/#'><img src={IlearnTamilLMobileogo} className="App-logo mobile-logo" alt="logo" />
-            </a>
-          </div>
-        <div className='tester'>
-          <p className="text-xl font-bold dark:text-white title-pos">{GAME_TITLE}</p>
-          
-        </div>
-          
-          <div className="right-icons">
-            <a href="https://ilearntamil.com/" target="_blank" rel="noreferrer"><HomeIcon 
-            className="mr-3 h-6 w-6 cursor-pointer dark:stroke-white"
+          <a href="https://ilearntamil.com/" target="_blank" rel="noreferrer"><HomeIcon 
+            className="mr-3 h-6 w-6 cursor-pointer dark:stroke-white home-icon"
             /></a>
+          </div>
+          <div className='title-logo-wrap'>
+            <div className='logos-assemble'>
+              <a href='/#'>
+              <img src={IlearnTamilLMobileogo} className="App-logo desktop-logo" alt="logo" />
+              </a>
+              <a href='/#'><img src={IlearnTamilLMobileogo} className="App-logo mobile-logo" alt="logo" />
+              </a>
+            </div>
+            <p className="text-xl font-bold dark:text-white title-pos">{GAME_TITLE}</p>
+          </div>
+          <div className="right-icons">
+
             <ChartBarIcon
               className="mr-3 h-6 w-6 cursor-pointer dark:stroke-white"
               onClick={() => setIsStatsModalOpen(true)}

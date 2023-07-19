@@ -164,9 +164,10 @@ export const Keyboard = ({
 
   return (
     <div className="mobile-keyboard">
-      {/* <div className='link-text'>
-        <a href="https://ilearntamil.com/" target="_blank"><LinkLogo className="link-logo"/></a>
-      </div> */}
+      <div className='link-text'>
+        <a href="https://ilearntamil.com/" className="active-btn" target="_blank">1</a>
+        <a href="https://ilearntamil.com/" className="second-btn" target="_blank">2</a>
+      </div>
       <div className="dark:text-gray-300 mb-1 flex justify-center">
         {tamilAlphabets.map((key) => (
           <Key
