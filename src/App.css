@@ -121,17 +121,6 @@ html.dark {
   margin-right: 7px;
 }
 
-.link-text {
-  margin-bottom: 20px;
-  position: absolute;
-  right: 700px;
-  bottom: 475px;
-  width: 100px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
 .cm-width-set .kuchange-back {
   background: url(Hearticon.svg) #86888a; 
   background-repeat: no-repeat;
@@ -371,10 +360,6 @@ h2, .details{
   background-size: 20px;
 }
 
-/* .uyiremei-colorkeyboard {
-  background-color: orange !important;
-} */
-
 .mobile-keyboard {
   position: absolute;
       width: 100%;
@@ -434,6 +419,14 @@ p.easymode-text {
   text-align: center;
   font-size: 10px;
   margin-top: 0px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.socialmedia-links p {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0;
 }
 
 .delete-mark {
@@ -479,15 +472,37 @@ p.easymode-text {
   color: rgba(36, 80, 160, 0.93);
 }
 
+.whatsapp-logo {
+  width: 25px !important;
+  margin: 0 10px;
+}
+
+.socialmedia-links p{
+  display: flex;
+  align-items: center;
+}
 .active-btn {
   background-color:rgba(36, 80, 160, 0.93);
   color: white;
   padding: 5px;
   font-size: 16px;
+  border-radius: 20px;
+}
+
+.link-text a {
+  margin: 5px 10px;
+  width: 30px;
+  display: inline-block;
+  border-radius: 50%;
+  text-align: center;
+  height: 30px;
+  line-height: 130%;
 }
 
 .second-btn {
   color: rgba(36, 80, 160, 0.93);
+  font-size: 18px;
+  font-weight: 700;
 }
 
 /* Media Queries */
@@ -528,9 +543,6 @@ p.easymode-text {
   }
   .migration-status {
     display: none;
-  }
-  .link-text {
-    right: 485px;
   }
   
 }
@@ -578,13 +590,6 @@ p.easymode-text {
     padding-right: 20px;
     margin-right: 15px;
   }
-  .link-text {
-    right: 350px;
-    width: 100px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
   
 }
 
@@ -629,14 +634,6 @@ p.easymode-text {
   .migration-status {
     display: none;
   }
-  .link-text {
-    right: 200px;
-    width: 100px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    bottom: 265px;
-  }
   
 }
 
@@ -680,14 +677,6 @@ p.easymode-text {
   }
   .migration-status {
     display: none;
-  }
-  .link-text {
-    right: 150px;
-    width: 100px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    bottom: 265px;
   }
   
 }
@@ -735,14 +724,6 @@ p.easymode-text {
   }
   .inline-block p {
     margin-bottom: 2px;
-  }
-  .link-text {
-    right: 75px;
-    width: 100px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    bottom: 265px;
   }
   
 }
@@ -833,16 +814,13 @@ p.easymode-text {
   .footer-links {
     font-size: 13px;
   }
-  .link-text {
-    right: 45px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    bottom: 260px;
-  }
+
 }
 
 @media (max-width: 400px) {
+  .link-text a{
+    margin: 5px 0;
+  }
 .grid-board {
   margin: 0px auto;
   padding-bottom: 100px;
@@ -879,11 +857,5 @@ span.green-dark-box {
 .footer-links {
   font-size: 13px;
 }
-.link-text {
-  right: 3px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  bottom: 260px;
-}
+
 }

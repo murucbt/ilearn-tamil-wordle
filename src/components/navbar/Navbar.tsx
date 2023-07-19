@@ -3,9 +3,8 @@ import {
   ChartBarIcon,
   CogIcon,
   InformationCircleIcon,
-  HomeIcon,
 } from '@heroicons/react/outline'
-import IlearnTamilLogo from '../../learn-tamil-logo.png'
+import {ReactComponent as HomeLogo} from '../../../src/home-icon.svg'
 import IlearnTamilLMobileogo from '../../learn-tamil-mobile.png'
 import { ENABLE_ARCHIVED_GAMES } from '../../constants/settings'
 import { GAME_TITLE } from '../../constants/language'
@@ -30,9 +29,10 @@ export const Navbar = ({
           <header>
         <div className="navbar-content px-5 tamil-logo">
           <div className='logos-assemble'>
-          <a href="https://ilearntamil.com/" target="_blank" rel="noreferrer"><HomeIcon 
+          <a href="https://ilearntamil.com/" target="_blank" rel="noreferrer"><HomeLogo 
             className="mr-3 h-6 w-6 cursor-pointer dark:stroke-white home-icon"
             /></a>
+
           </div>
           <div className='title-logo-wrap'>
             <div className='logos-assemble'>

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { ENTER_TEXT } from '../../constants/language'
 import { getStatuses } from '../../lib/statuses'
 import { Key } from './Key'
-import {ReactComponent as LinkLogo} from '../../../src/link-icon.svg'
 
 type Props = {
   onChar: (value: string) => void
@@ -164,10 +163,6 @@ export const Keyboard = ({
 
   return (
     <div className="mobile-keyboard">
-      <div className='link-text'>
-        <a href="https://ilearntamil.com/" className="active-btn" target="_blank">1</a>
-        <a href="https://ilearntamil.com/" className="second-btn" target="_blank">2</a>
-      </div>
       <div className="dark:text-gray-300 mb-1 flex justify-center">
         {tamilAlphabets.map((key) => (
           <Key
@@ -229,6 +224,7 @@ export const Keyboard = ({
         ))}
       </div>
       <div className="dark:text-gray-300 flex justify-center aayutha-key">
+
         {['ஃ'].map((key) => (
             <Key
               value={key}
@@ -246,7 +242,10 @@ export const Keyboard = ({
           
           <i className="fa-solid fa-delete-left font-bold delete-mark">⌫</i>
           </Key>
-          
+      <div className='link-text'>
+        <a href="https://ilearntamil.com/" className="active-btn" target="_blank">1</a>
+        <a href="https://ilearntamil.com/" className="second-btn" target="_blank">2</a>
+      </div>
       </div>
     </div>
   )
