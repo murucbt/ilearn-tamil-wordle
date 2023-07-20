@@ -70,7 +70,7 @@ html.dark {
 }
 
 .tamil-logo img {
-  max-width: 80px !important;
+  max-width: 60px !important;
 }
 
 .navbar {
@@ -80,7 +80,7 @@ html.dark {
 }
 
 .title-pos {
-  font-size: 26px;
+  font-size: 32px;
   text-align: center;
   color: rgba(36, 80, 160, 0.93);
 }
@@ -505,15 +505,25 @@ p.easymode-text {
   font-weight: 700;
 }
 
+.phone-whatsapp {
+  display:flex;
+  align-items: center;
+}
+
+.link-text {
+  position: relative;
+  right: -7%;
+}
+
 /* Media Queries */
 @media (max-width: 1536px) {
   .tamil-logo img {
-    max-width: 80 !important;
+    max-width: 60px !important;
   }
   .title-pos {
     position: relative;
     left: 0px;
-    font-size: 23px;
+    font-size: 32px;
   }
   .letter-container {
     font-size: 16px !important;
@@ -544,17 +554,20 @@ p.easymode-text {
   .migration-status {
     display: none;
   }
-  
+  .link-text {
+    position: relative;
+    right: -8%;
+  }
 }
 
 @media (max-width: 1280px) {
   .tamil-logo img {
-    max-width: 80 !important;
+    max-width: 60px !important;
   }
   .title-pos {
     position: relative;
     left: 0px;
-    font-size: 23px;
+    font-size: 30px;
   }
   .letter-container {
     font-size: 16px !important;
@@ -590,17 +603,21 @@ p.easymode-text {
     padding-right: 20px;
     margin-right: 15px;
   }
+  .link-text {
+    position: relative;
+    right: -10%;
+  }
   
 }
 
 @media (max-width: 1024px) {
   .tamil-logo img {
-    max-width: 80px !important;
+    max-width: 60px !important;
   }
   .title-pos {
     position: relative;
     left: 0px;
-    font-size: 22px;
+    font-size: 30px;
   }
   .letter-container {
     font-size: 16px !important;
@@ -634,17 +651,21 @@ p.easymode-text {
   .migration-status {
     display: none;
   }
+  .link-text {
+    position: relative;
+    right: -12%;
+  }
   
 }
 
 @media (max-width: 768px) {
   .tamil-logo img {
-    max-width: 80px !important;
+    max-width: 60px !important;
   }
   .title-pos {
     position: relative;
     left: 0px;
-    font-size: 20px;
+    font-size: 28px;
   }
   .letter-container {
     font-size: 16px !important;
@@ -678,12 +699,15 @@ p.easymode-text {
   .migration-status {
     display: none;
   }
-  
+  .link-text {
+    position: relative;
+    right: -16%;
+  }
 }
 
 @media (max-width: 640px) {
   .tamil-logo img {
-    max-width: 80px !important;
+    max-width: 60px !important;
   }
   .title-pos {
     position: relative;
@@ -725,7 +749,10 @@ p.easymode-text {
   .inline-block p {
     margin-bottom: 2px;
   }
-  
+  .link-text {
+    position: relative;
+    right: -16%;
+  }
 }
 
 @media (max-width: 475px) {
@@ -742,12 +769,12 @@ p.easymode-text {
     width: 50px;
   }
   .tamil-logo img {
-    max-width: 80px !important;
+    max-width: 60px !important;
   }
   .title-pos {
     position: relative;
     left: 10px;
-    font-size: 18px;
+    font-size: 20px;
   }
   .letter-container {
     font-size: 16px !important;
@@ -814,6 +841,10 @@ p.easymode-text {
   .footer-links {
     font-size: 13px;
   }
+  .link-text {
+    position: relative;
+    right: -5%;
+  }
 
 }
 
@@ -857,5 +888,8 @@ span.green-dark-box {
 .footer-links {
   font-size: 13px;
 }
-
+.link-text {
+  position: relative;
+  right: -4%;
+}
 }

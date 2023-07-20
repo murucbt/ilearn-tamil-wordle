@@ -83,6 +83,7 @@ export const SettingsModal = ({
           feedbackDescription={FEEDBACK}
           feedbackDescriptiontwo={FEEDBACK_DESCRIPTION}
         />
+        <hr />
         <FooterModal />
       </div>
     </BaseModal>

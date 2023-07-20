@@ -72,6 +72,7 @@ export const StatsModal = ({
         handleClose={handleClose}
       >
         <StatBar gameStats={gameStats} />
+        <hr />
         <FooterModal />
         {!ENABLE_MIGRATE_STATS && (
           <FooterModal />
@@ -182,6 +183,7 @@ export const StatsModal = ({
           </div>
         </div>
       )}
+      <hr />
       <FooterModal />
       {ENABLE_MIGRATE_STATS && (
         <div>
