@@ -9,6 +9,7 @@ const webShareApiDeviceTypes: string[] = ['mobile', 'smarttv', 'wearable']
 const parser = new UAParser()
 const browser = parser.getBrowser()
 const device = parser.getDevice()
+const link = `https://ilearntamil.com/`
 
 export const shareStatus = (
   solution: string,
@@ -41,7 +42,7 @@ export const shareStatus = (
       solution,
       guesses,
       getEmojiTiles(isDarkMode, isHighContrastMode)
-    )
+    ) + `\n${link}`
 
   const shareData = { text: textToShare }
 
