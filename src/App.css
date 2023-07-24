@@ -333,8 +333,12 @@ h2, .details{
   margin-bottom: 0px;
 }
 
-.wining-word-button {
-  width: 55% !important;
+.wining-modal {
+  display: flex;
+  justify-content: center;
+  justify-content: flex-start;
+  align-items: flex-end;
+
 }
 
 .old-word p {
