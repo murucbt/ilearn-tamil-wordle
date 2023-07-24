@@ -136,7 +136,7 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
       <hr className="dark:text-gray-300"></hr>
       <p className="font-bold dark:text-gray-300">நாள்தோறும் ஒரு புதிய சொல் இடம்பெறும்!</p>
       < Content />
-      <hr />
+      <div className="hr-allign" />
       <FooterModal />
     </BaseModal>
   )

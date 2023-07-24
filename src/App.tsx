@@ -57,6 +57,7 @@ import {
 import { getMeiwordEasyStatus } from '../src/lib/statuses'
 import { unicodeSplit } from '../src/lib/words'
 import { uyireMeiCombo, meiEluththukkal } from './constants/tamilwords'
+import { WiningModal } from './components/modals/WiningModal'
 
 function App() {
   const isLatestGame = getIsLatestGame()
@@ -71,6 +72,7 @@ function App() {
   const [isGameWon, setIsGameWon] = useState(false)
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false)
   const [isStatsModalOpen, setIsStatsModalOpen] = useState(false)
+  const [isWiningModalOpen, setIsWiningModalOpen] = useState(false)
   const [isDatePickerModalOpen, setIsDatePickerModalOpen] = useState(false)
   const [isMigrateStatsModalOpen, setIsMigrateStatsModalOpen] = useState(false)
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false)
@@ -204,13 +206,13 @@ function App() {
 
       showSuccessAlert(winMessage, {
         delayMs,
-        onClose: () => setIsStatsModalOpen(true),
+        onClose: () => setIsWiningModalOpen(true),
       })
     }
 
     if (isGameLost) {
       setTimeout(() => {
-        setIsStatsModalOpen(true)
+        setIsWiningModalOpen(true)
       }, (unicodeLength(solution) + 1) * REVEAL_TIME_MS)
     }
   }, [isGameWon, isGameLost, showSuccessAlert])
@@ -426,6 +428,25 @@ function App() {
             isHighContrastMode={isHighContrastMode}
             numberOfGuessesMade={guesses.length}
           />
+          <WiningModal 
+            isOpen={isWiningModalOpen}
+            handleClose={() => setIsWiningModalOpen(false)}
+            solution={solution}
+            guesses={guesses}
+            isLatestGame={isLatestGame}
+            isGameLost={isGameLost}
+            isGameWon={isGameWon}
+            handleShareToClipboard={() => showSuccessAlert(GAME_COPIED_MESSAGE)}
+            handleShareFailure={() =>
+              showErrorAlert(SHARE_FAILURE_TEXT, {
+                durationMs: LONG_ALERT_TIME_MS,
+              })
+              }
+            isDarkMode={isDarkMode}
+            isEasyMode={isEasyMode}
+            isHighContrastMode={isHighContrastMode}
+          />
+
           <DatePickerModal
             isOpen={isDatePickerModalOpen}
             initialDate={solutionGameDate}

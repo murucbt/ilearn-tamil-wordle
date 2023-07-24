@@ -310,6 +310,33 @@ h2, .details{
   font-weight: 600;
 }
 
+.game-word h5{
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(36, 80, 160, 0.93);
+}
+
+.game-word p {
+  margin-top: 5px;
+  font-size: 16px;
+  margin-top: 10px
+}
+
+.solution-wining-word {
+  justify-content: center !important;
+}
+
+.hr-allign {
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 30px;
+  margin-bottom: 0px;
+}
+
+.wining-word-button {
+  width: 55% !important;
+}
+
 .old-word p {
   margin-top: 5px;
   font-size: 16px;
@@ -828,7 +855,7 @@ p.easymode-text {
   .details p {
     font-size: 12px;
   }
-  .old-word p {
+  .old-word p, .game-word p {
     font-size: 16px;
   }
   .inline-block p {
@@ -870,7 +897,7 @@ span.yellow-green-box {
 span.green-dark-box {
   width: 30px;
 }
-.old-word p {
+.old-word p, .game-word p {
   font-size: 16px;
 }
 .single-row span {
