@@ -337,7 +337,7 @@ h2, .details{
   display: flex;
   justify-content: center;
   justify-content: flex-start;
-  align-items: flex-end;
+  flex-direction: column;
 
 }
 

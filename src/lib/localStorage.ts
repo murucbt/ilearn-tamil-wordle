@@ -1,5 +1,4 @@
-import  secureLocalStorage  from  "react-secure-storage";
-import CryptoJS from 'crypto-js';
+import  secureLocalStorage  from  "react-secure-storage"
 
 const gameStateKey = 'gameState'
 const archiveGameStateKey = 'archiveGameState'
@@ -15,13 +14,13 @@ export const saveGameStateToLocalStorage = (
   gameState: StoredGameState
 ) => {
   const key = isLatestGame ? gameStateKey : archiveGameStateKey
-  localStorage.setItem(key, JSON.stringify(gameState))
+  secureLocalStorage.setItem(key, gameState)
 }
 
 export const loadGameStateFromLocalStorage = (isLatestGame: boolean) => {
   const key = isLatestGame ? gameStateKey : archiveGameStateKey
-  const state = localStorage.getItem(key)
-  return state ? (JSON.parse(state) as StoredGameState) : null
+  const state = secureLocalStorage.getItem(key)
+  return state ? ((state) as StoredGameState) : null
 }
 
 const gameStatKey = 'gameStats'
