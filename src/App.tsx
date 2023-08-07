@@ -53,11 +53,20 @@ import {
   solutionGameDate,
   unicodeLength,
   previousdayWord,
+  getSolution,
 } from './lib/words'
-import { getMeiwordEasyStatus } from '../src/lib/statuses'
+import { getToday } from '../src/lib/dateutils'
 import { unicodeSplit } from '../src/lib/words'
 import { uyireMeiCombo, meiEluththukkal } from './constants/tamilwords'
 import { WiningModal } from './components/modals/WiningModal'
+import { useSelector, useDispatch } from 'react-redux';
+import { TamilWordActionTypes } from './reducers/TamilWordListReducer'
+import { SolutionActionTypes } from './reducers/SolutionListReducer'
+
+
+type Data = {
+  word: string
+}
 
 function App() {
   const isLatestGame = getIsLatestGame()
@@ -88,6 +97,20 @@ function App() {
   const [isHighContrastMode, setIsHighContrastMode] = useState(
     getStoredIsHighContrastMode()
   )
+  const dispatch = useDispatch();
+  const [ dictionaryWord, setdictionaryWord ] = useState<Data[]>([])
+  const [ getdictWord, setgetdictWord ] = useState<string[]>([])
+  const [ gameFourWord, setGameFourWord ] = useState<Data[]>([])
+  const [ gameThreeWord, setGameThreeWord ] = useState<Data[]>([])
+  const [ fourWordList, setFourWordList ] = useState<string[]>([])
+  const [ threeWordList, setThreeWordList ] = useState<string[]>([])
+  const [ gameFiveWord, setGameFiveWord ] = useState<Data[]>([])
+  const [ fiveWordList, setFiveWordList ] = useState<string[]>([])
+  // const [text, setText] = useState('')
+  // const [solution, setSolution]= useState("")
+  // const [solutionGameDate, setSolutionGameDate] = useState(new Date())
+  // const [previousdayWord, setPreviousdayWord] = useState("")
+
   const uyirEluthukalArray = ['அ', 'ஆ', 'இ', 'ஈ', 'உ', 'ஊ', 'எ', 'ஏ', 'ஐ', 'ஒ', 'ஓ', 'ஔ', 'ஃ']
   const uyiremeiEluthukalArray = ['க', 'ச', 'ட', 'த', 'ப', 'ற', 'ங', 'ஞ', 'ண', 'ந', 'ம','ன', 'ய', 'ர', 'ல', 'வ', 'ழ','ள']
   const [isRevealing, setIsRevealing] = useState(false)
@@ -127,6 +150,95 @@ function App() {
       ? localStorage.getItem('easyMode') === 'yes'
       : false
   )
+  // console.log('solution...',solution)
+
+  useEffect(() => {
+    fetch("http://localhost:8080/api/dictionary/")
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      setdictionaryWord(data.data)
+    })
+
+  }, [setdictionaryWord])
+
+  useEffect(() => {
+    fetch("http://localhost:8080/api/gameword/three")
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      setGameThreeWord(data.data)
+    })
+
+  }, [setGameThreeWord])
+
+  useEffect(() => {
+    fetch("http://localhost:8080/api/gameword/four")
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      setGameFourWord(data.data)
+    })
+
+  }, [setGameFourWord])
+
+  useEffect(() => {
+    fetch("http://localhost:8080/api/gameword/five")
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      setGameFiveWord(data.data)
+    })
+
+  }, [setGameFiveWord])
+
+  useEffect(() => {
+    const dictWordList = dictionaryWord.map((value: Data) => { 
+      return value.word
+    })
+    setgetdictWord(dictWordList)
+    isWordInWordList(currentGuess, getdictWord, threewordsData, fourwordsData,fivewordsData)
+
+  },[dictionaryWord, setgetdictWord])
+
+  useEffect(() => {
+    const gameThreeWordList = gameThreeWord.map((value: Data) => {
+      return value.word
+    })
+    // console.log('gameThreeWordList...', gameThreeWordList)
+    setThreeWordList(gameThreeWordList)
+    // getSolution(getToday(),gameThreeWordList)
+
+  },[gameThreeWord, setThreeWordList])
+
+  useEffect(() => {
+    const gameFourWordList = gameFourWord.map((value: Data) => {
+      return value.word
+    })
+    setFourWordList(gameFourWordList)
+    // getSolution(getToday(),gameFourWordList)
+
+  },[gameFourWord, setFourWordList])
+
+  useEffect(() => {
+    const gameFiveWordList = gameFiveWord.map((value: Data) => {
+      return value.word
+    })
+    setFiveWordList(gameFiveWordList)
+    // getSolution(getToday(),gameFiveWordList)
+
+  },[gameFiveWord, setFiveWordList])
+
+  // console.log('threeWordList.intha..', threeWordList)
+  useEffect(() => {
+    dispatch({ type: TamilWordActionTypes.SET_DATA, payload:{threeWordList:threeWordList, fourWordList: fourWordList, fiveWordList: fiveWordList}});
+
+  },[threeWordList, fourWordList, fiveWordList])
+  
 
   useEffect(() => {
     // if no game state on load,
@@ -137,6 +249,68 @@ function App() {
       }, WELCOME_INFO_MODAL_MS)
     }
   })
+
+  const threewordsData = useSelector((state: {TamilWordListReducer: {
+    threeWordList: string[]
+  }}) => state.TamilWordListReducer.threeWordList)
+
+  const fourwordsData = useSelector((state: {TamilWordListReducer: {
+    fourWordList: string[]
+  }}) => state.TamilWordListReducer.fourWordList)
+
+  const fivewordsData = useSelector((state: {TamilWordListReducer: {
+    fiveWordList: string[]
+  }}) => state.TamilWordListReducer.fiveWordList)
+
+  useEffect(() => {
+    // console.log('threewordsData', threewordsData)
+  }, [threewordsData])
+
+  useEffect(() => {
+    // console.log('fourwordsData', fourwordsData)
+  }, [fourwordsData])
+
+  useEffect(() => {
+    // console.log('fivewordsData', fivewordsData)
+  }, [fivewordsData])
+  
+  useEffect(() => {
+    const GetRecords = getSolution(getToday(),threewordsData,fourwordsData,fivewordsData)
+    dispatch({ type: SolutionActionTypes.GET_SOLUTION_DATA, payload:{previousdayWord:GetRecords.previousdayWord, solution:GetRecords.solution, solutionGameDate:GetRecords.solutionGameDate, solutionIndex:GetRecords.solutionIndex, tomorrow:GetRecords.tomorrow}});
+    console.log('GetRecords.', GetRecords)
+  }, [threewordsData,fourwordsData,fivewordsData])
+
+  useEffect(() => {
+    console.log('solution.....apppp..', solution)
+  },[solution])
+
+  const solutionData = useSelector((state: {SolutionListReducer: {
+    solution: string
+  }}) => state.SolutionListReducer.solution)
+
+  const previousdayWordData = useSelector((state: {SolutionListReducer: {
+    previousdayWord: string
+  }}) => state.SolutionListReducer.previousdayWord)
+
+  const solutionGameDateData = useSelector((state: {SolutionListReducer: {
+    solutionGameDate: Date
+  }}) => state.SolutionListReducer.solutionGameDate)
+
+  const solutionIndexData = useSelector((state: {SolutionListReducer: {
+    solutionIndex: Number
+  }}) => state.SolutionListReducer.solutionIndex)
+
+  const tomorrowData = useSelector((state: {SolutionListReducer: {
+    tomorrow: Number
+  }}) => state.SolutionListReducer.tomorrow)
+
+  useEffect(() => {
+    console.log('solutionData', solutionData)
+    console.log('previousdayWordData', previousdayWordData)
+    console.log('solutionGameDateData', solutionGameDateData)
+    console.log('solutionIndexData', solutionIndexData)
+    console.log('tomorrowData', tomorrowData)
+  }, [solutionData, previousdayWordData, solutionGameDateData, solutionIndexData, tomorrowData])
 
   useEffect(() => {
     DISCOURAGE_INAPP_BROWSERS &&
@@ -276,7 +450,7 @@ function App() {
       })
     }
     if (isDictionaryMode === false) { 
-        if (!isWordInWordList(currentGuess)) {
+        if (!isWordInWordList(currentGuess, getdictWord,threewordsData, fourwordsData,fivewordsData)) {
           setCurrentRowClass('jiggle')
           return showErrorAlert(WORD_NOT_FOUND_MESSAGE, {
             onClose: clearCurrentRowClass,

@@ -7,12 +7,16 @@ import App from './App'
 import { AlertProvider } from './context/AlertContext'
 import { ToastProvider } from './context/ToastContext'
 import reportWebVitals from './reportWebVitals'
+import store from './store'
+import { Provider } from 'react-redux'
 
 ReactDOM.render(
   <React.StrictMode>
     <AlertProvider>
       <ToastProvider>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </ToastProvider>
     </AlertProvider>
   </React.StrictMode>,

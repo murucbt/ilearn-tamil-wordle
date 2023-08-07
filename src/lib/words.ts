@@ -14,33 +14,53 @@ import { WORDS } from '../constants/wordlist'
 import { getToday } from './dateutils'
 import { getGuessStatuses } from './statuses'
 import { dictionaryWords } from '../constants/dictionaryWords'
+import { store } from '../store/index'
 // 1 June 2023 Game Epoch
 export const firstGameDate = new Date(2023, 5)
 export const periodInDays = 1
 
-export const isWordInWordList = (word: string) => {
+// Accessing the Redux store outside a React component
+const state = store.getState()
+
+  // store.dispatch({});
+  // store.dispatch({ type: TamilWordActionTypes.SET_DATA, payload:{threeWordList,  fourWordList,  fiveWordList}});
+
+export const isWordInWordList = (word: string, dictWordList: any, threewordsData: string[], fourwordsData:string[],fivewordsData: string[]) => {
+
   const getToday = new Date();
   let solutionDay = getToday.getDay()
   if (solutionDay === 0 || solutionDay === 1 || solutionDay === 2) {
-      return (
-        WORDS.THREE_WORDS.includes(localeAwareLowerCase(word)) ||
-        dictionaryWords.includes(localeAwareLowerCase(word))
-      )
+    if (dictWordList) {
+      return (threewordsData.includes(localeAwareLowerCase(word)) || dictWordList.includes(localeAwareLowerCase(word)))
+    } else {
+      return (threewordsData.includes(localeAwareLowerCase(word)) || dictionaryWords.includes(localeAwareLowerCase(word)))
+    }
+
   } else if (solutionDay === 3 || solutionDay === 4) {
-    return (
-      WORDS.FOUR_WORDS.includes(localeAwareLowerCase(word)) ||
-      dictionaryWords.includes(localeAwareLowerCase(word))
-    )
+    if (dictWordList) {
+      return (fourwordsData.includes(localeAwareLowerCase(word)) || dictWordList.includes(word))
+    } else {
+      return (fourwordsData.includes(localeAwareLowerCase(word)) || dictionaryWords.includes(word))
+    }
+
   } else if (solutionDay === 5 || solutionDay === 6) {
-    return (
-      WORDS.FIVE_WORDS.includes(localeAwareLowerCase(word)) ||
-      dictionaryWords.includes(localeAwareLowerCase(word))
-    )
+    if (dictWordList) {
+      // console.log('its correct', word, dictWordList)
+      return (fivewordsData.includes(localeAwareLowerCase(word)) || dictWordList.includes(localeAwareLowerCase(word)))
+    } else {
+      return (fivewordsData.includes(localeAwareLowerCase(word)) || dictionaryWords.includes(localeAwareLowerCase(word)))
+    }
+
   }
   
 }
 
+
+
 export const isWinningWord = (word: string) => {
+  const state = store.getState()
+  const solution = state.SolutionListReducer.solution
+  console.log('testSolution...', solution)
   return solution === word
 }
 
@@ -132,28 +152,52 @@ export const getIndex = (gameDate: Date) => {
   return index
 }
 
-export const getWordOfDay = (index: number, getDay: number) => {
+export const getWordOfDay = (index: number, getDay: number,threeWord: string[], fourWord: string[], fiveWord: string[]) => {
   if (index < 0) {
     throw new Error('Invalid index')
   }
-
+  // console.log('threeWord...', threeWord)
+  // console.log('fourWord..words.ts.', fourWord)
+  // console.log('fiveWord...', fiveWord)
   if (getDay === 0 || getDay === 1 || getDay === 2) {
-    return localeAwareUpperCase(WORDS.THREE_WORDS[index % WORDS.THREE_WORDS.length])
+    if (threeWord) {
+      console.log('index % threeWord.length..', index % threeWord.length)
+      return (threeWord[index % threeWord.length])
+    } else {
+      return localeAwareUpperCase(WORDS.THREE_WORDS[index % WORDS.THREE_WORDS.length])
+    }
+    
   } else if (getDay === 3 || getDay === 4) {
-    return localeAwareUpperCase(WORDS.FOUR_WORDS[index % WORDS.FOUR_WORDS.length])
+    if (fourWord) {
+      console.log('index % fourWord.length..', [index % fourWord.length])
+      return (fourWord[index % fourWord.length])
+    } else {
+      return localeAwareUpperCase(WORDS.FOUR_WORDS[index % WORDS.FOUR_WORDS.length])
+    }
+    
   } else if (getDay === 5 || getDay === 6 || getDay === -1) {
-    return localeAwareUpperCase(WORDS.FIVE_WORDS[index % WORDS.FIVE_WORDS.length])
+    if(fiveWord){
+      return (fiveWord[index % fiveWord.length])
+    } else {
+      return localeAwareUpperCase(WORDS.FIVE_WORDS[index % WORDS.FIVE_WORDS.length])
+    }
+    
   }
 }
+setTimeout(() => {
 
-export const getSolution = (gameDate: Date) => {
+  console.log('state..',state)
+}, 100)
+export const getSolution = (gameDate: Date, threeWord: any, fourWord: any, fiveWord: any) => {
+
   const nextGameDate = getNextGameDate(gameDate)
   const index = getIndex(gameDate)
   const getDay = gameDate.getDay()
-  const wordOfTheDay = getWordOfDay(index, getDay)
+  const wordOfTheDay = getWordOfDay(index, getDay,threeWord,fourWord,fiveWord)
+  console.log('wordOfTheDay..', wordOfTheDay)
   const daycalc = gameDate.getDay() - 1
   const indexcalc = getIndex(gameDate) - 1
-  const yesterdayWord = getWordOfDay(indexcalc, daycalc)
+  const yesterdayWord = getWordOfDay(indexcalc, daycalc,threeWord,fourWord,fiveWord)
   return {
     solution: String(wordOfTheDay),
     previousdayWord: String(yesterdayWord),
@@ -201,5 +245,7 @@ export const getIsLatestGame = () => {
   return parsed === null || !('d' in parsed)
 }
 
+console.log('state.TamilWordListReducer.threeWordList...', state.TamilWordListReducer.threeWordList)
+
 export const { solution, solutionGameDate, solutionIndex, tomorrow, previousdayWord } =
-  getSolution(getGameDate())
+  getSolution(getGameDate(),state.TamilWordListReducer.threeWordList,state.TamilWordListReducer.fourWordList,state.TamilWordListReducer.fiveWordList)
