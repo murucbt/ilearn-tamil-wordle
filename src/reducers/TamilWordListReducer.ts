@@ -35,8 +35,6 @@ export const TamilWordListReducer = (
 ): TamilwordReducerState => {
   switch (action.type) {
     case TamilWordActionTypes.SET_DATA:
-      // console.log('action.payload..', action.payload)
-      // return { ...state, data: action.payload, threeWordList:action.payload.threeWordList };
       return {...state, threeWordList: action.payload.threeWordList, fourWordList: action.payload.fourWordList, fiveWordList: action.payload.fiveWordList};
     default:
       return state;

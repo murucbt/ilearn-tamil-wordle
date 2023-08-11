@@ -37,8 +37,6 @@ export const SolutionListReducer = (
 ): SolutionReducerState => {
   switch (action.type) {
     case SolutionActionTypes.GET_SOLUTION_DATA:
-      console.log('SolutionListReducer...action.payload..', action.payload)
-      // return { ...state, data: action.payload, threeWordList:action.payload.threeWordList };
       return {...state, previousdayWord: action.payload.previousdayWord, solution: action.payload.solution, solutionGameDate: action.payload.solutionGameDate, solutionIndex: action.payload.solutionIndex, tomorrow: action.payload.tomorrow};
     default:
       return state;

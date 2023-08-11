@@ -1,7 +1,9 @@
-import { solution, unicodeLength } from '../../lib/words'
+import { unicodeLength } from '../../lib/words'
 import { Cell } from './Cell'
-
-export const EmptyRow = () => {
+type Props = {
+  solution: string
+}
+export const EmptyRow = ({ solution }: Props) => {
   const emptyCells = Array.from(Array(unicodeLength(solution)))
 
   return (

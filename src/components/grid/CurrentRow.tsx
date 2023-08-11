@@ -1,12 +1,13 @@
-import { solution, unicodeSplit, unicodeLength } from '../../lib/words'
+import { unicodeSplit, unicodeLength } from '../../lib/words'
 import { Cell } from './Cell'
 
 type Props = {
   guess: string
   className: string
+  solution: string
 }
 
-export const CurrentRow = ({ guess, className }: Props) => {
+export const CurrentRow = ({ guess, className, solution }: Props) => {
   let splitGuess = unicodeSplit(guess)
   splitGuess = splitGuess.slice(0,unicodeLength(solution))
   const emptyCells = unicodeLength(solution)- splitGuess.length < 0 ? [] : Array.from(Array(unicodeLength(solution)- splitGuess.length)) 

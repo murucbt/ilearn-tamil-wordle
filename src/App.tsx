@@ -49,10 +49,7 @@ import {
   isWinningWord,
   isWordInWordList,
   setGameDate,
-  solution,
-  solutionGameDate,
   unicodeLength,
-  previousdayWord,
   getSolution,
 } from './lib/words'
 import { getToday } from '../src/lib/dateutils'
@@ -62,6 +59,8 @@ import { WiningModal } from './components/modals/WiningModal'
 import { useSelector, useDispatch } from 'react-redux';
 import { TamilWordActionTypes } from './reducers/TamilWordListReducer'
 import { SolutionActionTypes } from './reducers/SolutionListReducer'
+import EventEmitter from './common/event-emitter'
+import IndexedDBService from './services/indexeddb.service'
 
 
 type Data = {
@@ -98,39 +97,41 @@ function App() {
     getStoredIsHighContrastMode()
   )
   const dispatch = useDispatch();
-  const [ dictionaryWord, setdictionaryWord ] = useState<Data[]>([])
-  const [ getdictWord, setgetdictWord ] = useState<string[]>([])
-  const [ gameFourWord, setGameFourWord ] = useState<Data[]>([])
-  const [ gameThreeWord, setGameThreeWord ] = useState<Data[]>([])
-  const [ fourWordList, setFourWordList ] = useState<string[]>([])
-  const [ threeWordList, setThreeWordList ] = useState<string[]>([])
-  const [ gameFiveWord, setGameFiveWord ] = useState<Data[]>([])
-  const [ fiveWordList, setFiveWordList ] = useState<string[]>([])
-  // const [text, setText] = useState('')
-  // const [solution, setSolution]= useState("")
-  // const [solutionGameDate, setSolutionGameDate] = useState(new Date())
-  // const [previousdayWord, setPreviousdayWord] = useState("")
-
+  const [dictionaryWord, setdictionaryWord ] = useState<Data[]>([])
+  const [getdictWord, setgetdictWord] = useState<string[]>([])
+  const [gameFourWord, setGameFourWord] = useState<Data[]>([])
+  const [gameThreeWord, setGameThreeWord] = useState<Data[]>([])
+  const [fourWordList, setFourWordList] = useState<string[]>([])
+  const [threeWordList, setThreeWordList] = useState<string[]>([])
+  const [gameFiveWord, setGameFiveWord] = useState<Data[]>([])
+  const [fiveWordList, setFiveWordList] = useState<string[]>([])
+  const [solution, setSolution]= useState("")
+  const [solutionGameDate, setSolutionGameDate] = useState(new Date())
+  const [previousdayWord, setPreviousdayWord] = useState("")
+  const [tomorrow, setTomorrow] = useState<Number | null>(null)
   const uyirEluthukalArray = ['அ', 'ஆ', 'இ', 'ஈ', 'உ', 'ஊ', 'எ', 'ஏ', 'ஐ', 'ஒ', 'ஓ', 'ஔ', 'ஃ']
   const uyiremeiEluthukalArray = ['க', 'ச', 'ட', 'த', 'ப', 'ற', 'ங', 'ஞ', 'ண', 'ந', 'ம','ன', 'ய', 'ர', 'ல', 'வ', 'ழ','ள']
   const [isRevealing, setIsRevealing] = useState(false)
-  const [guesses, setGuesses] = useState<string[]>(() => {
-  const loaded = loadGameStateFromLocalStorage(isLatestGame)
+  const [guesses, setGuesses] = useState<string[]>([])
+  const loaded = loadGameStateFromLocalStorage(isLatestGame) as {guesses: string[], solution: string}
+
+  useEffect(() => {
     if (loaded?.solution !== solution) {
-      return []
+      setGuesses([])
     }
-    const gameWasWon = loaded.guesses.includes(solution)
+    const gameWasWon = loaded?.guesses.includes(solution)
     if (gameWasWon) {
       setIsGameWon(true)
     }
-    if (loaded.guesses.length === MAX_CHALLENGES && !gameWasWon) {
+    if (loaded?.guesses.length === MAX_CHALLENGES && !gameWasWon) {
       setIsGameLost(true)
       showErrorAlert(CORRECT_WORD_MESSAGE(solution), {
         persist: true,
       })
     }
-    return loaded.guesses
-  })
+      setGuesses(loaded.guesses)
+  },[solution, setIsGameWon, setIsGameLost, showErrorAlert])
+  
   const [stats, setStats] = useState(() => loadStats())
   const [isuyireMeiMode, setisuyireMeiMode] = useState(true)
   const [isDictionaryMode, setisDictionaryMode] = useState(
@@ -150,18 +151,50 @@ function App() {
       ? localStorage.getItem('easyMode') === 'yes'
       : false
   )
-  // console.log('solution...',solution)
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/dictionary/")
-    .then(response => {
-      return response.json()
-    })
-    .then(data => {
-      setdictionaryWord(data.data)
-    })
+    const lastAPICallTimestamp: any = localStorage.getItem('lastAPICallTimestamp')
+    const now: Date = new Date()
+    const nowDateString: string = now.toISOString()
+    
+    // If last timestamp doesn't exist or is more than a day old, make API call
+    // Math.abs(now.getTime() - new Date(lastAPICallTimestamp).getTime())
+    if (!lastAPICallTimestamp || (Math.abs(now.getTime() - new Date(lastAPICallTimestamp).getTime())) > 24 * 60 * 60 * 1000) {
+      
+      // Make your API call here
+      fetch("http://localhost:8080/api/dictionary/")
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        const item = {
+          Id: 0 + 1,
+          Name: data.data
+      }
+        IndexedDBService.Create(item)
+        setdictionaryWord(data.data)
+      })
 
+      // Update the stored timestamp
+      localStorage.setItem('lastAPICallTimestamp', nowDateString)
+    }
   }, [setdictionaryWord])
+
+  useEffect(() => {
+    if (dictionaryWord.length == 0) {
+      
+      EventEmitter.subscribe('initialized', function (e: any) {
+        IndexedDBService.GetAll((data: any) => {
+        const resultIndexedArray = data[0].Name
+        const getIndexedList = resultIndexedArray.map((item: {word: string}) => {
+          return item.word
+        })
+        
+        setdictionaryWord(getIndexedList)
+      })
+    })
+    }
+  },[dictionaryWord])
 
   useEffect(() => {
     fetch("http://localhost:8080/api/gameword/three")
@@ -197,43 +230,43 @@ function App() {
   }, [setGameFiveWord])
 
   useEffect(() => {
-    const dictWordList = dictionaryWord.map((value: Data) => { 
-      return value.word
-    })
-    setgetdictWord(dictWordList)
+    if (dictionaryWord) {
+      const dictWordList = dictionaryWord.map((value: Data) => { 
+        return value.word
+      })
+      setgetdictWord(dictWordList)
+    }
     isWordInWordList(currentGuess, getdictWord, threewordsData, fourwordsData,fivewordsData)
 
   },[dictionaryWord, setgetdictWord])
 
   useEffect(() => {
-    const gameThreeWordList = gameThreeWord.map((value: Data) => {
-      return value.word
-    })
-    // console.log('gameThreeWordList...', gameThreeWordList)
-    setThreeWordList(gameThreeWordList)
-    // getSolution(getToday(),gameThreeWordList)
-
+    if (gameThreeWord) {
+      const gameThreeWordList = gameThreeWord.map((value: Data) => {
+        return value.word
+      })
+      setThreeWordList(gameThreeWordList)
+    }
   },[gameThreeWord, setThreeWordList])
 
   useEffect(() => {
-    const gameFourWordList = gameFourWord.map((value: Data) => {
-      return value.word
-    })
-    setFourWordList(gameFourWordList)
-    // getSolution(getToday(),gameFourWordList)
-
+    if (gameFourWord) {
+      const gameFourWordList = gameFourWord.map((value: Data) => {
+        return value.word
+      })
+      setFourWordList(gameFourWordList)
+    }
   },[gameFourWord, setFourWordList])
 
   useEffect(() => {
-    const gameFiveWordList = gameFiveWord.map((value: Data) => {
-      return value.word
-    })
-    setFiveWordList(gameFiveWordList)
-    // getSolution(getToday(),gameFiveWordList)
-
+    if (gameFiveWord) {
+      const gameFiveWordList = gameFiveWord.map((value: Data) => {
+        return value.word
+      })
+      setFiveWordList(gameFiveWordList)
+    }
   },[gameFiveWord, setFiveWordList])
 
-  // console.log('threeWordList.intha..', threeWordList)
   useEffect(() => {
     dispatch({ type: TamilWordActionTypes.SET_DATA, payload:{threeWordList:threeWordList, fourWordList: fourWordList, fiveWordList: fiveWordList}});
 
@@ -261,28 +294,11 @@ function App() {
   const fivewordsData = useSelector((state: {TamilWordListReducer: {
     fiveWordList: string[]
   }}) => state.TamilWordListReducer.fiveWordList)
-
-  useEffect(() => {
-    // console.log('threewordsData', threewordsData)
-  }, [threewordsData])
-
-  useEffect(() => {
-    // console.log('fourwordsData', fourwordsData)
-  }, [fourwordsData])
-
-  useEffect(() => {
-    // console.log('fivewordsData', fivewordsData)
-  }, [fivewordsData])
   
   useEffect(() => {
     const GetRecords = getSolution(getToday(),threewordsData,fourwordsData,fivewordsData)
     dispatch({ type: SolutionActionTypes.GET_SOLUTION_DATA, payload:{previousdayWord:GetRecords.previousdayWord, solution:GetRecords.solution, solutionGameDate:GetRecords.solutionGameDate, solutionIndex:GetRecords.solutionIndex, tomorrow:GetRecords.tomorrow}});
-    console.log('GetRecords.', GetRecords)
   }, [threewordsData,fourwordsData,fivewordsData])
-
-  useEffect(() => {
-    console.log('solution.....apppp..', solution)
-  },[solution])
 
   const solutionData = useSelector((state: {SolutionListReducer: {
     solution: string
@@ -305,11 +321,10 @@ function App() {
   }}) => state.SolutionListReducer.tomorrow)
 
   useEffect(() => {
-    console.log('solutionData', solutionData)
-    console.log('previousdayWordData', previousdayWordData)
-    console.log('solutionGameDateData', solutionGameDateData)
-    console.log('solutionIndexData', solutionIndexData)
-    console.log('tomorrowData', tomorrowData)
+    setSolution(solutionData)
+    setSolutionGameDate(solutionGameDateData)
+    setPreviousdayWord(previousdayWordData)
+    setTomorrow(tomorrowData)
   }, [solutionData, previousdayWordData, solutionGameDateData, solutionIndexData, tomorrowData])
 
   useEffect(() => {
@@ -601,6 +616,8 @@ function App() {
             isEasyMode={isEasyMode}
             isHighContrastMode={isHighContrastMode}
             numberOfGuessesMade={guesses.length}
+            solutionGameDate={solutionGameDate}
+            tomorrow={tomorrow}
           />
           <WiningModal 
             isOpen={isWiningModalOpen}

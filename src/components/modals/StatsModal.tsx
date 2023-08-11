@@ -18,7 +18,7 @@ import {
 } from '../../constants/strings'
 import { GameStats } from '../../lib/localStorage'
 import { shareStatus } from '../../lib/share'
-import { solutionGameDate, tomorrow } from '../../lib/words'
+// import { solutionGameDate, tomorrow } from '../../lib/words'
 import { Histogram } from '../stats/Histogram'
 import { MigrationIntro } from '../stats/MigrationIntro'
 import { StatBar } from '../stats/StatBar'
@@ -43,6 +43,8 @@ type Props = {
   isHighContrastMode: boolean
   numberOfGuessesMade: number
   isEasyMode: boolean
+  solutionGameDate: Date
+  tomorrow: any
 }
 
 export const StatsModal = ({
@@ -63,6 +65,8 @@ export const StatsModal = ({
   isHighContrastMode,
   numberOfGuessesMade,
   isEasyMode,
+  solutionGameDate,
+  tomorrow
 }: Props) => {
   if (gameStats.totalGames <= 0) {
     return (
