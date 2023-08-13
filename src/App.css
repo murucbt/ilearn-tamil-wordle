@@ -157,6 +157,10 @@ span.green-dark-box {
   margin-right: 20px;
 }
 
+.correct-back {
+background-color: #15803D;
+}
+
 span.yellow-green-box{
   width: 30px;
   height: 30px;
@@ -404,7 +408,11 @@ h2, .details{
     padding-bottom: 150px;
 }
 
-
+.greenStar-back {
+  background-repeat: no-repeat;
+  background-position: 99% 10%;
+  background-image: url(http://localhost:3000/ilearn-tamil-wordle/static/media/star-icon.29e70c6….svg),linear-gradient(294deg, #3a6a36 50%, #63995e 50%);
+}
 .key-change {
   border-radius: 4px;
   width: 3.5rem !important;
@@ -420,7 +428,7 @@ h2, .details{
   border-style: inset;
 }
 .key-change:hover {--tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity));
+  box-shadow: 1px 2px 8px #aaa;
 }
 p.easymode-text {
   margin-top: 5px;

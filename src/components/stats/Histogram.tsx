@@ -42,7 +42,6 @@ export const Histogram = ({
           label={String(value)}
         />
       ))}
-      <div className="hr-allign" />
     </div>
   )
 }

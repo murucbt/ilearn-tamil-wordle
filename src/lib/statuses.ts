@@ -1,5 +1,5 @@
 import { unicodeSplit } from './words'
-import { uyireMeiCombo, meiEluththukkal } from '../constants/tamilwords'
+import { uyireMeiCombo, meiEluththukkal, uyireEluththukkal, keyBoardRightSideUyireMeiLetters, meiLettersCombo } from '../constants/tamilwords'
 
 export type CharStatus = 'absent' | 'present' | 'correct' | 'darklightGreen' | 'yellowGreen' | 'greenStar' | 'heart' | 'meiwordletters'
 
@@ -10,30 +10,41 @@ export const getStatuses = (
 ): { [key: string]: CharStatus } => {
   const charObj: { [key: string]: CharStatus } = {}
   const splitSolution = unicodeSplit(solution)
-
   guesses.forEach((word) => {
     unicodeSplit(word).forEach((letter, i) => {
-      // if (letter !== splitSolution[i]) {
-      //   const finalUyireMeiWord = compareUyireMeiWord(letter, splitSolution[i])
-      //   return (charObj[finalUyireMeiWord] = 'uyiremei')
-      // }
+      const guessColorCode = getGuessStatuses(solution, word)[i]
+      let rightSideKeyBoardUyirMeiLetterOfGuessLeter = null
 
-      if (!splitSolution.includes(letter)) {
-        // make status absent
-        return (charObj[letter] = 'absent')
+      const guessLetterCombo = uyireMeiCombo[letter] || [letter]
+      if (guessLetterCombo.length > 1) {
+        const meiLetterFromGuessLetter = guessLetterCombo.filter((individualLetter: any) => meiEluththukkal.includes(individualLetter))[0];
+        rightSideKeyBoardUyirMeiLetterOfGuessLeter = meiLettersCombo[meiLetterFromGuessLetter]
+      } else if (guessLetterCombo.length === 1 && meiEluththukkal.includes(guessLetterCombo[0])) {
+        rightSideKeyBoardUyirMeiLetterOfGuessLeter = meiLettersCombo[guessLetterCombo[0]]
+      } else if (guessLetterCombo.length === 1 && uyireEluththukkal.includes(guessLetterCombo[0])) {
+        rightSideKeyBoardUyirMeiLetterOfGuessLeter = guessLetterCombo[0]
       }
+      checkKeysOtherThanRightAndLeftKeys(letter, splitSolution[i], guessColorCode, charObj);
 
-      if (letter === splitSolution[i]) {
+      return (charObj[rightSideKeyBoardUyirMeiLetterOfGuessLeter] = guessColorCode)
+    })
+  })
+  return charObj
+}
+
+const checkKeysOtherThanRightAndLeftKeys = (letter: any, solutionLetter: any, colorCode: any, charObj: any) => {
+  if ( ! keyBoardRightSideUyireMeiLetters.includes(letter) && ! uyireEluththukkal.includes(letter)) {
+      if (letter === solutionLetter) {
         //make status correct
         return (charObj[letter] = 'correct')
       }
-
-      if (charObj[letter] !== 'correct') {
-        //make status present
-        return (charObj[letter] = 'present')
+      if (letter !== solutionLetter) {
+        //make status absent
+        return (charObj[letter] = 'absent')
       }
-    })
-  })
+
+    // charObj[letter] = colorCode;
+  }
 
   return charObj
 }
