@@ -1,7 +1,7 @@
 import { unicodeSplit } from './words'
 import { uyireMeiCombo, meiEluththukkal, uyireEluththukkal, keyBoardRightSideUyireMeiLetters, meiLettersCombo } from '../constants/tamilwords'
 
-export type CharStatus = 'absent' | 'present' | 'correct' | 'darklightGreen' | 'yellowGreen' | 'greenStar' | 'heart' | 'meiwordletters'
+export type CharStatus = 'absent' | 'present' | 'correct' | 'darklightGreen' | 'yellowGreen' | 'greenStar' | 'heart' | 'meiwordletters' | 'yellowGreenHeart' | 'darklightGreenHeart'
 
 export const getStatuses = (
   solution: string,
@@ -115,6 +115,13 @@ export const getGuessStatuses = (
 
   // handle all correct cases first
   splitGuess.forEach((letter, i) => {
+    const checkHeartStatus = () => {
+      if (isUyireMei === true && !statuses[i]) {
+        const uyireMeiWord = checkIfGivensLettersSoundsSame(letter, splitSolution[i])
+        return uyireMeiWord
+      } 
+    } 
+
     if (letter === splitSolution[i]) {
       statuses[i] = 'correct'
       solutionCharsTaken[i] = true
@@ -124,9 +131,20 @@ export const getGuessStatuses = (
       validationResults.forEach((result, index) => {
         if (result === true) {
           if (index === 0) {
+              const uyireMeiWord = checkHeartStatus()
+              if (uyireMeiWord) {
+                statuses[i] = 'darklightGreenHeart'
+                return
+              }
             statuses[i] = 'darklightGreen'
           } else if (index === 1) {
+            const uyireMeiWord = checkHeartStatus()
+            if (uyireMeiWord) {
+              statuses[i] = 'yellowGreenHeart'
+              return
+            }
             statuses[i] = 'yellowGreen'
+            
           } else if (index === 2) {
             statuses[i] = 'greenStar'
           }

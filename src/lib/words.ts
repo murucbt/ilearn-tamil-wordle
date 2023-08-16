@@ -151,6 +151,7 @@ export const getSolution = (gameDate: Date) => {
   const index = getIndex(gameDate)
   const getDay = gameDate.getDay()
   const wordOfTheDay = getWordOfDay(index, getDay)
+  // console.log('wordOfTheDay..', wordOfTheDay)
   const daycalc = gameDate.getDay() - 1
   const indexcalc = getIndex(gameDate) - 1
   const yesterdayWord = getWordOfDay(indexcalc, daycalc)
