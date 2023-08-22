@@ -75,9 +75,13 @@ export const Cell = ({
         statusText = 'எழுத்து சொல்லில் உள்ளது ஆனால் வேறு இடத்தில் உள்ளது.'
       } else if (status === 'correct') {
         statusText = 'எழுத்து சொல்லின் சரியான இடத்தில் உள்ளது.'
-      } else if (status === 'darklightGreen' || 'darklightGreenHeart') {
+      } else if (status === 'darklightGreen') {
         statusText = 'எழுத்து சொல்லில் இடம்பெறவில்லை தவிர இதே எழுத்தின் வரிசையில் வேறு ஏதோ எழுத்து இதே இடத்தில் இடம்பெற்றுள்ளது.'
-      } else if (status === 'yellowGreen' || 'yellowGreenHeart') {
+      }else if (status === 'darklightGreenHeart') {
+        statusText = 'எழுத்து சொல்லில் இடம்பெறவில்லை தவிர இதே எழுத்தின் வரிசையில் வேறு ஏதோ எழுத்து இதே இடத்தில் இடம்பெற்றுள்ளது.'
+      } else if (status === 'yellowGreen') {
+        statusText = 'எழுத்து சொல்லில் இடம்பெறவில்லை தவிர இதே எழுத்தின் வரிசையில் வேறு ஏதோ எழுத்து வேறு இடத்தில் இடம்பெற்றுள்ளது.'
+      } else if (status === 'yellowGreenHeart') {
         statusText = 'எழுத்து சொல்லில் இடம்பெறவில்லை தவிர இதே எழுத்தின் வரிசையில் வேறு ஏதோ எழுத்து வேறு இடத்தில் இடம்பெற்றுள்ளது.'
       } else if (status === 'greenStar') {
         statusText = 'எழுத்து சொல்லில் வேறு இடத்தில் உள்ளது, அதோடு எழுத்து உள்ள இதே இடத்தில், இதே எழுத்தின் வேறு எழுத்து வரிசையும் இடம்பெற்றுள்ளது.'
