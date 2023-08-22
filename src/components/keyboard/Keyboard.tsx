@@ -245,9 +245,8 @@ export const Keyboard = ({
             {ENTER_TEXT}
           </Key>
           
-          <Key width={65.4} value="DELETE" onClick={onClick} solution={solution}>
-          
-          <i className="fa-solid fa-delete-left font-bold delete-mark">⌫</i>
+          <Key width={65.4} value="DELETE" onClick={onClick}>
+          <p className='font-bold delete-mark'>⌫</p>
           </Key>
       <div className='link-text'>
         <a href="#" onClick={e => e.preventDefault()} className="active-btn" rel="noreferrer">1</a>

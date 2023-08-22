@@ -44,6 +44,10 @@ export const Cell = ({
         status === 'heart',
       'text-white uyiremei-back':
         status === 'heart',
+      'text-white yellowgreenHeart-wrapper':
+        status === 'yellowGreenHeart',
+      'text-white darklightGreenHeart-wrapper':
+        status === 'darklightGreenHeart',
       'correct shadowed bg-orange-500 text-white border-orange-500':
         status === 'correct' && isHighContrast,
       'present shadowed bg-cyan-500 text-white border-cyan-500':
@@ -73,7 +77,11 @@ export const Cell = ({
         statusText = 'எழுத்து சொல்லின் சரியான இடத்தில் உள்ளது.'
       } else if (status === 'darklightGreen') {
         statusText = 'எழுத்து சொல்லில் இடம்பெறவில்லை தவிர இதே எழுத்தின் வரிசையில் வேறு ஏதோ எழுத்து இதே இடத்தில் இடம்பெற்றுள்ளது.'
+      }else if (status === 'darklightGreenHeart') {
+        statusText = 'எழுத்து சொல்லில் இடம்பெறவில்லை தவிர இதே எழுத்தின் வரிசையில் வேறு ஏதோ எழுத்து இதே இடத்தில் இடம்பெற்றுள்ளது.'
       } else if (status === 'yellowGreen') {
+        statusText = 'எழுத்து சொல்லில் இடம்பெறவில்லை தவிர இதே எழுத்தின் வரிசையில் வேறு ஏதோ எழுத்து வேறு இடத்தில் இடம்பெற்றுள்ளது.'
+      } else if (status === 'yellowGreenHeart') {
         statusText = 'எழுத்து சொல்லில் இடம்பெறவில்லை தவிர இதே எழுத்தின் வரிசையில் வேறு ஏதோ எழுத்து வேறு இடத்தில் இடம்பெற்றுள்ளது.'
       } else if (status === 'greenStar') {
         statusText = 'எழுத்து சொல்லில் வேறு இடத்தில் உள்ளது, அதோடு எழுத்து உள்ள இதே இடத்தில், இதே எழுத்தின் வேறு எழுத்து வரிசையும் இடம்பெற்றுள்ளது.'

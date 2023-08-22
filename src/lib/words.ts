@@ -186,7 +186,7 @@ export const getSolution = (gameDate: Date, threeWord: any, fourWord: any, fiveW
   const nextGameDate = getNextGameDate(gameDate)
   const index = getIndex(gameDate)
   const getDay = gameDate.getDay()
-  const wordOfTheDay = getWordOfDay(index, getDay,threeWord,fourWord,fiveWord)
+  const wordOfTheDay = getWordOfDay(index, getDay)
   // console.log('wordOfTheDay..', wordOfTheDay)
   const daycalc = gameDate.getDay() - 1
   const indexcalc = getIndex(gameDate) - 1
