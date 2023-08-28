@@ -1,0 +1,6 @@
+{
+    "itemsStore":"ItemsStore",
+    "gameStateStore":"gameStateStore",
+    "dataBase":"ItemsDatabase",
+    "versionDB":1
+}
