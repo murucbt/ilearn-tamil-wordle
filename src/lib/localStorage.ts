@@ -1,5 +1,3 @@
-import  secureLocalStorage  from  "react-secure-storage"
-import EventEmitter from '../common/event-emitter'
 import IndexedDBService from '../services/indexeddb.service'
 
 const gameStateKey = 'gameState'
@@ -11,7 +9,7 @@ export type StoredGameState = {
   solution: string
 }
 
-export const saveGameStateToLocalStorage = (
+export const saveGameStateToIndexDB = (
   isLatestGame: boolean,
   gameState: StoredGameState
 ) => {
@@ -21,31 +19,16 @@ export const saveGameStateToLocalStorage = (
     value: gameState
 }
   setTimeout(() => {
-    // IndexedDBService.CreateGamestateStore(gameStateItem)
+    IndexedDBService.CreateGamestateStore(gameStateItem)
   }, 1000);
-  // secureLocalStorage.setItem(key, gameState)
 }
 
 export const loadGameStateFromLocalStorage = (isLatestGame: boolean) => {
   const key = isLatestGame ? gameStateKey : archiveGameStateKey
-  const state = secureLocalStorage.getItem(key)
-
-  EventEmitter.subscribe('initialized', function (e: any) {
-    IndexedDBService.GamestateStoreGetAll((data: any) => {
-      console.log('data...', data[0].value.guesses)
-    const resultIndexedArray = data[0].value.guesses
-    console.log('resultIndexedArray...', resultIndexedArray)
-    const getIndexedList = resultIndexedArray.map((item: string) => {
-      return item
-    })
-    
-    console.log(getIndexedList)
-  })
-})
-  return state ? ((state) as StoredGameState) : null
+  return key
 }
 
-const gameStatKey = 'gameStats'
+const gameStaticsKey = 'gameStats'
 
 export type GameStats = {
   winDistribution: number[]
@@ -56,14 +39,16 @@ export type GameStats = {
   successRate: number
 }
 
-export const saveStatsToLocalStorage = (gameStats: GameStats) => {
-  localStorage.setItem(gameStatKey, JSON.stringify(gameStats))
+export const saveStatsToIndexDB = (gameStats: GameStats) => {
+  const gameStatsItem = {
+    Id: gameStaticsKey,
+    value: gameStats
+  }
+  setTimeout(() => {
+    IndexedDBService.CreateGamestaticsStore(gameStatsItem)
+  }, 1000);
 }
 
-export const loadStatsFromLocalStorage = () => {
-  const stats = localStorage.getItem(gameStatKey)
-  return stats ? (JSON.parse(stats) as GameStats) : null
-}
 
 export const setStoredIsHighContrastMode = (isHighContrast: boolean) => {
   if (isHighContrast) {

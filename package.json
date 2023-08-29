@@ -35,7 +35,6 @@
     "i18next": "^22.5.0",
     "i18next-browser-languagedetector": "^7.0.2",
     "i18next-http-backend": "^2.2.1",
-    "localforage": "^1.10.0",
     "query-string": "^7.1.1",
     "react": "^17.0.2",
     "react-countdown": "^2.3.2",

@@ -71,7 +71,7 @@ export const Navbar = ({
         </header>
         </div>
       </div>
-      <p className="daily-word-txt">(சொல்லாட்டம் - தினம் ஒரு சொல்)</p>
+      <p className="dark:text-gray-300 daily-word-txt">(சொல்லாட்டம் - தினம் ஒரு சொல்)</p>
     </div>
   )
 }

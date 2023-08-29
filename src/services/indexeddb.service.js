@@ -18,6 +18,8 @@ export class IndexedDBService {
             this.db = this.open.result;
             this.db.createObjectStore(config.itemsStore, { keyPath: "Id" });
             this.db.createObjectStore(config.gameStateStore, { keyPath: "Id" });
+            this.db.createObjectStore(config.gameStaticsStore, { keyPath: "Id" });
+            this.db.createObjectStore(config.gameSettingsStore, { keyPath: "Id" });
         };
 
         this.open.onsuccess = () => {
@@ -64,12 +66,54 @@ export class IndexedDBService {
 
         gamestateStore.put(item);
     }
+
+    CreateGamestaticsStore(item) {
+        let transaction = this.db.transaction(config.gameStaticsStore, "readwrite");
+        let gamestaticsStore = transaction.objectStore(config.gameStaticsStore,);
+
+        gamestaticsStore.put(item);
+    }
     GamestateStoreGetAll(callback) {
 
         let transaction = this.db.transaction(config.gameStateStore, "readwrite");
         let gamestateStore = transaction.objectStore(config.gameStateStore);
 
         let request = gamestateStore.getAll();
+        request.onerror = (error) => {
+            console.log('you have error ' + error);
+        }
+        request.onsuccess = (event) => {
+            callback(request.result);
+        }
+    }
+
+    GamestaticsStoreGetAll(callback) {
+
+        let transaction = this.db.transaction(config.gameStaticsStore, "readwrite");
+        let gamestaticsStore = transaction.objectStore(config.gameStaticsStore);
+
+        let request = gamestaticsStore.getAll();
+        request.onerror = (error) => {
+            console.log('you have error ' + error);
+        }
+        request.onsuccess = (event) => {
+            callback(request.result);
+        }
+    }
+
+    CreateGameDarkModeStore(item) {
+        let transaction = this.db.transaction(config.gameSettingsStore, "readwrite");
+        let gamesettingsStore = transaction.objectStore(config.gameSettingsStore,);
+
+        gamesettingsStore.put(item);
+    }
+
+    GameDarkModeStoreGetAll(callback) {
+
+        let transaction = this.db.transaction(config.gameSettingsStore, "readwrite");
+        let gamesettingsStore = transaction.objectStore(config.gameSettingsStore);
+
+        let request = gamesettingsStore.getAll();
         request.onerror = (error) => {
             console.log('you have error ' + error);
         }

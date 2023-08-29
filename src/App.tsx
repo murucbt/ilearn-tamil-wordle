@@ -38,10 +38,12 @@ import { isInAppBrowser } from './lib/browser'
 import {
   getStoredIsHighContrastMode,
   loadGameStateFromLocalStorage,
-  saveGameStateToLocalStorage,
+  saveGameStateToIndexDB,
   setStoredIsHighContrastMode,
+  StoredGameState,
+  GameStats,
 } from './lib/localStorage'
-import { addStatsForCompletedGame, loadStats } from './lib/stats'
+import { addStatsForCompletedGame } from './lib/stats'
 import {
   findFirstUnusedReveal,
   getGameDate,
@@ -54,10 +56,12 @@ import {
   unicodeLength,
   previousdayWord,
 } from './lib/words'
-import { getMeiwordEasyStatus } from '../src/lib/statuses'
 import { unicodeSplit } from '../src/lib/words'
 import { uyireMeiCombo, meiEluththukkal } from './constants/tamilwords'
 import { WiningModal } from './components/modals/WiningModal'
+import EventEmitter from './common/event-emitter'
+import IndexedDBService from './services/indexeddb.service'
+import { defaultStats } from './lib/stats'
 
 function App() {
   const isLatestGame = getIsLatestGame()
@@ -91,24 +95,58 @@ function App() {
   const uyirEluthukalArray = ['அ', 'ஆ', 'இ', 'ஈ', 'உ', 'ஊ', 'எ', 'ஏ', 'ஐ', 'ஒ', 'ஓ', 'ஔ', 'ஃ']
   const uyiremeiEluthukalArray = ['க', 'ச', 'ட', 'த', 'ப', 'ற', 'ங', 'ஞ', 'ண', 'ந', 'ம','ன', 'ய', 'ர', 'ல', 'வ', 'ழ','ள']
   const [isRevealing, setIsRevealing] = useState(false)
-  const [guesses, setGuesses] = useState<string[]>(() => {
-  const loaded = loadGameStateFromLocalStorage(isLatestGame)
-    if (loaded?.solution !== solution) {
-      return []
+  const [guesses, setGuesses] = useState<string[]>([])
+  const [ getStoredGameState, setStoredGameState ] = useState<StoredGameState>()
+  const [ getGameStats, setGameStats ] = useState<GameStats>(defaultStats)
+  
+  useEffect(() => {
+    EventEmitter.subscribe('initialized', function () {
+      IndexedDBService.GamestateStoreGetAll((data: any) => {
+        setStoredGameState({
+          guesses: data[0].value?.guesses,
+          solution: data[0].value?.solution
+        })
+      })
+    })
+  },[setStoredGameState])
+  
+  
+  useEffect(() => {
+    EventEmitter.subscribe('initialized', function () {
+      IndexedDBService.GamestaticsStoreGetAll((data: any) => {
+        if (data[0] && data[0].value !== undefined) {
+          setGameStats(data[0].value)
+        } else {
+          console.log("Data or value property is missing");
+        }
+      })
+    })
+  },[setGameStats])
+
+  useEffect(() => {
+  }, [getGameStats])
+  
+  useEffect(() => {
+    if (getStoredGameState?.solution !== solution) {
+      setGuesses([])
+    } else {
+      setGuesses(getStoredGameState?.guesses)
     }
-    const gameWasWon = loaded.guesses.includes(solution)
+  
+    const gameWasWon = getStoredGameState?.guesses.includes(solution)
     if (gameWasWon) {
       setIsGameWon(true)
     }
-    if (loaded.guesses.length === MAX_CHALLENGES && !gameWasWon) {
+  
+    if (getStoredGameState?.guesses.length === MAX_CHALLENGES && !gameWasWon) {
       setIsGameLost(true)
       showErrorAlert(CORRECT_WORD_MESSAGE(solution), {
         persist: true,
       })
     }
-    return loaded.guesses
-  })
-  const [stats, setStats] = useState(() => loadStats())
+  
+  },[setGuesses, setIsGameWon, setIsGameLost, showErrorAlert, getStoredGameState])
+
   const [isuyireMeiMode, setisuyireMeiMode] = useState(true)
   const [isDictionaryMode, setisDictionaryMode] = useState(
     localStorage.getItem('dictionaryMode')
@@ -163,7 +201,12 @@ function App() {
 
   const handleDarkMode = (isDark: boolean) => {
     setIsDarkMode(isDark)
-    localStorage.setItem('theme', isDark ? 'dark' : 'light')
+    const darkStatus = isDark ? 'dark' : 'light'
+    const setDarkMode = {
+      Id: 'theme',
+      value: darkStatus
+    }
+    IndexedDBService.CreateGameDarkModeStore(setDarkMode)
   }
 
   const handleHardMode = (isHard: boolean) => {
@@ -195,7 +238,7 @@ function App() {
   }
 
   useEffect(() => {
-    saveGameStateToLocalStorage(getIsLatestGame(), { guesses, solution })
+    saveGameStateToIndexDB(getIsLatestGame(), { guesses, solution })
   }, [guesses])
 
   useEffect(() => {
@@ -340,15 +383,15 @@ function App() {
       setCurrentGuess('')
 
       if (winningWord) {
-        if (isLatestGame) {
-          setStats(addStatsForCompletedGame(stats, guesses.length))
+        if (isLatestGame && getGameStats) {
+          setGameStats(addStatsForCompletedGame(getGameStats, guesses.length))
         }
         return setIsGameWon(true)
       }
 
       if (guesses.length === MAX_CHALLENGES - 1) {
-        if (isLatestGame) {
-          setStats(addStatsForCompletedGame(stats, guesses.length + 1))
+        if (isLatestGame && getGameStats) {
+          setGameStats(addStatsForCompletedGame(getGameStats, guesses.length + 1))
         }
         setIsGameLost(true)
         showErrorAlert(CORRECT_WORD_MESSAGE(solution), {
@@ -408,7 +451,7 @@ function App() {
             solution={solution}
             previousdayWord={previousdayWord}
             guesses={guesses}
-            gameStats={stats}
+            gameStats={getGameStats}
             isLatestGame={isLatestGame}
             isGameLost={isGameLost}
             isGameWon={isGameWon}
