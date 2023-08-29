@@ -49,15 +49,6 @@ export const saveStatsToIndexDB = (gameStats: GameStats) => {
   }, 1000);
 }
 
-
-export const setStoredIsHighContrastMode = (isHighContrast: boolean) => {
-  if (isHighContrast) {
-    localStorage.setItem(highContrastKey, '1')
-  } else {
-    localStorage.removeItem(highContrastKey)
-  }
-}
-
 export const getStoredIsHighContrastMode = () => {
   const highContrast = localStorage.getItem(highContrastKey)
   return highContrast === '1'

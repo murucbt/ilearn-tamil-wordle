@@ -333,7 +333,7 @@ h2, .details{
   margin-top: 15px;
   font-size: 18px;
   font-weight: 600;
-  color: rgba(36, 80, 160, 0.93);
+  color: #1976d2;
 }
 
 .game-word p {
@@ -467,7 +467,12 @@ p.easymode-text {
 }
 
 .feedback-links a {
-  color: blue;
+  color: #1976d2;
+  font-weight: 500;
+}
+
+.game-word p {
+  font-size: 18px !important;
 }
 
 .pipe {
@@ -508,7 +513,8 @@ p.easymode-text {
 }
 
 .footer-links a{
-  color: blue;
+  color: #1976d2;
+  font-weight: 500;
 }
 
 .new-enterbutton {

@@ -16,7 +16,7 @@ import {
   STATISTICS_TITLE,
   EASY_MODE_TITLE,
 } from '../../constants/strings'
-import { GameStats } from '../../lib/localStorage'
+import { GameStats } from '../../lib/indexDB'
 import { shareStatus } from '../../lib/share'
 import { solutionGameDate, tomorrow } from '../../lib/words'
 import { Histogram } from '../stats/Histogram'

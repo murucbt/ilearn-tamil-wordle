@@ -2,7 +2,7 @@ import { MAX_CHALLENGES } from '../constants/settings'
 import {
   GameStats,
   saveStatsToIndexDB,
-} from './localStorage'
+} from './indexDB'
 
 // In stats array elements 0-5 are successes in 1-6 trys
 

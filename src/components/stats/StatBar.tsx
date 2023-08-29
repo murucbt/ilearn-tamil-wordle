@@ -5,7 +5,7 @@ import {
   TOTAL_TRIES_TEXT,
   AVERAGE_TEXT,
 } from '../../constants/strings'
-import { GameStats } from '../../lib/localStorage'
+import { GameStats } from '../../lib/indexDB'
 
 type Props = {
   gameStats: GameStats

@@ -1,10 +1,7 @@
 import { DuplicateIcon } from '@heroicons/react/outline'
 import { useState } from 'react'
 
-import { copyTextToClipboard } from '../../lib/clipboard'
-import { encrypt } from '../../lib/encryption'
-import { loadGameStateFromLocalStorage } from '../../lib/localStorage'
-import { MigrationStats } from '../modals/MigrateStatsModal'
+import { loadGameStateFromLocalStorage } from '../../lib/indexDB'
 
 export const EmigratePanel = () => {
   const [isCopyButtonEnabled, setIsCopyButtonEnabled] = useState(true)

@@ -39,10 +39,9 @@ import {
   getStoredIsHighContrastMode,
   loadGameStateFromLocalStorage,
   saveGameStateToIndexDB,
-  setStoredIsHighContrastMode,
   StoredGameState,
   GameStats,
-} from './lib/localStorage'
+} from './lib/indexDB'
 import { addStatsForCompletedGame } from './lib/stats'
 import {
   findFirstUnusedReveal,
@@ -225,7 +224,6 @@ function App() {
   
   const handleHighContrastMode = (isHighContrast: boolean) => {
     setIsHighContrastMode(isHighContrast)
-    setStoredIsHighContrastMode(isHighContrast)
   }
 
   const clearCurrentRowClass = () => {

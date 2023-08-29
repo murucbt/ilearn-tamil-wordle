@@ -5,7 +5,7 @@ import { decrypt } from '../../lib/encryption'
 import {
   saveGameStateToIndexDB,
   saveStatsToIndexDB,
-} from '../../lib/localStorage'
+} from '../../lib/indexDB'
 import { MigrationStats } from '../modals/MigrateStatsModal'
 
 export const ImmigratePanel = () => {
