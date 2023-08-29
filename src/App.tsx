@@ -201,12 +201,7 @@ function App() {
 
   const handleDarkMode = (isDark: boolean) => {
     setIsDarkMode(isDark)
-    const darkStatus = isDark ? 'dark' : 'light'
-    const setDarkMode = {
-      Id: 'theme',
-      value: darkStatus
-    }
-    IndexedDBService.CreateGameDarkModeStore(setDarkMode)
+    localStorage.setItem('theme', isDark ? 'dark' : 'light')
   }
 
   const handleHardMode = (isHard: boolean) => {
