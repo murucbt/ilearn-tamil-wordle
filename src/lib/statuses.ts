@@ -67,13 +67,23 @@ const checkGuessLetterWithSolution = (guessLetterIndex: any, guessLetter: any, s
     meiLetterFromGuessLetter = guessLetterCombo.filter((individualLetter: any) => meiEluththukkal.includes(individualLetter))[0];
   }
 
+  function checkStringInArrayExceptIndex(solution: string[], guessLetterIndex: number, guessLetter: string): boolean {
+    if (guessLetterIndex >= 0 && guessLetterIndex < solution.length) {
+      for (let i = 0; i < solution.length; i++) {
+        if (i !== guessLetterIndex && solution[i] === guessLetter) {
+          return true;
+        }
+      }
+    } 
+    return false;
+  }
 
   if (meiLetterFromGuessLetter !== '') {
     lightDartGreen = solutionLetterCombo.includes(meiLetterFromGuessLetter)
-
     if (splitSolution.includes(meiLetterFromGuessLetter)) {
       const meiLetterFromSolutionLetterCombo = solutionLetterCombo.filter((individualLetter: any) => meiEluththukkal.includes(individualLetter));
-      if (meiLetterFromSolutionLetterCombo.includes(meiLetterFromGuessLetter)) {
+      const existsExceptAtIndex = checkStringInArrayExceptIndex(splitSolution, guessLetterIndex, guessLetter)
+      if (meiLetterFromSolutionLetterCombo.includes(meiLetterFromGuessLetter) && existsExceptAtIndex) {
         greenStar = true
       }
     }
@@ -187,43 +197,6 @@ export const getGuessStatuses = (
   return statuses
 }
 
-export const getMeiwordEasyStatus = (
-  solution: string,
-  guesses: string[],
-): { [key: string]: CharStatus } => {
-  const charObj: { [key: string]: CharStatus } = {}
-  const splitSolution = unicodeSplit(solution)
-  const statuses: CharStatus[] = Array.from(Array(guesses.length))
-
-  guesses.forEach((word) => {
-    unicodeSplit(word).forEach((letter, i) => {
-
-      if (letter !== splitSolution[i]) {
-        const checkMeiWord = checkMeiwordLetter(letter, splitSolution[i])
-        if (checkMeiWord){
-          statuses[i]= 'meiwordletters'
-          return (charObj[checkMeiWord] = 'meiwordletters')
-        }
-      }
-    })
-  })
-
-  return charObj
-}
-
-
-const checkMeiwordLetter = (guess: any, solution: any) => {
-  const guessWord = uyireMeiCombo[guess]
-  const solutionWord = uyireMeiCombo[solution]
-  let changeCorrectWord = ''
-  if (guessWord && solutionWord) {
-    if (guessWord[0]===solutionWord[0]) {
-      return changeCorrectWord = solution
-    } else if (meiEluththukkal.includes(guess) && meiEluththukkal.includes(solution)) {
-      return changeCorrectWord = solution
-    }
-  }
-}
 
 export const checkIfGivensLettersSoundsSame = (guessLetter: any, solutionLetter: any) => {
   // check if both guessLetter & solutionLetter are mei eluththukkal
