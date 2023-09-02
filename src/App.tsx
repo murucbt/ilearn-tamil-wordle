@@ -69,6 +69,7 @@ function App() {
   const { showError: showErrorAlert, showSuccess: showSuccessAlert } =
     useAlert()
   const [currentGuess, setCurrentGuess] = useState('')
+  const [getJsonData,setJsonData]=useState<any>([])
   const [isGameWon, setIsGameWon] = useState(false)
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false)
   const [isStatsModalOpen, setIsStatsModalOpen] = useState(false)
@@ -137,6 +138,30 @@ function App() {
       }, WELCOME_INFO_MODAL_MS)
     }
   })
+
+  const getJsonWordsData = () => {
+    fetch('json/words.json'
+    ,{
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }
+    }
+    )
+      .then(function(response){
+        console.log('response...',response)
+        return response.json();
+      })
+      .then(function(Json) {
+        console.log('Json...',Json.words);
+        setJsonData(Json.words)
+      })
+  }
+
+  useEffect(() => {
+    getJsonWordsData()
+    
+  },[])
 
   useEffect(() => {
     DISCOURAGE_INAPP_BROWSERS &&
