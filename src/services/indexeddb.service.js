@@ -54,7 +54,6 @@ export class IndexedDBService {
     }
 
     Create(item) {
-        console.log('item...', item)
         let transaction = this.db.transaction(config.itemsStore, "readwrite");
         let itemStore = transaction.objectStore(config.itemsStore);
 

@@ -3,7 +3,7 @@ import './App.css'
 import { ClockIcon } from '@heroicons/react/outline'
 import { format } from 'date-fns'
 import { default as GraphemeSplitter } from 'grapheme-splitter'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Div100vh from 'react-div-100vh'
 
 import { AlertContainer } from './components/alerts/AlertContainer'
@@ -48,19 +48,20 @@ import {
   getGameDate,
   getIsLatestGame,
   isWinningWord,
-  isWordInWordList,
   setGameDate,
-  solution,
-  solutionGameDate,
   unicodeLength,
-  previousdayWord,
+  getSolution,
 } from './lib/words'
+import { getToday } from '../src/lib/dateutils'
 import { unicodeSplit } from '../src/lib/words'
 import { uyireMeiCombo, meiEluththukkal } from './constants/tamilwords'
 import { WiningModal } from './components/modals/WiningModal'
 import EventEmitter from './common/event-emitter'
 import IndexedDBService from './services/indexeddb.service'
 import { defaultStats } from './lib/stats'
+import { useSelector, useDispatch } from 'react-redux'
+import { GameWordActionTypes } from './reducers/GameWordListReducer'
+import { SolutionActionTypes } from './reducers/SolutionListReducer'
 
 function App() {
   const isLatestGame = getIsLatestGame()
@@ -71,6 +72,7 @@ function App() {
 
   const { showError: showErrorAlert, showSuccess: showSuccessAlert } =
     useAlert()
+    const dispatch = useDispatch()
   const [currentGuess, setCurrentGuess] = useState('')
   const [isGameWon, setIsGameWon] = useState(false)
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false)
@@ -81,6 +83,9 @@ function App() {
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false)
   const [currentRowClass, setCurrentRowClass] = useState('')
   const [isGameLost, setIsGameLost] = useState(false)
+  const [getJsonData,setJsonData]=useState<any>([])
+  const [solutionMeaningWord, setSolutionMeaningWord] = useState('')
+  const [getGameWordFromJsonData, setGameWordFromJsonData] = useState<string[]>([])
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem('theme')
       ? localStorage.getItem('theme') === 'dark'
@@ -91,6 +96,10 @@ function App() {
   const [isHighContrastMode, setIsHighContrastMode] = useState(
     getStoredIsHighContrastMode()
   )
+  const [solution, setSolution]= useState("")
+  const [solutionGameDate, setSolutionGameDate] = useState(new Date())
+  const [previousdayWord, setPreviousdayWord] = useState("")
+  const [tomorrow, setTomorrow] = useState<Number | null>(null)
   const uyirEluthukalArray = ['அ', 'ஆ', 'இ', 'ஈ', 'உ', 'ஊ', 'எ', 'ஏ', 'ஐ', 'ஒ', 'ஓ', 'ஔ', 'ஃ']
   const uyiremeiEluthukalArray = ['க', 'ச', 'ட', 'த', 'ப', 'ற', 'ங', 'ஞ', 'ண', 'ந', 'ம','ன', 'ய', 'ர', 'ல', 'வ', 'ழ','ள']
   const [isRevealing, setIsRevealing] = useState(false)
@@ -144,7 +153,7 @@ function App() {
       })
     }
   
-  },[setGuesses, setIsGameWon, setIsGameLost, showErrorAlert, getStoredGameState])
+  },[setGuesses, setIsGameWon, setIsGameLost, showErrorAlert, getStoredGameState, solution])
 
   const [isuyireMeiMode, setisuyireMeiMode] = useState(true)
   const [isDictionaryMode, setisDictionaryMode] = useState(
@@ -164,6 +173,78 @@ function App() {
       ? localStorage.getItem('easyMode') === 'yes'
       : false
   )
+
+  const getJsonWordsData = () => {
+    fetch('json/words.json'
+    ,{
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }
+    }
+    )
+      .then(function(response){
+        return response.json();
+      })
+      .then(function(Json) {
+        setJsonData(Json.words)
+      })
+  }
+
+  useEffect(() => {
+    getJsonWordsData()
+    
+  },[])
+
+  useEffect(() => {
+      setSolutionMeaningWord(getJsonData[solution])
+      const gameWordFromJsonData = Object.keys(getJsonData);
+      setGameWordFromJsonData(gameWordFromJsonData)
+  },[getJsonData, setSolutionMeaningWord, setGameWordFromJsonData, solution])
+
+  useEffect(() => {
+    dispatch({ type: GameWordActionTypes.SET_GAME_WORD_DATA, payload:{gameWordList:getGameWordFromJsonData}});
+
+  },[getGameWordFromJsonData, dispatch])
+
+  const gamewordsData = useSelector((state: {GameWordListReducer: {
+    gameWordList: string[]
+  }}) => state.GameWordListReducer.gameWordList)
+
+  useEffect(() => {
+  }, [gamewordsData])
+
+  useEffect(() => {
+    const GetRecords = getSolution(getToday(),gamewordsData)
+    dispatch({ type: SolutionActionTypes.GET_SOLUTION_DATA, payload:{previousdayWord:GetRecords.previousdayWord, solution:GetRecords.solution, solutionGameDate:GetRecords.solutionGameDate, solutionIndex:GetRecords.solutionIndex, tomorrow:GetRecords.tomorrow}});
+  }, [gamewordsData, dispatch])
+
+  const solutionData = useSelector((state: {SolutionListReducer: {
+    solution: string
+  }}) => state.SolutionListReducer.solution)
+
+  const previousdayWordData = useSelector((state: {SolutionListReducer: {
+    previousdayWord: string
+  }}) => state.SolutionListReducer.previousdayWord)
+
+  const solutionGameDateData = useSelector((state: {SolutionListReducer: {
+    solutionGameDate: Date
+  }}) => state.SolutionListReducer.solutionGameDate)
+
+  const solutionIndexData = useSelector((state: {SolutionListReducer: {
+    solutionIndex: Number
+  }}) => state.SolutionListReducer.solutionIndex)
+
+  const tomorrowData = useSelector((state: {SolutionListReducer: {
+    tomorrow: Number
+  }}) => state.SolutionListReducer.tomorrow)
+
+  useEffect(() => {
+    setSolution(solutionData)
+    setSolutionGameDate(solutionGameDateData)
+    setPreviousdayWord(previousdayWordData)
+    setTomorrow(tomorrowData)
+  }, [solutionData, previousdayWordData, solutionGameDateData, solutionIndexData, tomorrowData])
 
   useEffect(() => {
     // if no game state on load,
@@ -232,7 +313,7 @@ function App() {
 
   useEffect(() => {
     saveGameStateToIndexDB(getIsLatestGame(), { guesses, solution })
-  }, [guesses])
+  }, [guesses, solution])
 
   useEffect(() => {
     if (isGameWon) {
@@ -251,7 +332,7 @@ function App() {
         setIsWiningModalOpen(true)
       }, (unicodeLength(solution) + 1) * REVEAL_TIME_MS)
     }
-  }, [isGameWon, isGameLost, showSuccessAlert])
+  }, [isGameWon, isGameLost, showSuccessAlert, solution])
 
   const updateLastValue = (newValue : string) => {
     setCurrentGuess(prevString => {
@@ -299,25 +380,60 @@ function App() {
     return meiLetterFromGivenLetter
   }  
 
+  const dictionaryWordsCheck = (currentGuess: string) => {
+    if (!isDictionaryMode) {
+      if (currentGuess) {
+        const url = `http://test.ilearntamil.com/index.php/api/v1/check_word/${currentGuess}`;
+        fetch(url)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            const dictStatus = data.status
+            if (!dictStatus) {
+              setCurrentRowClass('jiggle')
+              showErrorAlert(WORD_NOT_FOUND_MESSAGE, {
+                onClose: clearCurrentRowClass, durationMs: 5000
+              })
+            } else {
+              setNewGuess(currentGuess)
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            // Handle errors here
+          });
+      }
+    } else {
+      setNewGuess(currentGuess)
+    }
+
+  }
+
+  const setNewGuess = useCallback((finalCurrentGuess: string) => {
+    if (currentGuess !== finalCurrentGuess) {
+      setGuesses([...guesses, finalCurrentGuess])
+    } else {
+      setGuesses([...guesses, currentGuess])
+    }
+    setCurrentGuess('')
+  }, [setGuesses, setCurrentGuess, guesses, currentGuess])
+
   const onEnter = () => {
     let finalCurrentGuess = currentGuess
     if (isGameWon || isGameLost) {
       return
     }
 
+     dictionaryWordsCheck(currentGuess)
     if ((unicodeLength(currentGuess) !== unicodeLength(solution))) {
       setCurrentRowClass('jiggle')
       return showErrorAlert(NOT_ENOUGH_LETTERS_MESSAGE, {
         onClose: clearCurrentRowClass,
       })
-    }
-    if (isDictionaryMode === false) { 
-        if (!isWordInWordList(currentGuess)) {
-          setCurrentRowClass('jiggle')
-          return showErrorAlert(WORD_NOT_FOUND_MESSAGE, {
-            onClose: clearCurrentRowClass,
-          })
-        }
     }
 
     if (isEasyMode) {
@@ -368,12 +484,7 @@ function App() {
       guesses.length < MAX_CHALLENGES &&
       !isGameWon
     ) {
-      if (currentGuess !== finalCurrentGuess) {
-        setGuesses([...guesses, finalCurrentGuess])
-      } else {
-        setGuesses([...guesses, currentGuess])
-      }
-      setCurrentGuess('')
+
 
       if (winningWord) {
         if (isLatestGame && getGameStats) {
@@ -463,6 +574,8 @@ function App() {
             isEasyMode={isEasyMode}
             isHighContrastMode={isHighContrastMode}
             numberOfGuessesMade={guesses.length}
+            solutionGameDate={solutionGameDate}
+            tomorrow={tomorrow}
           />
           <WiningModal 
             isOpen={isWiningModalOpen}
@@ -481,6 +594,7 @@ function App() {
             isDarkMode={isDarkMode}
             isEasyMode={isEasyMode}
             isHighContrastMode={isHighContrastMode}
+            isSolutionMeaningWord={solutionMeaningWord}
           />
 
           <DatePickerModal

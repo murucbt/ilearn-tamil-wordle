@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 import { REVEAL_TIME_MS } from '../../constants/settings'
 import { getStoredIsHighContrastMode } from '../../lib/indexDB'
 import { CharStatus } from '../../lib/statuses'
-import { solution, unicodeLength } from '../../lib/words'
+import { unicodeLength } from '../../lib/words'
 
 type Props = {
   children?: ReactNode
@@ -14,6 +14,7 @@ type Props = {
   onClick: (value: string) => void
   isRevealing?: boolean
   className?: string
+  solution: string
 }
 
 export const Key = ({
@@ -23,7 +24,8 @@ export const Key = ({
   value,
   onClick,
   isRevealing,
-  className
+  className,
+  solution
 }: Props) => {
   const keyDelayMs = REVEAL_TIME_MS * unicodeLength(solution)
   const isHighContrast = getStoredIsHighContrastMode()

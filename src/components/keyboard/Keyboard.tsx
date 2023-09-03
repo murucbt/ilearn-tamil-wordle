@@ -171,6 +171,7 @@ export const Keyboard = ({
             onClick={onClick}
             status={charStatuses[key]}
             isRevealing={isRevealing}
+            solution={solution}
           />
         ))}
         {tamilAlphabetsTwo.map((key) => (
@@ -180,6 +181,7 @@ export const Keyboard = ({
             onClick={vowelConsonant}
             status={charStatuses[key]}
             isRevealing={isRevealing}
+            solution={solution}
           />
         ))}
       </div>
@@ -191,6 +193,7 @@ export const Keyboard = ({
             onClick={onClick}
             status={charStatuses[key]}
             isRevealing={isRevealing}
+            solution={solution}
           />
         ))}
         {tamilAlphabetsFour.map((key) => (
@@ -200,6 +203,7 @@ export const Keyboard = ({
             onClick={vowelConsonant}
             status={charStatuses[key]}
             isRevealing={isRevealing}
+            solution={solution}
           />
         ))}
       </div>
@@ -211,6 +215,7 @@ export const Keyboard = ({
             onClick={onClick}
             status={charStatuses[key]}
             isRevealing={isRevealing}
+            solution={solution}
           />
         ))}
         {tamilAlphabetsSix.map((key) => (
@@ -220,6 +225,7 @@ export const Keyboard = ({
             onClick={vowelConsonant}
             status={charStatuses[key]}
             isRevealing={isRevealing}
+            solution={solution}
           />
         ))}
       </div>
@@ -232,13 +238,14 @@ export const Keyboard = ({
               onClick={onClick}
               status={charStatuses[key]}
               isRevealing={isRevealing}
+              solution={solution}
             />
           ))}
-          <Key width={65.4} value="ENTER" onClick={onClick} className='enter-button'>
+          <Key width={65.4} value="ENTER" onClick={onClick} solution={solution} className='enter-button'>
             {ENTER_TEXT}
           </Key>
           
-          <Key width={65.4} value="DELETE" onClick={onClick}>
+          <Key width={65.4} value="DELETE" onClick={onClick} solution={solution}>
           <p className='font-bold delete-mark'>⌫</p>
           </Key>
       <div className='link-text'>
