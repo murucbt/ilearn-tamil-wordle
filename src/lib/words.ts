@@ -17,7 +17,6 @@ import { dictionaryWords } from '../constants/dictionaryWords'
 import { store } from '../store/index'
 // 1 June 2023 Game Epoch
 export const firstGameDate = new Date(2023, 8)
-console.log('firstGameDate...', firstGameDate)
 export const periodInDays = 1
 
 export const isWordInWordList = (word: string) => {
@@ -151,7 +150,7 @@ export const getSolution = (gameDate: Date, gameWordsData: string[]) => {
   const nextGameDate = getNextGameDate(gameDate)
   const index = getIndex(gameDate)
   const wordOfTheDay = getWordOfDay(index, gameWordsData)
-  console.log('wordOfTheDay..', wordOfTheDay)
+  // console.log('wordOfTheDay..', wordOfTheDay)
   const indexcalc = getIndex(gameDate) - 1
   const yesterdayWord = getWordOfDay(indexcalc, gameWordsData)
   return {

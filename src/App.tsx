@@ -100,6 +100,7 @@ function App() {
   const [solutionGameDate, setSolutionGameDate] = useState(new Date())
   const [previousdayWord, setPreviousdayWord] = useState("")
   const [tomorrow, setTomorrow] = useState<Number | null>(null)
+  const [dictionaryApiURL, setDictionaryApiURL] = useState("")
   const uyirEluthukalArray = ['அ', 'ஆ', 'இ', 'ஈ', 'உ', 'ஊ', 'எ', 'ஏ', 'ஐ', 'ஒ', 'ஓ', 'ஔ', 'ஃ']
   const uyiremeiEluthukalArray = ['க', 'ச', 'ட', 'த', 'ப', 'ற', 'ங', 'ஞ', 'ண', 'ந', 'ம','ன', 'ய', 'ர', 'ல', 'வ', 'ழ','ள']
   const [isRevealing, setIsRevealing] = useState(false)
@@ -380,10 +381,27 @@ function App() {
     return meiLetterFromGivenLetter
   }  
 
+  useEffect(() => {
+    fetch('properties/appProperties.json'
+    ,{
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }
+    }
+    )
+    .then(function(response){
+      return response.json();
+    })
+    .then(function(Json) {
+      setDictionaryApiURL(Json.appKeys.URL)
+    })
+  }, [currentGuess])
+
   const dictionaryWordsCheck = (currentGuess: string) => {
     if (!isDictionaryMode) {
-      if (currentGuess) {
-        const url = `http://test.ilearntamil.com/index.php/api/v1/check_word/${currentGuess}`;
+      if (currentGuess && dictionaryApiURL) {
+        const url = `${dictionaryApiURL}/${currentGuess}`;
         fetch(url)
           .then(response => {
             if (!response.ok) {
