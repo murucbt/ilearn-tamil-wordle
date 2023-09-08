@@ -127,8 +127,7 @@ export const getGuessStatuses = (
   splitGuess.forEach((letter, i) => {
     const checkHeartStatus = () => {
       if (isUyireMei === true && !statuses[i]) {
-        const uyireMeiWord = checkIfGivensLettersSoundsSame(letter, splitSolution[i])
-        return uyireMeiWord
+        return checkIfGivensLettersSoundsSame(letter, splitSolution[i])
       } 
     } 
 
@@ -206,7 +205,7 @@ export const checkIfGivensLettersSoundsSame = (guessLetter: any, solutionLetter:
 
   const guessLetterCombo = uyireMeiCombo[guessLetter] || [guessLetter];
   const solutionLetterCombo = uyireMeiCombo[solutionLetter] || [solutionLetter];
-  if (guessLetterCombo.length > 1) {
-    return guessLetterCombo[1] === solutionLetterCombo[1];
-  }
+  const meiLetterFromGuessLetter = guessLetterCombo.filter((individualLetter: any) => meiEluththukkal.includes(individualLetter))[0];
+
+  return solutionLetterCombo.includes(meiLetterFromGuessLetter) ? false : guessLetterCombo.some((letter: any) => solutionLetterCombo.includes(letter))
 }
