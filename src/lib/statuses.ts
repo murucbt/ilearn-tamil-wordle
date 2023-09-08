@@ -206,6 +206,7 @@ export const checkIfGivensLettersSoundsSame = (guessLetter: any, solutionLetter:
 
   const guessLetterCombo = uyireMeiCombo[guessLetter] || [guessLetter];
   const solutionLetterCombo = uyireMeiCombo[solutionLetter] || [solutionLetter];
-  
-  return guessLetterCombo.some((letter: any) => solutionLetterCombo.includes(letter));
+  if (guessLetterCombo.length > 1) {
+    return guessLetterCombo[1] === solutionLetterCombo[1];
+  }
 }

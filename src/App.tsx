@@ -63,6 +63,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import { GameWordActionTypes } from './reducers/GameWordListReducer'
 import { SolutionActionTypes } from './reducers/SolutionListReducer'
 
+type Data = {
+  value: {
+    guesses: string[],
+    solution: string
+  }
+}
+
 function App() {
   const isLatestGame = getIsLatestGame()
   const gameDate = getGameDate()
@@ -110,11 +117,13 @@ function App() {
   
   useEffect(() => {
     EventEmitter.subscribe('initialized', function () {
-      IndexedDBService.GamestateStoreGetAll((data: any) => {
-        setStoredGameState({
-          guesses: data[0].value?.guesses,
-          solution: data[0].value?.solution
-        })
+      IndexedDBService.GamestateStoreGetAll((data: Data[]) => {
+        if (data[0] && data[0].value) {
+          setStoredGameState({
+            guesses: data[0].value.guesses,
+            solution: data[0].value.solution
+          })
+        }
       })
     })
   },[setStoredGameState])
@@ -382,7 +391,7 @@ function App() {
   }  
 
   useEffect(() => {
-    fetch('properties/appProperties.json'
+    fetch('json/app.json'
     ,{
       headers : { 
         'Content-Type': 'application/json',
@@ -394,11 +403,11 @@ function App() {
       return response.json();
     })
     .then(function(Json) {
-      setDictionaryApiURL(Json.appKeys.URL)
+      setDictionaryApiURL(Json.urlKeys.DICTIONARY_URL)
     })
   }, [currentGuess])
 
-  const dictionaryWordsCheck = (currentGuess: string) => {
+  const dictionaryWordsCheck = (currentGuess: string, callBack:(value: boolean)=> void) => {
     if (!isDictionaryMode) {
       if (currentGuess && dictionaryApiURL) {
         const url = `${dictionaryApiURL}/${currentGuess}`;
@@ -407,7 +416,7 @@ function App() {
             if (!response.ok) {
               throw new Error('Network response was not ok');
             }
-            return response.json();
+            return response.json()
           })
           .then(data => {
             const dictStatus = data.status
@@ -416,19 +425,21 @@ function App() {
               showErrorAlert(WORD_NOT_FOUND_MESSAGE, {
                 onClose: clearCurrentRowClass, durationMs: 5000
               })
+              callBack(false)
             } else {
               setNewGuess(currentGuess)
+              callBack(true)
             }
           })
           .catch(error => {
+            callBack(false)
             console.error('Error:', error);
-            // Handle errors here
           });
       }
     } else {
       setNewGuess(currentGuess)
+      callBack(true);
     }
-
   }
 
   const setNewGuess = useCallback((finalCurrentGuess: string) => {
@@ -440,88 +451,92 @@ function App() {
     setCurrentGuess('')
   }, [setGuesses, setCurrentGuess, guesses, currentGuess])
 
-  const onEnter = () => {
+  const onEnter = async () => {
     let finalCurrentGuess = currentGuess
     if (isGameWon || isGameLost) {
       return
     }
 
-     dictionaryWordsCheck(currentGuess)
     if ((unicodeLength(currentGuess) !== unicodeLength(solution))) {
       setCurrentRowClass('jiggle')
       return showErrorAlert(NOT_ENOUGH_LETTERS_MESSAGE, {
         onClose: clearCurrentRowClass,
       })
     }
+     await dictionaryWordsCheck(currentGuess, (status: boolean) => {
+      if (!status) {
+        return
+      }
 
-    if (isEasyMode) {
-      const splitSolution = unicodeSplit(solution)
-      const splitGuess = unicodeSplit(currentGuess)
-
-      let newGuessWordInEasyMode = splitGuess;
-
-      splitGuess.forEach((letter, i) => {
-        if (
-          letter !== splitSolution[i] &&
-          getMeiLetterFromGivenLetter(letter) === getMeiLetterFromGivenLetter(splitSolution[i]) &&
-          getMeiLetterFromGivenLetter(letter) !== '' &&
-          getMeiLetterFromGivenLetter(splitSolution[i]) !== ''
-        ) {
-          newGuessWordInEasyMode[i] = splitSolution[i];
+      if (isEasyMode) {
+        const splitSolution = unicodeSplit(solution)
+        const splitGuess = unicodeSplit(currentGuess)
+  
+        let newGuessWordInEasyMode = splitGuess;
+  
+        splitGuess.forEach((letter, i) => {
+          if (
+            letter !== splitSolution[i] &&
+            getMeiLetterFromGivenLetter(letter) === getMeiLetterFromGivenLetter(splitSolution[i]) &&
+            getMeiLetterFromGivenLetter(letter) !== '' &&
+            getMeiLetterFromGivenLetter(splitSolution[i]) !== ''
+          ) {
+            newGuessWordInEasyMode[i] = splitSolution[i];
+          }
+        })     
+        
+        if (currentGuess !== newGuessWordInEasyMode.join('')) {
+          finalCurrentGuess = newGuessWordInEasyMode.join('')
+          setGuesses([...guesses, finalCurrentGuess])
         }
-      })     
-
-      if (currentGuess !== newGuessWordInEasyMode.join('')) {
-        finalCurrentGuess = newGuessWordInEasyMode.join('')
-        // setCurrentGuess(finalCurrentGuess)
-      }
-    }    
-
-    // enforce hard mode - all guesses must contain all previously revealed letters
-    if (isHardMode) {
-      const firstMissingReveal = findFirstUnusedReveal(currentGuess, guesses)
-      if (firstMissingReveal) {
-        setCurrentRowClass('jiggle')
-        return showErrorAlert(firstMissingReveal, {
-          onClose: clearCurrentRowClass,
-        })
-      }
-    }
-
-    setIsRevealing(true)
-    // turn this back off after all
-    // chars have been revealed
-    setTimeout(() => {
-      setIsRevealing(false)
-    }, REVEAL_TIME_MS * unicodeLength(solution))
-
-    const winningWord = isWinningWord(currentGuess)
-
-    if (
-      unicodeLength(currentGuess) === unicodeLength(solution) &&
-      guesses.length < MAX_CHALLENGES &&
-      !isGameWon
-    ) {
-
-
-      if (winningWord) {
-        if (isLatestGame && getGameStats) {
-          setGameStats(addStatsForCompletedGame(getGameStats, guesses.length))
+      }    
+  
+      // enforce hard mode - all guesses must contain all previously revealed letters
+      if (isHardMode) {
+        const firstMissingReveal = findFirstUnusedReveal(currentGuess, guesses)
+        if (firstMissingReveal) {
+          setCurrentRowClass('jiggle')
+          return showErrorAlert(firstMissingReveal, {
+            onClose: clearCurrentRowClass,
+          })
         }
-        return setIsGameWon(true)
       }
 
-      if (guesses.length === MAX_CHALLENGES - 1) {
-        if (isLatestGame && getGameStats) {
-          setGameStats(addStatsForCompletedGame(getGameStats, guesses.length + 1))
+      setIsRevealing(true)
+      // turn this back off after all
+      // chars have been revealed
+      setTimeout(() => {
+        setIsRevealing(false)
+      }, REVEAL_TIME_MS * unicodeLength(solution))
+  
+      const winningWord = isWinningWord(finalCurrentGuess)
+  
+      if (
+        unicodeLength(finalCurrentGuess) === unicodeLength(solution) &&
+        guesses.length < MAX_CHALLENGES &&
+        !isGameWon
+      ) {
+  
+  
+        if (winningWord) {
+          if (isLatestGame && getGameStats) {
+            setGameStats(addStatsForCompletedGame(getGameStats, guesses.length))
+          }
+          return setIsGameWon(true)
         }
-        setIsGameLost(true)
-        showErrorAlert(CORRECT_WORD_MESSAGE(solution), {
-          persist: true,
-          delayMs: REVEAL_TIME_MS * unicodeLength(solution) + 1,
-        })
+  
+        if (guesses.length === MAX_CHALLENGES - 1) {
+          if (isLatestGame && getGameStats) {
+            setGameStats(addStatsForCompletedGame(getGameStats, guesses.length + 1))
+          }
+          setIsGameLost(true)
+          showErrorAlert(CORRECT_WORD_MESSAGE(solution), {
+            persist: true,
+            delayMs: REVEAL_TIME_MS * unicodeLength(solution) + 1,
+          })
+        }
       }
-    }
+    })
   }
 
   return (
