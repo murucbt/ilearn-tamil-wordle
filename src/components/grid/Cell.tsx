@@ -48,6 +48,8 @@ export const Cell = ({
         status === 'yellowGreenHeart',
       'text-white darklightGreenHeart-wrapper':
         status === 'darklightGreenHeart',
+      'text-white yellowHeart-wrapper':
+        status === 'yellowHeart',
       'correct shadowed bg-orange-500 text-white border-orange-500':
         status === 'correct' && isHighContrast,
       'present shadowed bg-cyan-500 text-white border-cyan-500':

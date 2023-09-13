@@ -76,6 +76,12 @@ html.dark {
   background-image: url(./Hearticon-21*21.svg),linear-gradient(294deg, #3a6a36 50%, #63995e 50%);
 }
 
+.yellowHeart-wrapper {
+  background-repeat: no-repeat; 
+  background-position: 10% 10%;
+  background-image: url(./Hearticon-21*21.svg),linear-gradient(294deg, #ebb305 50%, #ebb305 50%);
+}
+
 .absentma-back {
   background-color: #939598;
 }
