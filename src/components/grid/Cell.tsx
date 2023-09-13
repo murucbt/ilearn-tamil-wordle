@@ -87,7 +87,7 @@ export const Cell = ({
         statusText = 'எழுத்து சொல்லில் இடம்பெறவில்லை தவிர இதே எழுத்தின் வரிசையில் வேறு ஏதோ எழுத்து வேறு இடத்தில் இடம்பெற்றுள்ளது.'
       } else if (status === 'greenStar') {
         statusText = 'எழுத்து சொல்லில் வேறு இடத்தில் உள்ளது, அதோடு எழுத்து உள்ள இதே இடத்தில், இதே எழுத்தின் வேறு எழுத்து வரிசையும் இடம்பெற்றுள்ளது.'
-      } else if ('yellowHeart') {
+      } else if (status === 'yellowHeart') {
         statusText = 'எழுத்து சொல்லில் உள்ளது ஆனால் வேறு இடத்தில் உள்ளது.'
       }
       showSuccessToast(statusText);
