@@ -150,11 +150,10 @@ export const getSolution = (gameDate: Date, gameWordsData: string[]) => {
   const nextGameDate = getNextGameDate(gameDate)
   const index = getIndex(gameDate)
   const wordOfTheDay = getWordOfDay(index, gameWordsData)
-  // console.log('wordOfTheDay..', wordOfTheDay)
   const indexcalc = getIndex(gameDate) - 1
   const yesterdayWord = getWordOfDay(indexcalc, gameWordsData)
   return {
-    solution: String(wordOfTheDay),
+    solution: wordOfTheDay ? wordOfTheDay : '',
     previousdayWord: String(yesterdayWord),
     solutionGameDate: gameDate,
     solutionIndex: index,

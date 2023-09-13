@@ -77,7 +77,7 @@ function App() {
     '(prefers-color-scheme: dark)'
   ).matches
 
-  const { showError: showErrorAlert, showSuccess: showSuccessAlert } =
+  const { showError: showErrorAlert, showSuccess: showSuccessAlert, setIsVisible } =
     useAlert()
     const dispatch = useDispatch()
   const [currentGuess, setCurrentGuess] = useState('')
@@ -127,15 +127,11 @@ function App() {
       })
     })
   },[setStoredGameState])
-  
-  
   useEffect(() => {
     EventEmitter.subscribe('initialized', function () {
       IndexedDBService.GamestaticsStoreGetAll((data: any) => {
         if (data[0] && data[0].value !== undefined) {
           setGameStats(data[0].value)
-        } else {
-          console.log("Data or value property is missing");
         }
       })
     })
@@ -143,27 +139,6 @@ function App() {
 
   useEffect(() => {
   }, [getGameStats])
-  
-  useEffect(() => {
-    if (getStoredGameState?.solution !== solution) {
-      setGuesses([])
-    } else {
-      setGuesses(getStoredGameState?.guesses)
-    }
-  
-    const gameWasWon = getStoredGameState?.guesses.includes(solution)
-    if (gameWasWon) {
-      setIsGameWon(true)
-    }
-  
-    if (getStoredGameState?.guesses.length === MAX_CHALLENGES && !gameWasWon) {
-      setIsGameLost(true)
-      showErrorAlert(CORRECT_WORD_MESSAGE(solution), {
-        persist: true,
-      })
-    }
-  
-  },[setGuesses, setIsGameWon, setIsGameLost, showErrorAlert, getStoredGameState, solution])
 
   const [isuyireMeiMode, setisuyireMeiMode] = useState(true)
   const [isDictionaryMode, setisDictionaryMode] = useState(
@@ -226,7 +201,10 @@ function App() {
 
   useEffect(() => {
     const GetRecords = getSolution(getToday(),gamewordsData)
-    dispatch({ type: SolutionActionTypes.GET_SOLUTION_DATA, payload:{previousdayWord:GetRecords.previousdayWord, solution:GetRecords.solution, solutionGameDate:GetRecords.solutionGameDate, solutionIndex:GetRecords.solutionIndex, tomorrow:GetRecords.tomorrow}});
+    if (GetRecords.solution) {
+      setSolution(GetRecords.solution)
+      dispatch({ type: SolutionActionTypes.GET_SOLUTION_DATA, payload:{previousdayWord:GetRecords.previousdayWord, solution:GetRecords.solution, solutionGameDate:GetRecords.solutionGameDate, solutionIndex:GetRecords.solutionIndex, tomorrow:GetRecords.tomorrow}});
+    }
   }, [gamewordsData, dispatch])
 
   const solutionData = useSelector((state: {SolutionListReducer: {
@@ -250,11 +228,10 @@ function App() {
   }}) => state.SolutionListReducer.tomorrow)
 
   useEffect(() => {
-    setSolution(solutionData)
     setSolutionGameDate(solutionGameDateData)
     setPreviousdayWord(previousdayWordData)
     setTomorrow(tomorrowData)
-  }, [solutionData, previousdayWordData, solutionGameDateData, solutionIndexData, tomorrowData])
+  }, [previousdayWordData, solutionGameDateData, solutionIndexData, tomorrowData])
 
   useEffect(() => {
     // if no game state on load,
@@ -322,8 +299,38 @@ function App() {
   }
 
   useEffect(() => {
-    saveGameStateToIndexDB(getIsLatestGame(), { guesses, solution })
-  }, [guesses, solution])
+    const GetRecords = getSolution(getToday(),Object.keys(getJsonData))
+    IndexedDBService.GamestateStoreGetAll((data: Data[]) => {
+      if (GetRecords.solution && data[0]) {
+        const input = {
+          guesses: data[0].value.guesses,
+          solution : data[0].value.solution
+        }
+        saveGameStateToIndexDB(getIsLatestGame(), input , (response) => {
+          const gameState = response;
+          if (gameState) {
+            if (gameState?.solution !== GetRecords.solution) {
+              saveGameStateToIndexDB(getIsLatestGame(),{ guesses:[], solution: GetRecords.solution })
+               return setGuesses([])
+            } else {
+              setGuesses(gameState?.guesses)
+            }
+            const gameWasWon = gameState?.guesses.includes(GetRecords.solution)
+            if (gameWasWon) {
+              setIsGameWon(true)
+            }
+          
+            if (gameState?.guesses.length === MAX_CHALLENGES && !gameWasWon) {
+              setIsGameLost(true)
+              showErrorAlert(CORRECT_WORD_MESSAGE(GetRecords.solution), {
+                persist: true,
+              })
+            }
+          }
+        })
+      }
+    })
+  }, [getJsonData, setIsGameWon])
 
   useEffect(() => {
     if (isGameWon) {
@@ -443,11 +450,24 @@ function App() {
   }
 
   const setNewGuess = useCallback((finalCurrentGuess: string) => {
+    const data = {
+      solution: solution,
+      guesses: guesses
+    }
     if (currentGuess !== finalCurrentGuess) {
       setGuesses([...guesses, finalCurrentGuess])
+      data.guesses = [
+        ...guesses,
+        finalCurrentGuess
+      ]
     } else {
+      data.guesses = [
+        ...guesses,
+        currentGuess
+      ]
       setGuesses([...guesses, currentGuess])
     }
+    saveGameStateToIndexDB(getIsLatestGame(), data)
     setCurrentGuess('')
   }, [setGuesses, setCurrentGuess, guesses, currentGuess])
 
@@ -488,6 +508,13 @@ function App() {
         if (currentGuess !== newGuessWordInEasyMode.join('')) {
           finalCurrentGuess = newGuessWordInEasyMode.join('')
           setGuesses([...guesses, finalCurrentGuess])
+          const data = {
+            guesses: [
+              ...guesses, finalCurrentGuess
+            ],
+            solution: solution
+          }
+          saveGameStateToIndexDB(getIsLatestGame(), data)
         }
       }    
   
@@ -496,7 +523,7 @@ function App() {
         const firstMissingReveal = findFirstUnusedReveal(currentGuess, guesses)
         if (firstMissingReveal) {
           setCurrentRowClass('jiggle')
-          return showErrorAlert(firstMissingReveal, {
+           showErrorAlert(firstMissingReveal, {
             onClose: clearCurrentRowClass,
           })
         }
@@ -522,7 +549,7 @@ function App() {
           if (isLatestGame && getGameStats) {
             setGameStats(addStatsForCompletedGame(getGameStats, guesses.length))
           }
-          return setIsGameWon(true)
+           setIsGameWon(true)
         }
   
         if (guesses.length === MAX_CHALLENGES - 1) {
@@ -612,7 +639,12 @@ function App() {
           />
           <WiningModal 
             isOpen={isWiningModalOpen}
-            handleClose={() => setIsWiningModalOpen(false)}
+            handleClose={() => {
+              setIsWiningModalOpen(false)
+              setIsVisible(false)
+              setIsGameWon(false)
+              setIsGameLost(false)
+            }}
             solution={solution}
             guesses={guesses}
             isLatestGame={isLatestGame}

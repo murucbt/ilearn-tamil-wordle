@@ -9,6 +9,7 @@ export class IndexedDBService {
     constructor() {
         this.indexedDB = window.indexedDB;
         this.InitializeDB();
+        this.openDatabase = false;
     }
 
     InitializeDB() {
@@ -24,6 +25,7 @@ export class IndexedDBService {
 
         this.open.onsuccess = () => {
             this.db = this.open.result;
+            this.openDatabase = true;
             EventEmitter.emit('initialized', { name: "ready" });
         }
     }
@@ -59,30 +61,39 @@ export class IndexedDBService {
 
         itemStore.put(item);
     }
-    CreateGamestateStore(item) {
+    CreateGamestateStore(item,callback) {
+        if (this.openDatabase) {
         let transaction = this.db.transaction(config.gameStateStore, "readwrite");
-        let gamestateStore = transaction.objectStore(config.gameStateStore,);
+        let gamestateStore = transaction.objectStore(config.gameStateStore);
 
-        gamestateStore.put(item);
+        let request = gamestateStore.put(item);
+        request.onsuccess = () => {
+            let getGameState = gamestateStore.getAll();
+            getGameState.onsuccess = () => {
+                callback(getGameState.result);
+            }
+        }
+      }   
     }
 
     CreateGamestaticsStore(item) {
         let transaction = this.db.transaction(config.gameStaticsStore, "readwrite");
-        let gamestaticsStore = transaction.objectStore(config.gameStaticsStore,);
+        let gamestaticsStore = transaction.objectStore(config.gameStaticsStore);
 
         gamestaticsStore.put(item);
     }
     GamestateStoreGetAll(callback) {
-
-        let transaction = this.db.transaction(config.gameStateStore, "readwrite");
-        let gamestateStore = transaction.objectStore(config.gameStateStore);
-
-        let request = gamestateStore.getAll();
-        request.onerror = (error) => {
-            console.log('you have error ' + error);
-        }
-        request.onsuccess = (event) => {
-            callback(request.result);
+        if (this.openDatabase) {
+            let transaction = this.db.transaction(config.gameStateStore, "readwrite");
+            let gamestateStore = transaction.objectStore(config.gameStateStore);
+    
+            let request = gamestateStore.getAll();
+            request.onerror = (error) => {
+                console.log('you have error ' + error);
+            }
+            request.onsuccess = (event) => {
+                callback(request.result);
+            }
         }
     }
 

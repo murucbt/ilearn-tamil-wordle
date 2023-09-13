@@ -11,16 +11,20 @@ export type StoredGameState = {
 
 export const saveGameStateToIndexDB = (
   isLatestGame: boolean,
-  gameState: StoredGameState
+  gameState: StoredGameState,
+  onSuccess?: (value: StoredGameState) => void
 ) => {
   const key = isLatestGame ? gameStateKey : archiveGameStateKey
   const gameStateItem = {
     Id: key,
     value: gameState
 }
-  setTimeout(() => {
-    IndexedDBService.CreateGamestateStore(gameStateItem)
-  }, 1000);
+    IndexedDBService.CreateGamestateStore(gameStateItem,(result:{
+      Id: string,
+      value: StoredGameState
+    }[])=>{
+      onSuccess && onSuccess(result[0].value)
+    })
 }
 
 export const loadGameStateFromLocalStorage = (isLatestGame: boolean) => {
