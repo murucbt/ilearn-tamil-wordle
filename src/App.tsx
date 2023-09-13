@@ -357,7 +357,13 @@ function App() {
       return newString;
     });
   };
+
   const onChar = (value: string) => {
+    // Restrict entering value incase solution word already found
+    if (guesses.includes(solution) && !isGameWon) {
+      return
+    }
+
     if (unicodeLength(`${currentGuess}`) === unicodeLength(solution) && !uyiremeiEluthukalArray.includes(value) && !uyirEluthukalArray.includes(value)) {
       updateLastValue(value)
     }
@@ -474,6 +480,10 @@ function App() {
   const onEnter = async () => {
     let finalCurrentGuess = currentGuess
     if (isGameWon || isGameLost) {
+      return
+    }
+    // Restrict submitting value incase solution word already found
+    if (guesses.includes(solution) && !isGameWon) {
       return
     }
 
