@@ -7,6 +7,7 @@ import {
   MEANING_WORD_TEXT,
   SHARE_TEXT,
   CONGRATS_TITLE,
+  GAME_LOST_TITLE,
   EASY_MODE_TITLE,
 } from '../../constants/strings'
 import { shareStatus } from '../../lib/share'
@@ -107,7 +108,7 @@ function getSolutionWord() {
 
   return (
     <BaseModal
-      title={CONGRATS_TITLE}
+      title={isGameLost ? GAME_LOST_TITLE : CONGRATS_TITLE}
       isOpen={isOpen}
       handleClose={handleClose}
     >
