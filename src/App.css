@@ -462,6 +462,9 @@ h2, .details{
 .key-change:hover {--tw-bg-opacity: 1;
   box-shadow: 1px 2px 8px #aaa;
 }
+.dark .key-change {
+  color: #1a1a1b;
+}
 p.easymode-text {
   margin-top: 5px;
   margin-bottom: 10px;
