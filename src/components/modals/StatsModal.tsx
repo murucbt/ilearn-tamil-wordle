@@ -16,9 +16,8 @@ import {
   STATISTICS_TITLE,
   EASY_MODE_TITLE,
 } from '../../constants/strings'
-import { GameStats } from '../../lib/localStorage'
+import { GameStats } from '../../lib/indexDB'
 import { shareStatus } from '../../lib/share'
-import { solutionGameDate, tomorrow } from '../../lib/words'
 import { Histogram } from '../stats/Histogram'
 import { MigrationIntro } from '../stats/MigrationIntro'
 import { StatBar } from '../stats/StatBar'
@@ -43,6 +42,8 @@ type Props = {
   isHighContrastMode: boolean
   numberOfGuessesMade: number
   isEasyMode: boolean
+  solutionGameDate: Date
+  tomorrow: any
 }
 
 export const StatsModal = ({
@@ -63,6 +64,8 @@ export const StatsModal = ({
   isHighContrastMode,
   numberOfGuessesMade,
   isEasyMode,
+  solutionGameDate,
+  tomorrow
 }: Props) => {
   if (gameStats.totalGames <= 0) {
     return (
@@ -124,7 +127,7 @@ export const StatsModal = ({
         isGameWon={isGameWon}
         numberOfGuessesMade={numberOfGuessesMade}
       />
-      {(isGameLost || isGameWon) && (
+      {(isGameLost || isGameWon || gameStats?.totalGames > 0) && (
         <div className="mt-5 columns-2 items-center items-stretch justify-center text-center dark:text-white sm:mt-6">
           <div className="inline-block w-full text-left">
             {(!ENABLE_ARCHIVED_GAMES || isLatestGame) && (

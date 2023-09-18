@@ -7,6 +7,7 @@ import {
   MEANING_WORD_TEXT,
   SHARE_TEXT,
   CONGRATS_TITLE,
+  GAME_LOST_TITLE,
   EASY_MODE_TITLE,
 } from '../../constants/strings'
 import { shareStatus } from '../../lib/share'
@@ -29,6 +30,7 @@ type Props = {
   isDarkMode: boolean
   isHighContrastMode: boolean
   isEasyMode: boolean
+  isSolutionMeaningWord: string
 }
 
 export const WiningModal = ({
@@ -44,6 +46,7 @@ export const WiningModal = ({
   isDarkMode,
   isHighContrastMode,
   isEasyMode,
+  isSolutionMeaningWord,
 }: Props) => {
 
 function getGameBoard() {
@@ -88,14 +91,13 @@ function getSolutionWord() {
       )
 }
   function getGameMeaningWord() {
-    const gameMord = gameMeaningWord[solution]
 
     return (
       <div className="gamemeaning-word">
       {(!ENABLE_ARCHIVED_GAMES || isLatestGame) && (
-          <div className= "game-word">
+          <div className= "dark:text-gray-300 game-word">
             <h5>{MEANING_WORD_TEXT}</h5>
-            <p>{gameMord}</p>
+            <p>{isSolutionMeaningWord}</p>
           </div>
         )}
         <div className="hr-allign" />
@@ -106,7 +108,7 @@ function getSolutionWord() {
 
   return (
     <BaseModal
-      title={CONGRATS_TITLE}
+      title={isGameLost ? GAME_LOST_TITLE : CONGRATS_TITLE}
       isOpen={isOpen}
       handleClose={handleClose}
     >

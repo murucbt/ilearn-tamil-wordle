@@ -14,8 +14,9 @@ import { WORDS } from '../constants/wordlist'
 import { getToday } from './dateutils'
 import { getGuessStatuses } from './statuses'
 import { dictionaryWords } from '../constants/dictionaryWords'
+import { store } from '../store/index'
 // 1 June 2023 Game Epoch
-export const firstGameDate = new Date(2023, 5)
+export const firstGameDate = new Date(2023, 8)
 export const periodInDays = 1
 
 export const isWordInWordList = (word: string) => {
@@ -41,6 +42,8 @@ export const isWordInWordList = (word: string) => {
 }
 
 export const isWinningWord = (word: string) => {
+  const state = store.getState()
+  const solution = state.SolutionListReducer.solution
   return solution === word
 }
 
@@ -54,6 +57,8 @@ export const findFirstUnusedReveal = (word: string, guesses: string[]) => {
 
   const lettersLeftArray = new Array<string>()
   const guess = guesses[guesses.length - 1]
+  const state = store.getState()
+  const solution = state.SolutionListReducer.solution
   const statuses = getGuessStatuses(solution, guess)
   const splitWord = unicodeSplit(word)
   const splitGuess = unicodeSplit(guess)
@@ -132,31 +137,23 @@ export const getIndex = (gameDate: Date) => {
   return index
 }
 
-export const getWordOfDay = (index: number, getDay: number) => {
+
+
+export const getWordOfDay = (index: number, gameWordsData: string[]) => {
   if (index < 0) {
     throw new Error('Invalid index')
   }
-
-  if (getDay === 0 || getDay === 1 || getDay === 2) {
-    return localeAwareUpperCase(WORDS.THREE_WORDS[index % WORDS.THREE_WORDS.length])
-  } else if (getDay === 3 || getDay === 4) {
-    return localeAwareUpperCase(WORDS.FOUR_WORDS[index % WORDS.FOUR_WORDS.length])
-  } else if (getDay === 5 || getDay === 6 || getDay === -1) {
-    return localeAwareUpperCase(WORDS.FIVE_WORDS[index % WORDS.FIVE_WORDS.length])
-  }
+  return (gameWordsData[index % gameWordsData.length])
 }
 
-export const getSolution = (gameDate: Date) => {
+export const getSolution = (gameDate: Date, gameWordsData: string[]) => {
   const nextGameDate = getNextGameDate(gameDate)
   const index = getIndex(gameDate)
-  const getDay = gameDate.getDay()
-  const wordOfTheDay = getWordOfDay(index, getDay)
-  // console.log('wordOfTheDay..', wordOfTheDay)
-  const daycalc = gameDate.getDay() - 1
+  const wordOfTheDay = getWordOfDay(index, gameWordsData)
   const indexcalc = getIndex(gameDate) - 1
-  const yesterdayWord = getWordOfDay(indexcalc, daycalc)
+  const yesterdayWord = getWordOfDay(indexcalc, gameWordsData)
   return {
-    solution: String(wordOfTheDay),
+    solution: wordOfTheDay ? wordOfTheDay : '',
     previousdayWord: String(yesterdayWord),
     solutionGameDate: gameDate,
     solutionIndex: index,
@@ -202,5 +199,3 @@ export const getIsLatestGame = () => {
   return parsed === null || !('d' in parsed)
 }
 
-export const { solution, solutionGameDate, solutionIndex, tomorrow, previousdayWord } =
-  getSolution(getGameDate())

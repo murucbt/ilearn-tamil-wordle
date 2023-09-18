@@ -3,9 +3,9 @@ import { useState } from 'react'
 
 import { decrypt } from '../../lib/encryption'
 import {
-  saveGameStateToLocalStorage,
-  saveStatsToLocalStorage,
-} from '../../lib/localStorage'
+  saveGameStateToIndexDB,
+  saveStatsToIndexDB,
+} from '../../lib/indexDB'
 import { MigrationStats } from '../modals/MigrateStatsModal'
 
 export const ImmigratePanel = () => {
@@ -64,11 +64,11 @@ export const ImmigratePanel = () => {
       if (!migrationStats) return
 
       if (migrationStats.gameState) {
-        saveGameStateToLocalStorage(true, migrationStats.gameState)
+        saveGameStateToIndexDB(true, migrationStats.gameState)
       }
 
       if (migrationStats.statistics) {
-        saveStatsToLocalStorage(migrationStats.statistics)
+        saveStatsToIndexDB(migrationStats.statistics)
       }
 
       alert('The site will now reload.')

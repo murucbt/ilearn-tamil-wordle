@@ -2,9 +2,9 @@ import classnames from 'classnames'
 import { ReactNode } from 'react'
 
 import { REVEAL_TIME_MS } from '../../constants/settings'
-import { getStoredIsHighContrastMode } from '../../lib/localStorage'
+import { getStoredIsHighContrastMode } from '../../lib/indexDB'
 import { CharStatus } from '../../lib/statuses'
-import { solution, unicodeLength } from '../../lib/words'
+import { unicodeLength } from '../../lib/words'
 
 type Props = {
   children?: ReactNode
@@ -14,6 +14,7 @@ type Props = {
   onClick: (value: string) => void
   isRevealing?: boolean
   className?: string
+  solution: string
 }
 
 export const Key = ({
@@ -23,7 +24,8 @@ export const Key = ({
   value,
   onClick,
   isRevealing,
-  className
+  className,
+  solution
 }: Props) => {
   const keyDelayMs = REVEAL_TIME_MS * unicodeLength(solution)
   const isHighContrast = getStoredIsHighContrastMode()
@@ -35,7 +37,7 @@ export const Key = ({
       'transition ease-in-out': isRevealing,
       'bg-slate-200 dark:bg-slate-600 hover:bg-slate-300 active:bg-slate-400':
         !status,
-      'bg-slate-400 dark:bg-slate-800 text-white': status === 'absent',
+      'bg-slate-400 text-white': status === 'absent',
       'bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white':
         status === 'correct' && isHighContrast,
       'bg-cyan-500 hover:bg-cyan-600 active:bg-cyan-700 text-white':

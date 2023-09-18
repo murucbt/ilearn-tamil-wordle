@@ -1,7 +1,7 @@
 import classnames from 'classnames'
 
 import { REVEAL_TIME_MS } from '../../constants/settings'
-import { getStoredIsHighContrastMode } from '../../lib/localStorage'
+import { getStoredIsHighContrastMode } from '../../lib/indexDB'
 import { CharStatus } from '../../lib/statuses'
 import { useToast } from '../../context/ToastContext'
 
@@ -48,6 +48,8 @@ export const Cell = ({
         status === 'yellowGreenHeart',
       'text-white darklightGreenHeart-wrapper':
         status === 'darklightGreenHeart',
+      'text-white yellowHeart-wrapper':
+        status === 'yellowHeart',
       'correct shadowed bg-orange-500 text-white border-orange-500':
         status === 'correct' && isHighContrast,
       'present shadowed bg-cyan-500 text-white border-cyan-500':
@@ -85,6 +87,8 @@ export const Cell = ({
         statusText = 'எழுத்து சொல்லில் இடம்பெறவில்லை தவிர இதே எழுத்தின் வரிசையில் வேறு ஏதோ எழுத்து வேறு இடத்தில் இடம்பெற்றுள்ளது.'
       } else if (status === 'greenStar') {
         statusText = 'எழுத்து சொல்லில் வேறு இடத்தில் உள்ளது, அதோடு எழுத்து உள்ள இதே இடத்தில், இதே எழுத்தின் வேறு எழுத்து வரிசையும் இடம்பெற்றுள்ளது.'
+      } else if (status === 'yellowHeart') {
+        statusText = 'எழுத்து சொல்லில் உள்ளது ஆனால் வேறு இடத்தில் உள்ளது.'
       }
       showSuccessToast(statusText);
     }

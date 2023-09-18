@@ -1,9 +1,8 @@
 import { MAX_CHALLENGES } from '../constants/settings'
 import {
   GameStats,
-  loadStatsFromLocalStorage,
-  saveStatsToLocalStorage,
-} from './localStorage'
+  saveStatsToIndexDB,
+} from './indexDB'
 
 // In stats array elements 0-5 are successes in 1-6 trys
 
@@ -31,11 +30,11 @@ export const addStatsForCompletedGame = (
 
   stats.successRate = getSuccessRate(stats)
 
-  saveStatsToLocalStorage(stats)
+  saveStatsToIndexDB(stats)
   return stats
 }
 
-const defaultStats: GameStats = {
+export const defaultStats: GameStats = {
   winDistribution: Array.from(new Array(MAX_CHALLENGES), () => 0),
   gamesFailed: 0,
   currentStreak: 0,
@@ -44,9 +43,6 @@ const defaultStats: GameStats = {
   successRate: 0,
 }
 
-export const loadStats = () => {
-  return loadStatsFromLocalStorage() || defaultStats
-}
 
 const getSuccessRate = (gameStats: GameStats) => {
   const { totalGames, gamesFailed } = gameStats
